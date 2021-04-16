@@ -42,7 +42,10 @@
                     if (valid) {
                         postKeyValueRequest("/doLogin",this.loginForm).then(resp=>{
                           if (resp) {
-                            alert(JSON.stringify(resp));
+                            // 登录用户数据保存在session中
+                            window.sessionStorage.setItem("user",JSON.stringify(resp));
+                            // 页面跳转有push(放到堆栈中，可以后退)
+                            this.$router.replace('/home');
                           }
                         })
                     } else {
