@@ -5,6 +5,7 @@ import com.ling.vhr.model.Hr;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 class VhrApplicationTests {
@@ -14,8 +15,9 @@ class VhrApplicationTests {
 
     @Test
     void contextLoads() {
-        Hr hr = hrMapper.select();
-        System.out.println("hr = " + hr);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        System.out.println(bCryptPasswordEncoder.encode("123"));
 
     }
 
