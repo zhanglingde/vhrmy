@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ling.vhr.mapper.RoleMapper">
+
+
+    <select id="selectByHrId" resultType="com.ling.vhr.model.Role">
+        select r.id,
+               r.name,
+               r.nameZh
+        from role r
+        left join hr_role hr on r.id = hr.rid
+        where hr.hrid = #{hrId}
+    </select>
+</mapper>

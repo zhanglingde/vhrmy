@@ -4,8 +4,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 /**
@@ -15,10 +19,7 @@ import lombok.*;
  */
 @Data
 @ApiModel("DTO")
-public class Hr implements Serializable {
-
-    private static final long serialVersionUID = -44149478272289128L;
-
+public class Hr implements UserDetails {
 
     @ApiModelProperty("hrID")
     private Integer id;
@@ -46,5 +47,35 @@ public class Hr implements Serializable {
     private String userface;
 
     private String remark;
+
+    private List<Role> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled == 1;
+    }
+
+
+
 
 }

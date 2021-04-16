@@ -14,6 +14,10 @@ import org.springframework.stereotype.Repository;
 public interface HrMapper {
 
     Hr select();
-    
 
+
+    /**
+     * 根据用户名查找用户
+     */
+    Hr selectByUsername(String username);
 }

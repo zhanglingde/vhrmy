@@ -2,6 +2,9 @@ package com.ling.vhr.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.common.utils.CommonResult;
+import com.ling.vhr.model.Hr;
+import com.ling.vhr.service.HrService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -33,6 +36,14 @@ import java.util.Map;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    HrService hrService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(hrService);
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -51,7 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         CommonResult result = new CommonResult();
                         result.setStatus(200);
                         result.setMsg("登录成功!");
-                        result.setData(authentication.getPrincipal());
+                        Hr hr = (Hr) authentication.getPrincipal();
+                        hr.setPassword(null);
+                        result.setData(hr);
 
                         out.write(new ObjectMapper().writeValueAsString(result));
                         out.flush();
@@ -109,15 +122,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("$2a$10$jsxzMT/KojtobBNqD3Nc7u9TrbMYndqOtYkPx23LQpz5bRLkIwTCW").roles("admin")
-                .and()
-                .withUser("ling").password("$2a$10$jsxzMT/KojtobBNqD3Nc7u9TrbMYndqOtYkPx23LQpz5bRLkIwTCW").roles("user");
 
-
-    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
