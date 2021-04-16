@@ -41,12 +41,12 @@
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
                         this.postKeyValueRequest("/doLogin",this.loginForm).then(resp=>{
-                          if (resp) {
-                            // 登录用户数据保存在session中
-                            window.sessionStorage.setItem("user",JSON.stringify(resp));
-                            // 页面跳转有push(放到堆栈中，可以后退)
-                            this.$router.replace('/home');
-                          }
+                            if (resp) {
+                                // 登录用户数据保存在session中
+                                window.sessionStorage.setItem("user", JSON.stringify(resp.data));
+                                // 页面跳转有push(放到堆栈中，可以后退)
+                                this.$router.replace('/home');
+                            }
                         })
                     } else {
                         this.$message({

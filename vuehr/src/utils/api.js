@@ -10,6 +10,9 @@ axios.interceptors.response.use(success=>{
         Message.error({message:success.data.msg})
         return ;
     }
+    if (success.data.msg) {
+        Message.success({message:success.data.msg})
+    }
     // 返回调用成功的数据
     return success.data;
 },error => {
