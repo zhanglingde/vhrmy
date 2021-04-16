@@ -50,3 +50,39 @@ export const postKeyValueRequest=(url,params)=>{
         }
     })
 }
+
+// post json传参请求
+export const postRequest=(url,params)=>{
+    return axios({
+        method:'post',
+        url:`${base}${url}`,
+        data:params
+    })
+}
+
+// put请求
+export const putRequest=(url,params)=>{
+    return axios({
+        method:'post',
+        url:`${base}${url}`,
+        data:params
+    })
+}
+
+// get请求
+export const getRequest=(url,params)=>{
+    return axios({
+        method:'get',
+        url:`${base}${url}`,
+        data:params
+    })
+}
+
+// delete请求
+export const deleteRequest=(url,params)=>{
+    return axios({
+        method:'delete',
+        url:`${base}${url}`,
+        data:params
+    })
+}

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import {postKeyValueRequest} from "@/utils/api";
+
 
     export default {
         name: "Login",
@@ -40,7 +40,7 @@
                 // 获取到表单组件并校验
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
-                        postKeyValueRequest("/doLogin",this.loginForm).then(resp=>{
+                        this.postKeyValueRequest("/doLogin",this.loginForm).then(resp=>{
                           if (resp) {
                             // 登录用户数据保存在session中
                             window.sessionStorage.setItem("user",JSON.stringify(resp));
