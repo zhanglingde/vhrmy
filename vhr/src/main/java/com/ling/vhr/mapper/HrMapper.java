@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HrMapper {
 
-    Hr select();
+    Hr select(Integer id);
 
 
     /**

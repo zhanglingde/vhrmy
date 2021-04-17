@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ling.vhr.mapper.MenuMapper">
+
+    <resultMap id="baseResultMenu" type="com.ling.vhr.model.Menu">
+        <id property="id" column="id"/>
+        <result property="url" column="url"/>
+        <result property="path" column="path"/>
+        <result property="component" column="component"/>
+        <result property="name" column="name"/>
+        <result property="iconCls" column="icon_cls"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="enabled" column="enabled"/>
+        <association property="meta" javaType="com.ling.vhr.model.Meta">
+            <result property="keepAlive" column="keep_alive"/>
+            <result property="requireAuth" column="require_auth"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="Menus" type="com.ling.vhr.model.Menu" extends="baseResultMenu">
+        <collection property="children" ofType="com.ling.vhr.model.Menu">
+            <id property="id" column="id2"/>
+            <result property="url" column="url2"/>
+            <result property="path" column="path2"/>
+            <result property="component" column="component2"/>
+            <result property="name" column="name2"/>
+            <result property="iconCls" column="icon_cls2"/>
+            <result property="parentId" column="parent_id2"/>
+            <result property="enabled" column="enabled2"/>
+            <association property="meta" javaType="com.ling.vhr.model.Meta">
+                <result property="keepAlive" column="keep_alive2"/>
+                <result property="requireAuth" column="require_auth2"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="selectMenusByHrId" resultMap="Menus">
+        select distinct m1.*,
+			m2.id as id2,
+			m2.url as url2,
+			m2.component as component2,
+			m2.enabled as enabled2,
+			m2.icon_cls as icon_cls2,
+			m2.keep_alive as keep_alive2,
+			m2.require_auth as require_auth2,
+			m2.name as name2,
+			m2.parent_id as parent_id2,
+			m2.path as path2
+        from menu m1,
+            menu m2,
+            hr_role hrr,
+            menu_role mr
+        where m1.id = m2.parent_id
+        and hrr.hrid= #{hrId}
+        and hrr.rid= mr.rid
+        and mr.mid=m2.id
+        and m2.enabled = 1;
+    </select>
+
+
+</mapper>

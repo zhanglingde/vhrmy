@@ -15,9 +15,8 @@ class VhrApplicationTests {
 
     @Test
     void contextLoads() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        System.out.println(bCryptPasswordEncoder.encode("123"));
+        Hr hr = hrMapper.select(3);
+        System.out.println("hr = " + hr);
 
     }
 
