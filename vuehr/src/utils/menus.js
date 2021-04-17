@@ -43,9 +43,19 @@ export const formatRoutes = (routes) => {
             iconCls: iconCls,
             meta: meta,
             children: children,
-            // 动态加载(动态导入组件)
+            // 动态加载组件(动态导入组件)
             component(resolve) {
-                require(['../views' + component + '.vue'], resolve);
+                if (component.startWith("Emp")) {
+                    require(['../views/emp/' + component + '.vue'], resolve);
+                }else if (component.startWith("Per")) {
+                    require(['../views/per/' + component + '.vue'], resolve);
+                }else if (component.startWith("Sal")) {
+                    require(['../views/sal/' + component + '.vue'], resolve);
+                }else if (component.startWith("Sta")) {
+                    require(['../views/sta/' + component + '.vue'], resolve);
+                }else if (component.startWith("Sys")) {
+                    require(['../views/sys/' + component + '.vue'], resolve);
+                }
             }
         }
         fmRoutes.push(fmRouter);
