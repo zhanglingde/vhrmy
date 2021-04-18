@@ -23,6 +23,7 @@ public class HrService implements UserDetailsService {
 
     @Autowired
     RoleMapper roleMapper;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Hr hr = hrMapper.selectByUsername(username);

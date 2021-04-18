@@ -19,6 +19,10 @@ public class MenuService {
     @Autowired
     MenuMapper menuMapper;
 
+    /**
+     * 根据用户id查询菜单
+     * @return
+     */
     public List<Menu> selectMenusByHrId() {
         // 获得登录的对象
         Hr hr = ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -27,5 +31,9 @@ public class MenuService {
         }
         List<Menu> menus = menuMapper.selectMenusByHrId(hr.getId());
         return menus;
+    }
+
+    public List<Menu> selectAllMenus() {
+        return menuMapper.selectAllMenus();
     }
 }

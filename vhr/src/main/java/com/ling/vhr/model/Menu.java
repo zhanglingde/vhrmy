@@ -47,4 +47,6 @@ public class Menu implements Serializable {
      */
     private List<Menu> children;
 
+    List<Role> roles;
+
 }

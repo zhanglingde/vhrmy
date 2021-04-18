@@ -20,4 +20,10 @@ public interface MenuMapper {
      * @return
      */
     List<Menu> selectMenusByHrId(Integer hrId);
+
+    /**
+     * 查询所有菜单
+     * @return
+     */
+    List<Menu> selectAllMenus();
 }
