@@ -48,15 +48,17 @@ export const formatRoutes = (routes) => {
             children: children,
             // 动态加载组件(动态导入组件)
             component(resolve) {
-                if (component.startWith("Emp")) {
+                if (component.startsWith("Home")) {
+                    require(['../views/' + component + '.vue'], resolve);
+                }else if (component.startsWith("Emp")) {
                     require(['../views/emp/' + component + '.vue'], resolve);
-                }else if (component.startWith("Per")) {
+                }else if (component.startsWith("Per")) {
                     require(['../views/per/' + component + '.vue'], resolve);
-                }else if (component.startWith("Sal")) {
+                }else if (component.startsWith("Sal")) {
                     require(['../views/sal/' + component + '.vue'], resolve);
-                }else if (component.startWith("Sta")) {
+                }else if (component.startsWith("Sta")) {
                     require(['../views/sta/' + component + '.vue'], resolve);
-                }else if (component.startWith("Sys")) {
+                }else if (component.startsWith("Sys")) {
                     require(['../views/sys/' + component + '.vue'], resolve);
                 }
             }

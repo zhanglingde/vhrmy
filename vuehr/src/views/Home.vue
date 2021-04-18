@@ -21,7 +21,7 @@
                 <!-- unique-opened 每次只展开一个导航栏菜单    -->
                 <el-menu router unique-opened>
                     <!--  this.$router.options.routes                  -->
-                    <el-submenu :index="index" v-for="(item,index) in routes" v-if="!item.hidden" :key="index">
+                    <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden" :key="index">
                         <template slot="title">
                             <i :class="item.iconCls" style="color:#409eff;margin-right: 5px;"></i>
                             <span>{{item.name}}</span>
