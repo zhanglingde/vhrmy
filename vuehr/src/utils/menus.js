@@ -1,14 +1,17 @@
 import {getRequest} from "./api";
-// 菜单工具类：调用接口获取数据库中的菜单，并将菜单字段格式化成vue路由时需要的格式，并存储到vuex中
 
-// 定义一个方法
+/**
+ * 菜单工具类：调用接口获取数据库中的菜单，并将菜单字段格式化成vue路由时需要的格式，并存储到vuex中
+ * @param router
+ * @param store 存储菜单对象
+ */
 export const initMenu = (router, store) => {
     if (store.state.routes.length > 0) {
-        // 有菜单数据
+        // 正常页面跳转，有菜单数据
         return;
     }
 
-    // 调用后端接口初始化菜单数据
+    // F5刷新，调用后端接口初始化菜单数据
     getRequest("/system/config/menus").then(data => {
         if (data) {
             // 查询数据库请求成功，data为返回的菜单数据
