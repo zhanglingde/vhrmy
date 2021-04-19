@@ -14,4 +14,18 @@ public class HelloController {
     public CommonResult hello() {
         return CommonResult.success("hello");
     }
+
+    @GetMapping("/employee/basic/hello2")
+    public CommonResult hello2() {
+        return CommonResult.success("/employee/basic/hello2");
+    }
+
+    @GetMapping("/employee/advanced/hello3")
+    public CommonResult hello3() {
+        return CommonResult.success("/employee/advanced/hello3");
+    }
+
+
+
+
 }

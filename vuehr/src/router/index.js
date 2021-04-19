@@ -2,8 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from "@/views/Home";
-import Test1 from "@/views/Test1";
-import Test2 from "@/views/Test2";
+
 
 Vue.use(VueRouter)
 
@@ -15,19 +14,8 @@ const routes = [
         hidden: true                // 不渲染菜单
     }, {
         path: '/home',
-        name: '导航一',
+        name: 'Home',
         component: Home,
-        children: [
-            {
-                path: '/test1',
-                name: '选项一',
-                component: Test1
-            }, {
-                path: '/test2',
-                name: '选项二',
-                component: Test2
-            }
-        ]
     }
 ]
 

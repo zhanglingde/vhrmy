@@ -18,10 +18,12 @@
         </el-header>
         <el-container>
             <el-aside width="200px">
-                <el-menu router>
-                    <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+                <!-- unique-opened 每次只展开一个导航栏菜单    -->
+                <el-menu router unique-opened>
+                    <!--  this.$router.options.routes                  -->
+                    <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden" :key="index">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i :class="item.iconCls" style="color:#409eff;margin-right: 5px;"></i>
                             <span>{{item.name}}</span>
                         </template>
 
@@ -32,6 +34,14 @@
                 </el-menu>
             </el-aside>
             <el-main>
+                <!--   首页home不展示面包屑             -->
+                <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path != '/home'">
+                    <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+                </el-breadcrumb>
+                <div class="homeWelcome" v-if="this.$router.currentRoute.path == '/home'">
+                    欢迎来到微人事！
+                </div>
                 <router-view/>
             </el-main>
         </el-container>
@@ -47,6 +57,11 @@ export default {
             user: JSON.parse(window.sessionStorage.getItem("user"))
         }
     },
+    computed:{
+        routes() {
+            return this.$store.state.routes;
+        }
+    },
     methods:{
 
         commandHandler(cmd) {
@@ -58,7 +73,10 @@ export default {
                 }).then(() => {
                     this.getRequest("/logout");
                     window.sessionStorage.removeItem("user");
+                    // 注销登录清空store存储的菜单数据
+                    this.$store.commit('initRoutes', []);
                     this.$router.replace("/");
+
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -72,6 +90,13 @@ export default {
 </script>
 
 <style scoped>
+    .homeWelcome{
+        text-align: center;
+        font-size: 30px;
+        font-family: 华文行楷;
+        color: #409eff;
+        padding-top: 50px;
+    }
     .homeHeader {
         background: #109ce3;
         display: flex;

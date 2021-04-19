@@ -4,7 +4,6 @@ import com.ling.vhr.mapper.HrMapper;
 import com.ling.vhr.mapper.RoleMapper;
 import com.ling.vhr.model.Hr;
 import com.ling.vhr.model.Role;
-import jdk.management.resource.ResourceRequestDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +23,7 @@ public class HrService implements UserDetailsService {
 
     @Autowired
     RoleMapper roleMapper;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Hr hr = hrMapper.selectByUsername(username);

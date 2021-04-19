@@ -6,7 +6,7 @@
                 <el-input type="text" v-model="loginForm.username" auto-complete="off" aria-placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="text" v-model="loginForm.password" auto-complete="off" aria-placeholder="请输入用户密码"></el-input>
+                <el-input type="text" v-model="loginForm.password" @keydown.enter.native="submitLogin" auto-complete="off" aria-placeholder="请输入用户密码"></el-input>
             </el-form-item>
             <!--    勾选记住密码       -->
             <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>

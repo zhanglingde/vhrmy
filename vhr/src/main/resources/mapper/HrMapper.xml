@@ -7,7 +7,7 @@
 
 
     <select id="select" resultType="com.ling.vhr.model.Hr">
-        select * from hr where id = 3
+        select * from hr where id = #{1}
     </select>
 
     <select id="selectByUsername" resultType="com.ling.vhr.model.Hr">
