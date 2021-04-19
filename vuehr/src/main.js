@@ -35,17 +35,23 @@ Vue.use(ElementUI);
  * next：执行方法
  */
 router.beforeEach((to, from, next) => {
-  if (to.path == '/') {
-    // 登录页
-    next();
-  }else{
-    initMenu(router,store);
-    next();
-  }
+    if (to.path == '/') {
+        // 登录页
+        next();
+    } else {
+        if (window.sessionStorage.getItem("user")) {
+            initMenu(router, store);
+            next();
+        } else {
+            // 未登录，跳转到登录页,且记录访问的地址，登录后直接重定向到访问地址
+            next("/?redirect=" + to.path);
+        }
+
+    }
 })
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

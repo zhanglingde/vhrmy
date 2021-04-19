@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -138,6 +139,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         result.setMsg("注销登录成功！");
 
                         out.write(new ObjectMapper().writeValueAsString(result)); // 登录成功返回一个json结果
+                        out.flush();
+                        out.close();
+                    }
+                })
+                .and()
+                // 没有登录认证，直接访问页面，不需要重定向到登录页面，直接返回错误信息
+                .exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
+                    /**
+                     * 登录异常处理
+                     * @param e
+                     * @throws IOException
+                     * @throws ServletException
+                     */
+                    @Override
+                    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+                        response.setContentType("application/json;charset=utf-8");
+                        PrintWriter out = response.getWriter();
+
+                        CommonResult result = new CommonResult();
+
+                        result.setStatus(401);
+                        result.setData("访问失败!");
+                        result.setMsg("访问失败!");
+                        if (e instanceof InsufficientAuthenticationException) {
+                            result.setMsg("请求失败，请联系管理员!");
+                        }
+                        out.write(new ObjectMapper().writeValueAsString(result)); // 登录成功返回一个json结果}
                         out.flush();
                         out.close();
                     }
