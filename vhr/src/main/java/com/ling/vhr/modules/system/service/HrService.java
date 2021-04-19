@@ -1,9 +1,9 @@
-package com.ling.vhr.service;
+package com.ling.vhr.modules.system.service;
 
 import com.ling.vhr.mapper.HrMapper;
 import com.ling.vhr.mapper.RoleMapper;
-import com.ling.vhr.model.Hr;
-import com.ling.vhr.model.Role;
+import com.ling.vhr.modules.system.model.Hr;
+import com.ling.vhr.modules.system.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

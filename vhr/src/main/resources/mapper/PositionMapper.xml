@@ -12,15 +12,36 @@
         enabled
     </sql>
 
-    <insert id="addPosition">
-        insert into position(name,create_date,enabled)
+    <!-- position表与函数同名，需要加数据库前缀或是加``符号 -->
+    <insert id="insert">
+        insert into `position`(name,create_date,enabled)
         values(#{name},
                #{createDate},
                #{enabled}
                )
     </insert>
 
-    <select id="list" resultType="com.ling.vhr.model.Position">
+    <update id="updateByPrimaryKeySelective">
+        update `position`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate}
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled}
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from position where id = #{id}
+    </delete>
+
+    <select id="list" resultType="com.ling.vhr.modules.system.model.Position">
         select <include refid="basicSql"></include>
         from position
     </select>

@@ -1,4 +1,4 @@
-package com.ling.vhr.service;
+package com.ling.vhr.modules.system.service;
 
 /**
  * 职位管理
@@ -6,7 +6,7 @@ package com.ling.vhr.service;
  */
 
 import com.ling.vhr.mapper.PositionMapper;
-import com.ling.vhr.model.Position;
+import com.ling.vhr.modules.system.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +32,24 @@ public class PositionService {
     public int addPosition(Position position) {
         position.setEnabled(1);
         position.setCreateDate(new Date());
-        return positionMapper.addPosition(position);
+        return positionMapper.insert(position);
+    }
+
+    /**
+     * 更新职位
+     * @param position
+     * @return
+     */
+    public int updatePosition(Position position) {
+        return positionMapper.updateByPrimaryKeySelective(position);
+    }
+
+    /**
+     * 删除职位
+     * @param id
+     * @return
+     */
+    public int deleteByPrimaryKey(Integer id) {
+        return positionMapper.deleteByPrimaryKey(id);
     }
 }

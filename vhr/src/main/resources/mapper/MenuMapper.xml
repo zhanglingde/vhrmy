@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ling.vhr.mapper.MenuMapper">
 
-    <resultMap id="baseResultMenu" type="com.ling.vhr.model.Menu">
+    <resultMap id="baseResultMenu" type="com.ling.vhr.modules.system.model.Menu">
         <id property="id" column="id"/>
         <result property="url" column="url"/>
         <result property="path" column="path"/>
@@ -13,14 +13,14 @@
         <result property="iconCls" column="icon_cls"/>
         <result property="parentId" column="parent_id"/>
         <result property="enabled" column="enabled"/>
-        <association property="meta" javaType="com.ling.vhr.model.Meta">
+        <association property="meta" javaType="com.ling.vhr.modules.system.model.Meta">
             <result property="keepAlive" column="keep_alive"/>
             <result property="requireAuth" column="require_auth"/>
         </association>
     </resultMap>
 
-    <resultMap id="Menus" type="com.ling.vhr.model.Menu" extends="baseResultMenu">
-        <collection property="children" ofType="com.ling.vhr.model.Menu">
+    <resultMap id="Menus" type="com.ling.vhr.modules.system.model.Menu" extends="baseResultMenu">
+        <collection property="children" ofType="com.ling.vhr.modules.system.model.Menu">
             <id property="id" column="id2"/>
             <result property="url" column="url2"/>
             <result property="path" column="path2"/>
@@ -29,15 +29,15 @@
             <result property="iconCls" column="icon_cls2"/>
             <result property="parentId" column="parent_id2"/>
             <result property="enabled" column="enabled2"/>
-            <association property="meta" javaType="com.ling.vhr.model.Meta">
+            <association property="meta" javaType="com.ling.vhr.modules.system.model.Meta">
                 <result property="keepAlive" column="keep_alive2"/>
                 <result property="requireAuth" column="require_auth2"/>
             </association>
         </collection>
     </resultMap>
 
-    <resultMap id="allMenus" type="com.ling.vhr.model.Menu" extends="baseResultMenu">
-        <collection property="roles" ofType="com.ling.vhr.model.Role">
+    <resultMap id="allMenus" type="com.ling.vhr.modules.system.model.Menu" extends="baseResultMenu">
+        <collection property="roles" ofType="com.ling.vhr.modules.system.model.Role">
             <id column="rid" property="id"/>
             <result column="rname" property="name"/>
             <result column="rnameZh" property="nameZh"/>

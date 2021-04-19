@@ -1,4 +1,4 @@
-package com.ling.vhr.controller;
+package com.ling.vhr.modules.user.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
 import org.springframework.http.ResponseEntity;

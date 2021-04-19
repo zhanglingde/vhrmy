@@ -1,9 +1,8 @@
-package com.ling.vhr.model;
+package com.ling.vhr.modules.system.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

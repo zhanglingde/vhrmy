@@ -1,9 +1,9 @@
-package com.ling.vhr.service;
+package com.ling.vhr.modules.system.service;
 
 import com.ling.vhr.common.exception.RrException;
 import com.ling.vhr.mapper.MenuMapper;
-import com.ling.vhr.model.Hr;
-import com.ling.vhr.model.Menu;
+import com.ling.vhr.modules.system.model.Hr;
+import com.ling.vhr.modules.system.model.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

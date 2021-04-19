@@ -6,7 +6,7 @@
 <mapper namespace="com.ling.vhr.mapper.RoleMapper">
 
 
-    <select id="selectByHrId" resultType="com.ling.vhr.model.Role">
+    <select id="selectByHrId" resultType="com.ling.vhr.modules.system.model.Role">
         select r.id,
                r.name,
                r.nameZh

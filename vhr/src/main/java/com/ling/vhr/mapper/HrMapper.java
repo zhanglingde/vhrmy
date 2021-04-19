@@ -1,8 +1,6 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.model.Hr;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
+import com.ling.vhr.modules.system.model.Hr;
 import org.springframework.stereotype.Repository;
 
 /**

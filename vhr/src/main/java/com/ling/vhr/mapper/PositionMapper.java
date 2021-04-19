@@ -1,7 +1,7 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.model.Position;
-import org.apache.ibatis.annotations.Param;
+import com.ling.vhr.modules.system.model.Position;
+
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +25,19 @@ public interface PositionMapper {
      * @param position
      * @return
      */
-    int addPosition(Position position);
+    int insert(Position position);
+
+    /**
+     * 更新职位
+     * @param position
+     * @return
+     */
+    int updateByPrimaryKeySelective(Position position);
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    int deleteByPrimaryKey(Integer id);
 }
