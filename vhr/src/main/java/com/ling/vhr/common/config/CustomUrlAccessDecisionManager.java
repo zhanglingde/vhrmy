@@ -29,7 +29,7 @@ public class CustomUrlAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
         for (ConfigAttribute attribute : collection) {
-            if ("ROle_login".equals(attribute.getAttribute())) {
+            if ("ROLE_LOGIN".equals(attribute.getAttribute())) {
                 if (authentication instanceof AnonymousAuthenticationToken) {
                     throw new AccessDeniedException("非法请求！");
                 } else {

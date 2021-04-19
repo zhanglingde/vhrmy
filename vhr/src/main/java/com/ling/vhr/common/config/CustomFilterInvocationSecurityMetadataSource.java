@@ -50,7 +50,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
             }
         }
         // 数据库中路径都为匹配成功，设置登录即可访问
-        return SecurityConfig.createList("ROLE_login");
+        return SecurityConfig.createList("ROLE_LOGIN");
     }
 
     @Override
