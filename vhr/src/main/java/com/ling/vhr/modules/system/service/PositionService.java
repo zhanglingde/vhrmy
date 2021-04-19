@@ -52,4 +52,13 @@ public class PositionService {
     public int deleteByPrimaryKey(Integer id) {
         return positionMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    public int batchDelete(Integer[] ids) {
+        return positionMapper.batchDelete(ids);
+    }
 }

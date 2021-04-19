@@ -25,13 +25,13 @@
         update `position`
         <trim prefix="set" suffixOverrides=",">
             <if test="name != null and name != ''">
-                name = #{name}
+                name = #{name},
             </if>
             <if test="createDate != null">
-                create_date = #{createDate}
+                create_date = #{createDate},
             </if>
             <if test="enabled != null">
-                enabled = #{enabled}
+                enabled = #{enabled},
             </if>
         </trim>
         where id = #{id}
@@ -39,6 +39,14 @@
 
     <delete id="deleteByPrimaryKey">
         delete from position where id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        delete from position
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
 
     <select id="list" resultType="com.ling.vhr.modules.system.model.Position">

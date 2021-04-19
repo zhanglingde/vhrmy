@@ -24,8 +24,8 @@ axios.interceptors.response.use(success=>{
     }else if (error.response.status == 401) {
         Message.error({message:'尚未登录，请登录'})
     }else{
-        if (error.response.data.msg) {
-            Message.error({message:error.response.data.msg})
+        if (error.response.data.message) {
+            Message.error({message:error.response.data.message})
         }else{
             Message.error({message: '未知错误'})
         }
@@ -66,7 +66,7 @@ export const postRequest=(url,params)=>{
 // put请求
 export const putRequest=(url,params)=>{
     return axios({
-        method:'post',
+        method:'put',
         url:`${base}${url}`,
         data:params
     })

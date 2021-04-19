@@ -3,6 +3,8 @@ package com.ling.vhr.mapper;
 import com.ling.vhr.modules.system.model.Position;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -40,4 +42,11 @@ public interface PositionMapper {
      * @return
      */
     int deleteByPrimaryKey(Integer id);
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    int batchDelete(@Param("ids") Integer[] ids);
 }
