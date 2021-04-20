@@ -18,7 +18,7 @@
                     script
                     @selection-change="handleSelectionChange"
                     size="small"
-                    style="width: 70%">
+                    style="width: 50%">
                 <el-table-column
                         type="selection"
                         width="55">
@@ -102,7 +102,6 @@
             initPositions() {
                 this.getRequest("/system/basic/pos/").then(resp => {
                     if (resp) {
-                        console.log(resp);
                         this.positions = resp;
                     }
                 })

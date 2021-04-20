@@ -1,10 +1,10 @@
 <template>
     <el-tabs v-model="activeName" type="card">
-        <el-tab-pane label="部门管理" name="first"><DepMana></DepMana></el-tab-pane>
-        <el-tab-pane label="职位管理" name="second"><PosMana></PosMana></el-tab-pane>
-        <el-tab-pane label="职称管理" name="third"><JobLevelMana></JobLevelMana></el-tab-pane>
-        <el-tab-pane label="奖惩规则" name="fourth"><EcMana></EcMana></el-tab-pane>
-        <el-tab-pane label="权限组" name="fifth"><PermissMana></PermissMana></el-tab-pane>
+        <el-tab-pane label="部门管理" name="depmana"><DepMana></DepMana></el-tab-pane>
+        <el-tab-pane label="职位管理" name="posmana"><PosMana></PosMana></el-tab-pane>
+        <el-tab-pane label="职称管理" name="joblevelmana"><JobLevelMana></JobLevelMana></el-tab-pane>
+        <el-tab-pane label="奖惩规则" name="ecmana"><EcMana></EcMana></el-tab-pane>
+        <el-tab-pane label="权限组" name="permissmana"><PermissMana></PermissMana></el-tab-pane>
     </el-tabs>
 </template>
 
@@ -19,7 +19,7 @@
         name: "SysBasic",
         data() {
             return {
-                activeName: 'second'
+                activeName: 'joblevelmana'
             }
         },
         // 注册组件，如果组件key-value一样可以只写一个

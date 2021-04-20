@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ling.vhr.mapper.JobLevelMapper">
+
+
+    <insert id="insert">
+        insert into job_level(name,
+                              title_level,
+                              create_date,
+                              enabled)
+            values(
+                   #{name},
+                   #{titleLevel},
+                   #{createDate},
+                   #{enabled}
+                  )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective">
+        update job_level
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="titleLevel != null and titleLevel != ''">
+                title_level = #{titleLevel},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteByPrimaryKey">
+        delete from job_level where id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        delete from job_level
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="list" resultType="com.ling.vhr.modules.system.model.JobLevel">
+        select id,name,title_level,create_date,enabled
+        from job_level
+    </select>
+</mapper>
