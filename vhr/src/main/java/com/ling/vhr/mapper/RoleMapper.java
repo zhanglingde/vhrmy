@@ -20,4 +20,10 @@ public interface RoleMapper {
      * @return
      */
     List<Role> selectByHrId(Integer hrId);
+
+    /**
+     * 查询所有角色
+     * @return
+     */
+    List<Role> selectAllRoles();
 }

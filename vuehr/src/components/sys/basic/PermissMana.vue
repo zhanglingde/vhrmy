@@ -9,9 +9,16 @@
         </div>
         <div class="permissMain">
             <el-collapse v-model="activeName" accordion>
-                <el-collapse-item title="一致性 Consistency" name="1">
-                    <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                    <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+                <el-collapse-item :title="role.nameZh" :name="role.id" v-for="(role,index) in roles" :key="index">
+                    <el-card class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>可访问的资源</span>
+                            <el-button style="float: right; padding: 3px 0;color: #ff0000;" type="text" icon="el-icon-delete"></el-button>
+                        </div>
+                        <div>
+
+                        </div>
+                    </el-card>
                 </el-collapse-item>
             </el-collapse>
         </div>
@@ -27,10 +34,21 @@
                     name: '',
                     nameZh: ''
                 },
-                activeName:'2'
+                activeName: '2',
+                roles: []
             }
         },
-        methods:{
+        mounted() {
+          this.initRoles();
+        },
+        methods: {
+            initRoles() {
+                this.getRequest("/system/basic/permiss/").then(resp => {
+                    if (resp) {
+                        this.roles = resp;
+                    }
+                })
+            },
             addPermiss() {
 
             }
@@ -39,15 +57,17 @@
 </script>
 
 <style>
-    .permissManaTool{
+    .permissManaTool {
         display: flex;
         justify-content: flex-start;
     }
-    .permissManaTool .el-input{
+
+    .permissManaTool .el-input {
         width: 300px;
         margin-right: 8px;
     }
-    .permissMain{
+
+    .permissMain {
         margin-top: 8px;
         width: 600px;
     }

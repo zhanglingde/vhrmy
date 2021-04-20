@@ -14,4 +14,11 @@
         left join hr_role hr on r.id = hr.rid
         where hr.hrid = #{hrId}
     </select>
+
+    <select id="selectAllRoles" resultType="com.ling.vhr.modules.system.model.Role">
+        select r.id,
+               r.name,
+               r.nameZh as name_zh
+        from role r
+    </select>
 </mapper>
