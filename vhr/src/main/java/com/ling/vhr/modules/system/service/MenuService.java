@@ -36,4 +36,12 @@ public class MenuService {
     public List<Menu> selectAllMenus() {
         return menuMapper.selectAllMenus();
     }
+
+    /**
+     * 获取所有权限组菜单
+     * @return 返回三级目录树菜单
+     */
+    public List<Menu> getAllMenus() {
+        return menuMapper.getAllMenus();
+    }
 }

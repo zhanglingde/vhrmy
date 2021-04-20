@@ -26,4 +26,10 @@ public interface MenuMapper {
      * @return
      */
     List<Menu> selectAllMenus();
+
+    /**
+     * 获取所有权限组菜单
+     * @return 返回三级目录树菜单
+     */
+    List<Menu> getAllMenus();
 }
