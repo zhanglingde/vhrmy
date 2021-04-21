@@ -26,4 +26,13 @@ public interface RoleMapper {
      * @return
      */
     List<Role> selectAllRoles();
+
+    /**
+     * 添加角色
+     * @param role
+     * @return
+     */
+    int insert(Role role);
+
+    int deleteByPrimaryKey(Integer id);
 }

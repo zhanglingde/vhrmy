@@ -63,4 +63,21 @@ public class PermissController {
         }
         return CommonResult.error("更新失败！");
     }
+
+    // 添加角色
+    @PostMapping("/role")
+    public CommonResult addRole(@RequestBody Role role) {
+        if (roleService.addRole(role) == 1) {
+            return CommonResult.success(null,"添加成功！");
+        }
+        return CommonResult.error("添加失败！");
+    }
+
+    @DeleteMapping("/role/{id}")
+    public CommonResult deleteRole(@PathVariable Integer id) {
+        if (roleService.deleteRole(id) == 1) {
+            return CommonResult.success(null,"删除成功！");
+        }
+        return CommonResult.error("失败失败！");
+    }
 }

@@ -5,7 +5,7 @@
                 <template slot="prepend">ROLE_</template>
             </el-input>
             <el-input size="small" placeholder="请输入角色中文名" v-model="role.nameZh"></el-input>
-            <el-button size="small" icon="el-icon-plus" type="primary" @click="addPermiss">添加</el-button>
+            <el-button size="small" icon="el-icon-plus" type="primary" @click="addRole">添加</el-button>
         </div>
         <div class="permissMain">
             <el-collapse v-model="activeName" accordion @change="change">
@@ -14,12 +14,13 @@
                         <div slot="header" class="clearfix">
                             <span>可访问的资源</span>
                             <el-button style="float: right; padding: 3px 0;color: #ff0000;" type="text"
-                                       icon="el-icon-delete"></el-button>
+                                       icon="el-icon-delete" @click="deleteRole(role)"></el-button>
                         </div>
                         <div>
                             <el-tree show-checkbox
                                      node-key="id"
                                      ref="tree"
+                                     :key="index"
                                      :data="allMenus"
                                      :default-checked-keys="selectedMenus"
                                      :props="defaultProps">
@@ -73,9 +74,8 @@
                 selectedKeys.forEach(key => {
                     url += '&mids=' + key;
                 })
-                this.putRequest(url).then(resp=>{
+                this.putRequest(url).then(resp => {
                     if (resp) {
-                        this.initRoles();
                         this.activeName = -1;
                     }
                 })
@@ -104,8 +104,37 @@
                     }
                 })
             },
-            addPermiss() {
+            addRole() {
+                if (this.role.name && this.role.nameZh) {
+                    this.postRequest("/system/basic/permiss/role", this.role).then(resp => {
+                        if (resp) {
+                            this.initRoles();
+                            this.role.name = '';
+                            this.role.nameZh = '';
+                        }
+                    });
+                } else {
+                    this.$message.error('参数不能为空！');
+                }
 
+            },
+            deleteRole(role) {
+                this.$confirm('此操作将永久删除【'+role.nameZh+'】角色, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.deleteRequest("/system/basic/permiss/role/"+role.id).then(resp=>{
+                        if (resp) {
+                            this.initRoles();
+                        }
+                    })
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             }
         }
     }

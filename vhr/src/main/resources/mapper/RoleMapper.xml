@@ -5,6 +5,17 @@
 
 <mapper namespace="com.ling.vhr.mapper.RoleMapper">
 
+    <insert id="insert">
+        insert into role(name,nameZh)
+        values(#{name},
+               #{nameZh}
+              )
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from role where id = #{id}
+    </delete>
+
 
     <select id="selectByHrId" resultType="com.ling.vhr.modules.system.model.Role">
         select r.id,
