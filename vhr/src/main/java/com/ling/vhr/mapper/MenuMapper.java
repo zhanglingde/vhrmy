@@ -32,4 +32,6 @@ public interface MenuMapper {
      * @return 返回三级目录树菜单
      */
     List<Menu> getAllMenus();
+
+    List<Integer> getMidsByRid(Integer rid);
 }

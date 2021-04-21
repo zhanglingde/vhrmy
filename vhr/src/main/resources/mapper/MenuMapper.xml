@@ -104,5 +104,11 @@
         and m3.enabled = 1
     </select>
 
+    <select id="getMidsByRid" resultType="java.lang.Integer">
+        select mid
+        from menu_role
+        where rid = #{rid}
+    </select>
+
 
 </mapper>

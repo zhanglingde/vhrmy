@@ -17,7 +17,18 @@
                                        icon="el-icon-delete"></el-button>
                         </div>
                         <div>
-                            <el-tree show-checkbox :data="allMenus" :props="defaultProps"></el-tree>
+                            <el-tree show-checkbox
+                                     node-key="id"
+                                     ref="tree"
+                                     :data="allMenus"
+                                     :default-checked-keys="selectedMenus"
+                                     :props="defaultProps">
+
+                            </el-tree>
+                            <div style="display: flex;justify-content: flex-end;margin-top: 5px;">
+                                <el-button @click="cancelUpdate">取消修改</el-button>
+                                <el-button type="primary" @click="doUpdate(role.id,index)">确认修改</el-button>
+                            </div>
                         </div>
                     </el-card>
                 </el-collapse-item>
@@ -35,9 +46,10 @@
                     name: '',
                     nameZh: ''
                 },
-                activeName: '2',
+                activeName: '-1',
                 roles: [],
                 allMenus: [],
+                selectedMenus: [],
                 defaultProps: {
                     children: 'children',
                     label: 'name'
@@ -48,15 +60,40 @@
             this.initRoles();
         },
         methods: {
-            change(name){
-                if (name) {
+            change(rid) {
+                if (rid) {
                     this.initAllMenus();
+                    this.initSelectedMenus(rid);
                 }
             },
+            doUpdate(rid, index) {
+                let tree = this.$refs.tree[index];
+                let selectedKeys = tree.getCheckedKeys(true);
+                let url = '/system/basic/permiss/?rid=' + rid;
+                selectedKeys.forEach(key => {
+                    url += '&mids=' + key;
+                })
+                this.putRequest(url).then(resp=>{
+                    if (resp) {
+                        this.initRoles();
+                        this.activeName = -1;
+                    }
+                })
+            },
+            cancelUpdate() {
+                this.activeName = -1;
+            },
             initAllMenus() {
-                this.getRequest("/system/basic/permiss/menus").then(resp=>{
+                this.getRequest("/system/basic/permiss/menus").then(resp => {
                     if (resp) {
                         this.allMenus = resp;
+                    }
+                })
+            },
+            initSelectedMenus(rid) {
+                this.getRequest("/system/basic/permiss/mids/" + rid).then(resp => {
+                    if (resp) {
+                        this.selectedMenus = resp;
                     }
                 })
             },

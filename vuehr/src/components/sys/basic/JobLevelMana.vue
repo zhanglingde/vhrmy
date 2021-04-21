@@ -108,8 +108,8 @@
                         <td>
                             <el-switch
                                     v-model="updateJL.enabled"
-                                    active-text="启用" active-value="1"
-                                    inactive-text="禁用" inactive-value="0">
+                                    active-text="启用" :active-value="1"
+                                    inactive-text="禁用" :inactive-value="0">
                             </el-switch>
                         </td>
                     </tr>
