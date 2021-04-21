@@ -151,9 +151,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
                         response.setContentType("application/json;charset=utf-8");
                         PrintWriter out = response.getWriter();
+                        response.setStatus(401);
 
                         CommonResult result = new CommonResult();
-
                         result.setStatus(401);
                         result.setData("访问失败!");
                         result.setMsg("访问失败!");
