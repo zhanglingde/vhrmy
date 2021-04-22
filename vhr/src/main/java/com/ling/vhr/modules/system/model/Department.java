@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.*;
@@ -37,6 +38,8 @@ public class Department implements Serializable {
     @ApiModelProperty("是否是最上级部门")
     private Integer isParent;
 
-    List<Department> children;
+    List<Department> children = new ArrayList<>();
+
+    private Integer result;
 
 }

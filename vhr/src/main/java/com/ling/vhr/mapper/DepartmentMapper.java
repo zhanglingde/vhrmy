@@ -20,4 +20,16 @@ public interface DepartmentMapper {
      * @return
      */
     List<Department> selectAllDepartment(Integer parentId);
+
+    /**
+     * 使用存储过程添加部门
+     * @param department
+     */
+    void addDept(Department department);
+
+    /**
+     * 使用存储过程删除部门
+     * @param department
+     */
+    void deleteDept(Department department);
 }

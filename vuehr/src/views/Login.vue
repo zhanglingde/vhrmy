@@ -3,16 +3,16 @@
         <el-form v-bind:rules="rules" ref="loginForm" :model="loginForm" class="loginContainer">
             <h3 class="loginTitle">系统登录</h3>
             <el-form-item prop="username">
-                <el-input type="text" v-model="loginForm.username" auto-complete="off"
+                <el-input size="normal" type="text" v-model="loginForm.username" auto-complete="off"
                           aria-placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="text" v-model="loginForm.password" @keydown.enter.native="submitLogin"
+                <el-input size="normal" type="text" v-model="loginForm.password" @keydown.enter.native="submitLogin"
                           auto-complete="off" aria-placeholder="请输入用户密码"></el-input>
             </el-form-item>
             <!--    勾选记住密码       -->
-            <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>
-            <el-button type="primary" style="width:100%" @click="submitLogin">登录</el-button>
+            <el-checkbox size="normal" class="loginRemember" v-model="checked"></el-checkbox>
+            <el-button size="normal" type="primary" style="width:100%" @click="submitLogin">登录</el-button>
         </el-form>
     </div>
 </template>

@@ -26,7 +26,7 @@ Vue.prototype.deleteRequest = deleteRequest;
 Vue.config.productionTip = false
 
 // 引入依赖并使用ElementUI 全局配置组件 mini
-Vue.use(ElementUI,{size:'samll'});
+Vue.use(ElementUI, {size: 'small'});
 
 /**
  * 路由全局前置守卫：相当于后端过滤器

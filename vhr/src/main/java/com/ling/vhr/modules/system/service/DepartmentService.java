@@ -25,4 +25,13 @@ public class DepartmentService {
     public List<Department> selectAllDepartment() {
         return departmentMapper.selectAllDepartment(-1);
     }
+
+    public void addDept(Department department) {
+        department.setEnabled(1);
+        departmentMapper.addDept(department);
+    }
+
+    public void deleteDept(Department department) {
+        departmentMapper.deleteDept(department);
+    }
 }
