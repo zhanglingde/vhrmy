@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ling.vhr.mapper.DepartmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.ling.vhr.modules.system.model.Department">
+        <id column="id" property="id"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="dept_path" property="deptPath"/>
+        <result column="enabled" property="enabled"/>
+        <result column="is_parent" property="isParent"/>
+    </resultMap>
+
+    <resultMap id="DepartmentWithChildren" type="com.ling.vhr.modules.system.model.Department" extends="BaseResultMap">
+        <collection property="children" ofType="com.ling.vhr.modules.system.model.Department"
+                    select="com.ling.vhr.mapper.DepartmentMapper.selectAllDepartment"
+                    column="id">
+
+        </collection>
+    </resultMap>
+
+    <select id="selectAllDepartment" resultMap="DepartmentWithChildren">
+        select *
+        from department
+        where parent_id = #{parentId}
+    </select>
+</mapper>

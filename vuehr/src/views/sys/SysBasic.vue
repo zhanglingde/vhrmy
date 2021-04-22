@@ -19,7 +19,7 @@
         name: "SysBasic",
         data() {
             return {
-                activeName: 'permissmana'
+                activeName: 'depmana'
             }
         },
         // 注册组件，如果组件key-value一样可以只写一个
