@@ -37,7 +37,7 @@
     </resultMap>
 
     <resultMap id="allMenus" type="com.ling.vhr.modules.system.basic.model.Menu" extends="baseResultMenu">
-        <collection property="roles" ofType="com.ling.vhr.modules.system.basic.model.Role">
+        <collection property="roles" ofType="com.ling.vhr.modules.system.hr.model.Role">
             <id column="rid" property="id"/>
             <result column="rname" property="name"/>
             <result column="rnameZh" property="nameZh"/>

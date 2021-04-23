@@ -5,7 +5,7 @@
 
 <mapper namespace="com.ling.vhr.mapper.HrMapper">
 
-    <resultMap id="BaseResultMap" type="com.ling.vhr.modules.system.basic.model.Hr">
+    <resultMap id="BaseResultMap" type="com.ling.vhr.modules.system.hr.model.Hr">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="phone" property="phone"/>
@@ -15,7 +15,7 @@
         <result column="username" property="username"/>
         <result column="userface" property="userface"/>
         <result column="remark" property="remark"/>
-        <collection property="roles" ofType="com.ling.vhr.modules.system.basic.model.Role">
+        <collection property="roles" ofType="com.ling.vhr.modules.system.hr.model.Role">
             <id column="rid" property="id"/>
             <result column="rname" property="name"/>
             <result column="nameZh" property="nameZh"/>
@@ -33,7 +33,8 @@
     </update>
 
 
-    <select id="selectByUsername" resultType="com.ling.vhr.modules.system.basic.model.Hr">
+
+    <select id="selectByUsername" resultType="com.ling.vhr.modules.system.hr.model.Hr">
         select *
         from hr
         where username = #{username}
@@ -47,7 +48,10 @@
         from hr
         left join hr_role h on hr.id = h.hrid
         left join role r on h.rid = r.id
-        where hr.id != #{id}
+        where hr.id != #{hrId}
+        <if test="keywords != null and keywords != ''">
+            AND hr.name LIKE concat('%',#{keywords},'%')
+        </if>
 
     </select>
 </mapper>

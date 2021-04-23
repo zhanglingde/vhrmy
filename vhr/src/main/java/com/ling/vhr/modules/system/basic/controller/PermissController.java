@@ -2,9 +2,9 @@ package com.ling.vhr.modules.system.basic.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
 import com.ling.vhr.modules.system.basic.model.Menu;
-import com.ling.vhr.modules.system.basic.model.Role;
+import com.ling.vhr.modules.system.hr.model.Role;
 import com.ling.vhr.modules.system.basic.service.MenuService;
-import com.ling.vhr.modules.system.basic.service.RoleService;
+import com.ling.vhr.modules.system.hr.service.RoleService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

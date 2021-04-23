@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.basic.model;
+package com.ling.vhr.modules.system.hr.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

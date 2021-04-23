@@ -2,7 +2,7 @@ package com.ling.vhr.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.common.utils.CommonResult;
-import com.ling.vhr.modules.system.basic.model.Hr;
+import com.ling.vhr.modules.system.hr.model.Hr;
 import com.ling.vhr.modules.system.hr.service.HrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

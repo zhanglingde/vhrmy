@@ -1,6 +1,6 @@
 package com.ling.vhr.common.utils;
 
-import com.ling.vhr.modules.system.basic.model.Hr;
+import com.ling.vhr.modules.system.hr.model.Hr;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**

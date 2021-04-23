@@ -1,6 +1,7 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.basic.model.Hr;
+import com.ling.vhr.modules.system.hr.model.Hr;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,10 +23,10 @@ public interface HrMapper {
 
     /**
      * 查询除自己之外的所有Hr用户
-     * @param id
+     * @param hrId 当前登录用户id
      * @return
      */
-    List<Hr> getAllHrs(Integer id);
+    List<Hr> getAllHrs(@Param("hrId") Integer hrId,@Param("keywords") String keywords);
 
     /**
      * 根据主键修改Hr
@@ -33,4 +34,6 @@ public interface HrMapper {
      * @return
      */
     int updateByPrimaryKeySelective(Hr hr);
+
+
 }

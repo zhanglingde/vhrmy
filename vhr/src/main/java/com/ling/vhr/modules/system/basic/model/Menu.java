@@ -1,5 +1,6 @@
 package com.ling.vhr.modules.system.basic.model;
 
+import com.ling.vhr.modules.system.hr.model.Role;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
