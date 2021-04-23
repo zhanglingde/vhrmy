@@ -65,4 +65,13 @@ public class HrService implements UserDetailsService {
         hrRoleMapper.batchInsert(hrId, roleIds);
         return true;
     }
+
+    /**
+     * 删除hr用户
+     * @param hrId
+     * @return
+     */
+    public int deleteHr(Integer hrId) {
+        return hrMapper.deleteByPrimaryId(hrId);
+    }
 }

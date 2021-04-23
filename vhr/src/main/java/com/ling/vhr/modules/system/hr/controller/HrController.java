@@ -7,6 +7,7 @@ import com.ling.vhr.modules.system.hr.service.HrService;
 import com.ling.vhr.modules.system.hr.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import java.util.List;
 
@@ -51,6 +52,14 @@ public class HrController {
             return CommonResult.success(null,"更新Hr角色成功！");
         }
         return CommonResult.error("更新失败！");
+    }
+
+    @DeleteMapping("/{hrId}")
+    public CommonResult deleteHr(@PathVariable Integer hrId) {
+        if (hrService.deleteHr(hrId) == 1) {
+            return CommonResult.success(null, "删除成功！");
+        }
+        return CommonResult.error("删除失败！");
     }
 
 }

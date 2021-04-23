@@ -32,6 +32,9 @@
         where id = #{id}
     </update>
 
+    <delete id="deleteByPrimaryId">
+        delete from hr where id = #{hrId}
+    </delete>
 
 
     <select id="selectByUsername" resultType="com.ling.vhr.modules.system.hr.model.Hr">

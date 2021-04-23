@@ -36,4 +36,10 @@ public interface HrMapper {
     int updateByPrimaryKeySelective(Hr hr);
 
 
+    /**
+     * 删除Hr用户
+     * @param hrId
+     * @return
+     */
+    int deleteByPrimaryId(Integer hrId);
 }
