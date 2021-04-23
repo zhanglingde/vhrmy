@@ -1,7 +1,7 @@
-package com.ling.vhr.modules.system.controller;
+package com.ling.vhr.modules.system.basic.controller;
 
-import com.ling.vhr.modules.system.model.Menu;
-import com.ling.vhr.modules.system.service.MenuService;
+import com.ling.vhr.modules.system.basic.model.Menu;
+import com.ling.vhr.modules.system.basic.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

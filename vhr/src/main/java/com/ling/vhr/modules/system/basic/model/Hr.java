@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.model;
+package com.ling.vhr.modules.system.basic.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Data
 @ApiModel("DTO")
-public class Hr implements UserDetails {
+public class  Hr implements UserDetails {
 
     @ApiModelProperty("hrID")
     private Integer id;

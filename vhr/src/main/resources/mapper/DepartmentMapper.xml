@@ -5,7 +5,7 @@
 
 <mapper namespace="com.ling.vhr.mapper.DepartmentMapper">
 
-    <resultMap id="BaseResultMap" type="com.ling.vhr.modules.system.model.Department">
+    <resultMap id="BaseResultMap" type="com.ling.vhr.modules.system.basic.model.Department">
         <id column="id" property="id"/>
         <result column="department_name" property="departmentName"/>
         <result column="parent_id" property="parentId"/>
@@ -14,8 +14,8 @@
         <result column="is_parent" property="isParent"/>
     </resultMap>
 
-    <resultMap id="DepartmentWithChildren" type="com.ling.vhr.modules.system.model.Department" extends="BaseResultMap">
-        <collection property="children" ofType="com.ling.vhr.modules.system.model.Department"
+    <resultMap id="DepartmentWithChildren" type="com.ling.vhr.modules.system.basic.model.Department" extends="BaseResultMap">
+        <collection property="children" ofType="com.ling.vhr.modules.system.basic.model.Department"
                     select="com.ling.vhr.mapper.DepartmentMapper.selectAllDepartment"
                     column="id">
 

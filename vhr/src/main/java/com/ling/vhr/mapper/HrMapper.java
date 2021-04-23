@@ -1,7 +1,9 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.model.Hr;
+import com.ling.vhr.modules.system.basic.model.Hr;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * (Hr)Mapper持久层
@@ -11,11 +13,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HrMapper {
 
-    Hr select(Integer id);
 
 
     /**
      * 根据用户名查找用户
      */
     Hr selectByUsername(String username);
+
+    /**
+     * 查询除自己之外的所有Hr用户
+     * @param id
+     * @return
+     */
+    List<Hr> getAllHrs(Integer id);
 }

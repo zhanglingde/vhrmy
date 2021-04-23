@@ -48,7 +48,7 @@
     </delete>
 
 
-    <select id="list" resultType="com.ling.vhr.modules.system.model.JobLevel">
+    <select id="list" resultType="com.ling.vhr.modules.system.basic.model.JobLevel">
         select id,name,title_level,create_date,enabled
         from job_level
     </select>

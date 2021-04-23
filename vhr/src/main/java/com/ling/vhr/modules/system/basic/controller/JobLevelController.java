@@ -1,12 +1,12 @@
-package com.ling.vhr.modules.system.controller;
+package com.ling.vhr.modules.system.basic.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
-import com.ling.vhr.modules.system.model.JobLevel;
-import com.ling.vhr.modules.system.service.JobLevelService;
+import com.ling.vhr.modules.system.basic.model.JobLevel;
+import com.ling.vhr.modules.system.basic.service.JobLevelService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
+
 import java.util.List;
 
 /**

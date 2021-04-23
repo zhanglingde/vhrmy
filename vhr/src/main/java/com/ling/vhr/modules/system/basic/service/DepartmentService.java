@@ -1,7 +1,7 @@
-package com.ling.vhr.modules.system.service;
+package com.ling.vhr.modules.system.basic.service;
 
 import com.ling.vhr.mapper.DepartmentMapper;
-import com.ling.vhr.modules.system.model.Department;
+import com.ling.vhr.modules.system.basic.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

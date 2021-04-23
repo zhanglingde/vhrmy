@@ -1,8 +1,8 @@
-package com.ling.vhr.modules.system.controller;
+package com.ling.vhr.modules.system.basic.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
-import com.ling.vhr.modules.system.model.Department;
-import com.ling.vhr.modules.system.service.DepartmentService;
+import com.ling.vhr.modules.system.basic.model.Department;
+import com.ling.vhr.modules.system.basic.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

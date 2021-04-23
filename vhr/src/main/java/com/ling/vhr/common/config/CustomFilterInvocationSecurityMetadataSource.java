@@ -1,8 +1,8 @@
 package com.ling.vhr.common.config;
 
-import com.ling.vhr.modules.system.model.Menu;
-import com.ling.vhr.modules.system.model.Role;
-import com.ling.vhr.modules.system.service.MenuService;
+import com.ling.vhr.modules.system.basic.model.Menu;
+import com.ling.vhr.modules.system.basic.model.Role;
+import com.ling.vhr.modules.system.basic.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

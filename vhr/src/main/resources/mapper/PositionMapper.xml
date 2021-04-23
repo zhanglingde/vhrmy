@@ -49,7 +49,7 @@
         </foreach>
     </delete>
 
-    <select id="list" resultType="com.ling.vhr.modules.system.model.Position">
+    <select id="list" resultType="com.ling.vhr.modules.system.basic.model.Position">
         select <include refid="basicSql"></include>
         from position
     </select>

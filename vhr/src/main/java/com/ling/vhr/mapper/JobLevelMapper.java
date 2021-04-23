@@ -1,6 +1,6 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.model.JobLevel;
+import com.ling.vhr.modules.system.basic.model.JobLevel;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import org.springframework.stereotype.Repository;

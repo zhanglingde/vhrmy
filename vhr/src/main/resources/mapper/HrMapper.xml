@@ -5,14 +5,40 @@
 
 <mapper namespace="com.ling.vhr.mapper.HrMapper">
 
+    <resultMap id="BaseResultMap" type="com.ling.vhr.modules.system.basic.model.Hr">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="enabled" property="enabled"/>
+        <result column="username" property="username"/>
+        <result column="userface" property="userface"/>
+        <result column="remark" property="remark"/>
+        <collection property="roles" ofType="com.ling.vhr.modules.system.basic.model.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="nameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
 
-    <select id="select" resultType="com.ling.vhr.modules.system.model.Hr">
-        select * from hr where id = #{1}
-    </select>
 
-    <select id="selectByUsername" resultType="com.ling.vhr.modules.system.model.Hr">
+
+    <select id="selectByUsername" resultType="com.ling.vhr.modules.system.basic.model.Hr">
         select *
         from hr
         where username = #{username}
+    </select>
+
+    <select id="getAllHrs" resultMap="BaseResultMap">
+        select hr.*,
+               r.id as rid,
+               r.name as rname,
+               r.nameZh
+        from hr
+        left join hr_role h on hr.id = h.hrid
+        left join role r on h.rid = r.id
+        where hr.id != #{id}
+
     </select>
 </mapper>

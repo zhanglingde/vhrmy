@@ -1,6 +1,6 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.model.Position;
+import com.ling.vhr.modules.system.basic.model.Position;
 
 import java.util.List;
 

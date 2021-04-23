@@ -1,11 +1,10 @@
-package com.ling.vhr.modules.system.controller;
+package com.ling.vhr.modules.system.basic.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
-import com.ling.vhr.modules.system.model.Position;
-import com.ling.vhr.modules.system.service.PositionService;
+import com.ling.vhr.modules.system.basic.model.Position;
+import com.ling.vhr.modules.system.basic.service.PositionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

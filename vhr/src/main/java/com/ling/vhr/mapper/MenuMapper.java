@@ -1,6 +1,6 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.model.Menu;
+import com.ling.vhr.modules.system.basic.model.Menu;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;

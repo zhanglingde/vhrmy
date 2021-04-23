@@ -1,7 +1,7 @@
-package com.ling.vhr.modules.system.service;
+package com.ling.vhr.modules.system.basic.service;
 
 import com.ling.vhr.mapper.RoleMapper;
-import com.ling.vhr.modules.system.model.Role;
+import com.ling.vhr.modules.system.basic.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

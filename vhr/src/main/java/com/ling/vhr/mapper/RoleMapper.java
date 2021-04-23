@@ -1,6 +1,6 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.model.Role;
+import com.ling.vhr.modules.system.basic.model.Role;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;

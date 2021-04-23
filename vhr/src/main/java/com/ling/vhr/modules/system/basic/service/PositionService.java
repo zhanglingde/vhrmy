@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.service;
+package com.ling.vhr.modules.system.basic.service;
 
 /**
  * 职位管理
@@ -6,7 +6,7 @@ package com.ling.vhr.modules.system.service;
  */
 
 import com.ling.vhr.mapper.PositionMapper;
-import com.ling.vhr.modules.system.model.Position;
+import com.ling.vhr.modules.system.basic.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.model;
+package com.ling.vhr.modules.system.basic.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

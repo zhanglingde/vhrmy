@@ -1,10 +1,13 @@
 package com.ling.vhr;
 
 import com.ling.vhr.mapper.HrMapper;
-import com.ling.vhr.modules.system.model.Hr;
+import com.ling.vhr.modules.system.basic.model.Hr;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SpringBootTest
 class VhrApplicationTests {
@@ -14,9 +17,16 @@ class VhrApplicationTests {
 
     @Test
     void contextLoads() {
-        Hr hr = hrMapper.select(3);
-        System.out.println("hr = " + hr);
 
+    }
+
+    @Test
+    void test01() {
+        String str = "  asdasda1231231423";
+        String pattern = "^[A-Za-z0-9]+$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(str);
+        System.out.println(m.matches());
     }
 
 }

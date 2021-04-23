@@ -1,15 +1,14 @@
-package com.ling.vhr.modules.system.service;
+package com.ling.vhr.modules.system.basic.service;
 
 import com.ling.vhr.common.exception.RrException;
 import com.ling.vhr.mapper.MenuMapper;
 import com.ling.vhr.mapper.MenuRoleMapper;
-import com.ling.vhr.modules.system.model.Hr;
-import com.ling.vhr.modules.system.model.Menu;
+import com.ling.vhr.modules.system.basic.model.Hr;
+import com.ling.vhr.modules.system.basic.model.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 

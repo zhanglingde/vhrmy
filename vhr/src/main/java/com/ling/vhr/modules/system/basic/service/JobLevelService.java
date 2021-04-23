@@ -1,7 +1,7 @@
-package com.ling.vhr.modules.system.service;
+package com.ling.vhr.modules.system.basic.service;
 
 import com.ling.vhr.mapper.JobLevelMapper;
-import com.ling.vhr.modules.system.model.JobLevel;
+import com.ling.vhr.modules.system.basic.model.JobLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
