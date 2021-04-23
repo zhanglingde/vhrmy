@@ -22,6 +22,15 @@
         </collection>
     </resultMap>
 
+    <update id="updateByPrimaryKeySelective">
+        update hr
+        <set>
+            <if test="enabled != null">
+                enabled = #{enabled}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
 
     <select id="selectByUsername" resultType="com.ling.vhr.modules.system.basic.model.Hr">

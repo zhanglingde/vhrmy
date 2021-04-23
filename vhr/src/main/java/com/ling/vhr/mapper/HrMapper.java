@@ -26,4 +26,11 @@ public interface HrMapper {
      * @return
      */
     List<Hr> getAllHrs(Integer id);
+
+    /**
+     * 根据主键修改Hr
+     * @param hr
+     * @return
+     */
+    int updateByPrimaryKeySelective(Hr hr);
 }

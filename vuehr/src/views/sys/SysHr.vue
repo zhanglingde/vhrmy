@@ -22,12 +22,13 @@
                         <div>用户状态：
                             <el-switch
                                 v-model="hr.enabled"
-                                active-text="启用" :active-value="1"
-                                inactive-text="禁用" :inactive-value="0">
+                                @change="enabledChange(hr)"
+                                active-text="启用"
+                                inactive-text="禁用">
                             </el-switch>
                         </div>
                         <div>用户角色：
-                            <el-tag type="success" style="margin-right: 4px;" v-for="(role,indexj) in hr.roles" :key="index" >
+                            <el-tag type="success" style="margin-right: 4px;" v-for="(role,indexj) in hr.roles" :key="indexj" >
                                 {{role.nameZh}}
                             </el-tag>
                             <el-button type="text" icon="el-icon-more"></el-button>
@@ -58,6 +59,14 @@ export default {
             this.getRequest("/system/hr/").then(resp => {
                 if (resp) {
                     this.hrs = resp;
+                }
+            })
+        },
+        enabledChange(hr) {
+            console.log(hr);
+            this.putRequest("/system/hr/", hr).then(resp=>{
+                if (resp) {
+                    this.initHrs();
                 }
             })
         }
