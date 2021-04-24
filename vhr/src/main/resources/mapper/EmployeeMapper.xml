@@ -77,6 +77,9 @@
         and e.politic_id = ps.id
         and e.job_level_id =jl.id
         and e.pos_id = p.id
+        <if test="keyword != null and keyword != ''">
+            and e.name like concat('%',#{keyword},'%')
+        </if>
         <if test="offset != null and limit != null">
             limit #{offset},#{limit}
         </if>
@@ -85,5 +88,10 @@
     <select id="getTotal" resultType="java.lang.Long">
         select count(*)
         from employee
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and name like concat('%',#{keyword},'%')
+            </if>
+        </where>
     </select>
 </mapper>

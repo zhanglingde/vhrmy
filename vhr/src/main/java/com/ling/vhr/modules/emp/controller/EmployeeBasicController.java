@@ -23,8 +23,8 @@ public class EmployeeBasicController {
     EmployeeService employeeService;
 
     @GetMapping("/")
-    public PageUtils<Employee> getEmployeeByPage(CommonParams params) {
-        return employeeService.getEmployeeByPage(params);
+    public PageUtils<Employee> getEmployeeByPage(String keyword,CommonParams params) {
+        return employeeService.getEmployeeByPage(keyword,params);
     }
     
 }

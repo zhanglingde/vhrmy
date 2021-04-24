@@ -20,11 +20,13 @@ public interface EmployeeMapper {
      * @param limit
      * @return
      */
-    List<Employee> selectEmployeeByPage(@Param("offset") Integer offset, @Param("limit") Integer limit);
+    List<Employee> selectEmployeeByPage(@Param("keyword") String keyword,
+                                        @Param("offset") Integer offset,
+                                        @Param("limit") Integer limit);
 
     /**
      * 查询员工总数
      * @return
      */
-    Long getTotal();
+    Long getTotal(String keyword);
 }
