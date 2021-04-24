@@ -34,7 +34,7 @@ public class PageUtils<T> {
 	 * 总记录数
 	 */
 	@ApiModelProperty(value="总记录数")
-	private Long totalCount;
+	private Long total;
 	/**
 	 * 每页记录数
 	 */
@@ -67,7 +67,7 @@ public class PageUtils<T> {
 
 	public PageUtils(List<T> list, Long totalCount, Integer pageSize, Integer currPage) {
 		this.list = list;
-		this.totalCount = totalCount;
+		this.total = totalCount;
 		this.pageSize = pageSize;
 		this.currPage = currPage;
 		this.totalPage = (int) Math.ceil((double)totalCount/pageSize);

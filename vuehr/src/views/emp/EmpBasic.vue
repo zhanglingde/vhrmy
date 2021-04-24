@@ -155,7 +155,8 @@
                         width="90px"
                         label="合同期限">
                     <template slot-scope="scope">
-                        <el-tag>{{scope.row.contractTerm}}</el-tag>年
+                        <el-tag>{{scope.row.contractTerm}}</el-tag>
+                        年
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -172,9 +173,18 @@
                         <el-button style="padding: 3px;" size="mini">编辑</el-button>
                         <el-button style="padding: 3px;" size="mini" type="primary">查看高级资料</el-button>
                         <el-button style="padding: 3px;" size="mini" type="danger">删除</el-button>
-                     </template>
+                    </template>
                 </el-table-column>
             </el-table>
+            <div style="display: flex;justify-content: flex-end">
+                <el-pagination
+                        @size-change="sizeChange"
+                        @current-change="currentChange"
+                        background
+                        layout="sizes, prev, pager, next, jumper, ->, total, slot"
+                        :total="total">
+                </el-pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -185,7 +195,10 @@
         data() {
             return {
                 emps: [],
-                loading:false
+                loading: false,
+                total: 0,
+                page: 1,
+                size: 10
             }
         },
         mounted() {
@@ -194,12 +207,21 @@
         methods: {
             initEmps() {
                 this.loading = true;
-                this.getRequest("/emp/basic/").then(resp => {
+                this.getRequest("/emp/basic/?page=" + this.page + "&limit=" + this.size).then(resp => {
                     if (resp) {
                         this.loading = false;
                         this.emps = resp.list;
+                        this.total = resp.total;
                     }
                 })
+            },
+            currentChange(currentPage) {
+                this.page = currentPage;
+                this.initEmps();
+            },
+            sizeChange(currentSize) {
+                this.size = currentSize;
+                this.initEmps();
             }
         }
     }
