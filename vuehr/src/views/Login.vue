@@ -1,6 +1,14 @@
 <template>
     <div>
-        <el-form v-bind:rules="rules" ref="loginForm" :model="loginForm" class="loginContainer">
+        <el-form
+                v-loading="loading"
+                element-loading-text="正在登录..."
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
+                v-bind:rules="rules"
+                ref="loginForm"
+                :model="loginForm"
+                class="loginContainer">
             <h3 class="loginTitle">系统登录</h3>
             <el-form-item prop="username">
                 <el-input size="normal" type="text" v-model="loginForm.username" auto-complete="off"
@@ -24,6 +32,7 @@ export default {
     name: "Login",
     data() {
         return {
+            loading:false,
             loginForm: {
                 username: 'admin',
                 password: '123'
@@ -39,10 +48,12 @@ export default {
     },
     methods: {
         submitLogin() {
+            this.loading=true;
             // 获取到表单组件并校验
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {
                     this.postKeyValueRequest("/doLogin", this.loginForm).then(resp => {
+                        this.loading = false;
                         if (resp) {
                             // 登录用户数据保存在session中
                             window.sessionStorage.setItem("user", JSON.stringify(resp.data));
