@@ -15,7 +15,7 @@ import lombok.*;
  * @author zhangling 2021-04-20 16:35:40
  */
 @Data
-@ApiModel("职称")
+@ApiModel("职称实体")
 public class JobLevel implements Serializable {
 
     private static final long serialVersionUID = -39686127438539789L;
@@ -28,7 +28,7 @@ public class JobLevel implements Serializable {
     @ApiModelProperty("职称级别")
     private String titleLevel;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createDate;
 
     private Integer enabled;

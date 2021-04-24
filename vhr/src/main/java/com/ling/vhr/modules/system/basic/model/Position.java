@@ -12,12 +12,12 @@ import lombok.*;
 
 
 /**
- * 实体类
+ * 职位实体
  *
  * @author zhangling 2021-04-19 17:36:41
  */
 @Data
-@ApiModel("职位管理表DTO")
+@ApiModel("职位实体")
 public class Position implements Serializable {
 
     private static final long serialVersionUID = 295529981431357002L;
