@@ -2,6 +2,7 @@ package com.ling.vhr.modules.emp.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ling.vhr.modules.system.basic.model.Department;
 import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
@@ -34,6 +35,7 @@ public class Employee implements Serializable {
     @ApiModelProperty("性别")
     private String gender;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("出生日期")
     private Date birthday;
 
@@ -82,6 +84,7 @@ public class Employee implements Serializable {
     @ApiModelProperty("毕业院校")
     private String school;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("入职日期")
     private Date beginDate;
 
@@ -94,15 +97,19 @@ public class Employee implements Serializable {
     @ApiModelProperty("合同期限")
     private Object contractTerm;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("转正日期")
     private Date conversionTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("离职日期")
     private Date notWorkDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("合同起始日期")
     private Date beginContract;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("合同终止日期")
     private Date endContract;
 
