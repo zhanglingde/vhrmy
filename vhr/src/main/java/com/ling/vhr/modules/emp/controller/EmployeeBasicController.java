@@ -9,8 +9,10 @@ import com.ling.vhr.modules.emp.model.PoliticsStatus;
 import com.ling.vhr.modules.emp.service.EmployeeService;
 import com.ling.vhr.modules.emp.service.NationService;
 import com.ling.vhr.modules.emp.service.PoliticsStatusService;
+import com.ling.vhr.modules.system.basic.model.Department;
 import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
+import com.ling.vhr.modules.system.basic.service.DepartmentService;
 import com.ling.vhr.modules.system.basic.service.JobLevelService;
 import com.ling.vhr.modules.system.basic.service.PositionService;
 import io.swagger.annotations.Api;
@@ -43,6 +45,8 @@ public class EmployeeBasicController {
     JobLevelService jobLevelService;
     @Autowired
     PositionService positionService;
+    @Autowired
+    DepartmentService departmentService;
 
     @ApiOperation(value = "获取员工基本信息")
     @GetMapping("/")
@@ -89,7 +93,13 @@ public class EmployeeBasicController {
         Integer maxWorkId = employeeService.maxWorkId();
         // 格式化成8位
         String format = String.format("%08d", maxWorkId + 1);
-        return CommonResult.success(format, "查询成功");
+        return CommonResult.success(format);
+    }
+
+    @ApiOperation(value = "获取所有部门")
+    @GetMapping("/departments")
+    public List<Department> getAllDepartments() {
+        return departmentService.selectAllDepartment();
     }
 
 }

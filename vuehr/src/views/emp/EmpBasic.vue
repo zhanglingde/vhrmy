@@ -297,19 +297,19 @@
                         </el-col>
                         <el-col :span="6">
                             <el-form-item label="所属部门:" prop="departmentId">
-                                <!--                                <el-popover-->
-                                <!--                                    placement="right"-->
-                                <!--                                    title="请选择部门"-->
-                                <!--                                    width="200"-->
-                                <!--                                    trigger="manual"-->
-                                <!--                                    v-model="popVisible">-->
-                                <!--                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"-->
-                                <!--                                             @node-click="handleNodeClick"></el-tree>-->
-                                <!--                                    <div slot="reference"-->
-                                <!--                                         style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"-->
-                                <!--                                         @click="showDepView">{{ inputDepName }}-->
-                                <!--                                    </div>-->
-                                <!--                                </el-popover>-->
+                                <el-popover
+                                    placement="right"
+                                    title="请选择部门"
+                                    width="200"
+                                    trigger="manual"
+                                    v-model="popVisible">
+                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"
+                                             @node-click="handleNodeClick"></el-tree>
+                                    <div slot="reference"
+                                         style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"
+                                         @click="showDepView">{{ inputDepName }}
+                                    </div>
+                                </el-popover>
                             </el-form-item>
                         </el-col>
                         <el-col :span="7">
@@ -448,11 +448,14 @@ export default {
             page: 1,
             size: 10,
             keyword: '',
+            inputDepName: '',
             dialogVisible: false,
+            popVisible: false,
             nations: [],
             jobLevels: [],
             politicsStatus: [],
             positions: [],
+            allDeps:[],
             tiptopDegrees: ['博士', '硕士', '本科', '大专', '高中', '初中', '小学', '其他'],
             emp: {
                 name: "张灵",
@@ -482,6 +485,10 @@ export default {
                 beginContract: "2018-01-01",
                 endContract: "2020-01-01",
                 workAge: null
+            },
+            defaultProps: {
+                children: 'children',
+                label: 'departmentName'
             },
             options: [{
                 value: '选项1',
@@ -546,6 +553,16 @@ export default {
             } else {
                 this.politicsStatus = JSON.parse(window.sessionStorage.getItem("politicsStatus"));
             }
+            if (!window.sessionStorage.getItem("departments")) {
+                this.getRequest("/emp/basic/departments").then(resp=>{
+                    if (resp) {
+                        this.allDeps = resp;
+                        window.sessionStorage.setItem("departments", JSON.stringify(resp));
+                    }
+                })
+            }else{
+                this.allDeps = JSON.parse(window.sessionStorage.getItem("departments"));
+            }
         },
         initEmps() {
             this.loading = true;
@@ -576,6 +593,14 @@ export default {
                     this.emp.workId = resp.data;
                 }
             })
+        },
+        showDepView() {
+            this.popVisible = true;
+        },
+        handleNodeClick(data) {
+            this.inputDepName = data.departmentName;
+            this.emp.departmentId = data.departmentId;
+            this.popVisible = !this.popVisible;
         }
     }
 }
