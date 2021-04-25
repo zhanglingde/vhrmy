@@ -29,7 +29,7 @@ import java.util.List;
  * @author zhangling 2021-04-24 11:05:27
  */
 @RestController
-@RequestMapping("/emp/basic")
+@RequestMapping("/employee/basic")
 @Api(tags = "员工基本信息")
 public class EmployeeBasicController {
 
@@ -111,7 +111,16 @@ public class EmployeeBasicController {
         if (employeeService.deleteEmployee(employeeId) == 1) {
             return CommonResult.success(null,"删除成功！");
         }
-        return CommonResult.error("删除失败!");
+        return CommonResult.error("删除失败！");
+    }
+
+
+    @PutMapping("/")
+    public CommonResult updateEmployee(@RequestBody Employee employee) {
+        if (employeeService.updateEmployee(employee) == 1) {
+            return CommonResult.success(null,"更新成功！");
+        }
+        return CommonResult.error("更新失败！");
     }
 
 }

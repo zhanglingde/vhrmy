@@ -63,6 +63,9 @@ public class MenuService {
     public boolean updateMenuRole(Integer rid, Integer[] mids) {
         // 先删除角色拥有的所有菜单，再添加更新后的菜单
         menuRoleMapper.deleteByRoleId(rid);
+        if (mids == null || mids.length == 0) {
+            return true;
+        }
         Integer result = menuRoleMapper.insertRecord(rid, mids);
         return result == mids.length;
     }

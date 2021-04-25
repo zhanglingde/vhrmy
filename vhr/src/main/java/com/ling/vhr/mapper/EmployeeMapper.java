@@ -49,4 +49,11 @@ public interface EmployeeMapper {
      * @return
      */
     Integer deleteByPrimaryKey(Integer employeeId);
+
+    /**
+     * 更新员工
+     * @param employee
+     * @return
+     */
+    Integer updateByPrimaryKeySelective(Employee employee);
 }

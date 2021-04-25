@@ -234,6 +234,94 @@
         </trim>
     </insert>
 
+    <update id="updateByPrimaryKeySelective">
+        update employee
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                id_card = #{idCard},
+            </if>
+            <if test="wedlock != null and wedlock != ''">
+                wedlock = #{wedlock},
+            </if>
+            <if test="nationId != null">
+                nation_id = #{nationId},
+            </if>
+            <if test="nativePlace != null and nativePlace != ''">
+                native_place = #{nativePlace},
+            </if>
+            <if test="politicId != null">
+                politic_id = #{politicId},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="jobLevelId != null">
+                job_level_id = #{jobLevelId},
+            </if>
+            <if test="posId != null">
+                pos_id = #{posId},
+            </if>
+            <if test="engageForm != null and engageForm != ''">
+                engage_form = #{engageForm},
+            </if>
+            <if test="tiptopDegree != null and tiptopDegree != ''">
+                tiptop_degree = #{tiptopDegree},
+            </if>
+            <if test="specialty != null and specialty != ''">
+                specialty = #{specialty},
+            </if>
+            <if test="school != null and school != ''">
+                school = #{school},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+            <if test="workState != null and workState != ''">
+                work_state = #{workState},
+            </if>
+            <if test="workId != null">
+                work_id = #{workId},
+            </if>
+            <if test="contractTerm != null">
+                contract_term = #{contractTerm},
+            </if>
+            <if test="conversionTime != null">
+                conversion_time = #{conversionTime},
+            </if>
+            <if test="notWorkDate != null">
+                not_work_date = #{notWorkDate},
+            </if>
+            <if test="beginContract != null">
+                begin_contract = #{beginContract},
+            </if>
+            <if test="endContract != null">
+                end_contract = #{endContract},
+            </if>
+            <if test="workAge != null">
+                work_age = #{workAge},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <delete id="deleteByPrimaryKey">
         delete from employee where id = #{employeeId}
     </delete>
