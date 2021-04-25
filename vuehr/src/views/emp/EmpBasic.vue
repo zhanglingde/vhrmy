@@ -195,7 +195,7 @@
             :visible.sync="dialogVisible"
             width="80%">
             <div>
-                <el-form>
+                <el-form :model="emp" :rules="rules" ref="empForm">
                     <el-row>
                         <el-col :span="6">
                             <el-form-item label="姓名:" prop="name">
@@ -455,7 +455,7 @@ export default {
             jobLevels: [],
             politicsStatus: [],
             positions: [],
-            allDeps:[],
+            allDeps: [],
             tiptopDegrees: ['博士', '硕士', '本科', '大专', '高中', '初中', '小学', '其他'],
             emp: {
                 name: "张灵",
@@ -469,7 +469,7 @@ export default {
                 email: "laowang@qq.com",
                 phone: "18565558897",
                 address: "深圳市南山区",
-                departmentId: 5,
+                departmentId: null,
                 jobLevelId: 9,
                 posId: 29,
                 engageForm: "劳务合同",
@@ -489,6 +489,39 @@ export default {
             defaultProps: {
                 children: 'children',
                 label: 'departmentName'
+            },
+            rules: {
+                name: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+                gender: [{required: true, message: '请输入性别', trigger: 'blur'}],
+                birthday: [{required: true, message: '请输入出生日期', trigger: 'blur'}],
+                idCard: [{required: true, message: '请输入身份证号码', trigger: 'blur'}, {
+                    pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/,
+                    message: '身份证号码格式不正确',
+                    trigger: 'blur'
+                }],
+                wedlock: [{required: true, message: '请输入婚姻状况', trigger: 'blur'}],
+                nationId: [{required: true, message: '请输入民族', trigger: 'blur'}],
+                nativePlace: [{required: true, message: '请输入籍贯', trigger: 'blur'}],
+                politicId: [{required: true, message: '请输入政治面貌', trigger: 'blur'}],
+                email: [{required: true, message: '请输入电子邮箱', trigger: 'blur'}, {
+                    type: 'email',
+                    message: '邮箱格式不正确',
+                    trigger: 'blur'
+                }],
+                phone: [{required: true, message: '请输入电话号码', trigger: 'blur'}],
+                address: [{required: true, message: '请输入联系地址', trigger: 'blur'}],
+                jobLevelId: [{required: true, message: '请输入职称', trigger: 'blur'}],
+                departmentId: [{required: true, message: '请输入部门', trigger: 'blur'}],
+                posId: [{required: true, message: '请输入职位', trigger: 'blur'}],
+                engageForm: [{required: true, message: '请输入聘用形式', trigger: 'blur'}],
+                tiptopDegree: [{required: true, message: '请输入最高学历', trigger: 'blur'}],
+                specialty: [{required: true, message: '请输入所属专业', trigger: 'blur'}],
+                school: [{required: true, message: '请输入毕业院校', trigger: 'blur'}],
+                beginDate: [{required: true, message: '请输入入职日期', trigger: 'blur'}],
+                contractTerm: [{required: true, message: '请输入合同期限', trigger: 'blur'}],
+                conversionTime: [{required: true, message: '请输入转正日期', trigger: 'blur'}],
+                beginContract: [{required: true, message: '请输入合同起始日期', trigger: 'blur'}],
+                endContract: [{required: true, message: '请输入合同终止日期', trigger: 'blur'}],
             }
         }
     },
@@ -538,13 +571,13 @@ export default {
                 this.politicsStatus = JSON.parse(window.sessionStorage.getItem("politicsStatus"));
             }
             if (!window.sessionStorage.getItem("departments")) {
-                this.getRequest("/emp/basic/departments").then(resp=>{
+                this.getRequest("/emp/basic/departments").then(resp => {
                     if (resp) {
                         this.allDeps = resp;
                         window.sessionStorage.setItem("departments", JSON.stringify(resp));
                     }
                 })
-            }else{
+            } else {
                 this.allDeps = JSON.parse(window.sessionStorage.getItem("departments"));
             }
         },
@@ -588,10 +621,14 @@ export default {
             this.popVisible = !this.popVisible;
         },
         doAddEmp() {
-            this.postRequest("/emp/basic/",this.emp).then(resp=>{
-                if (resp) {
-                    this.dialogVisible = false;
-                    this.initEmps();
+            this.$refs['empForm'].validate(valid => {
+                if (valid) {        // 校验成功再登录
+                    this.postRequest("/emp/basic/", this.emp).then(resp => {
+                        if (resp) {
+                            this.dialogVisible = false;
+                            this.initEmps();
+                        }
+                    })
                 }
             })
         }

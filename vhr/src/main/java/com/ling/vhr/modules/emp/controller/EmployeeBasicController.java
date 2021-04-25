@@ -47,7 +47,7 @@ public class EmployeeBasicController {
 
     @Autowired
     PositionService positionService;
-    
+
     @Autowired
     DepartmentService departmentService;
 
