@@ -5,6 +5,7 @@ import com.ling.vhr.modules.system.hr.model.Hr;
 import com.ling.vhr.modules.system.hr.model.Role;
 import com.ling.vhr.modules.system.hr.service.HrService;
 import com.ling.vhr.modules.system.hr.service.RoleService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
@@ -24,11 +25,13 @@ public class HrController {
     @Autowired
     RoleService roleService;
 
+    @ApiOperation(value = "获取所有Hr用户(除自己之外)")
     @GetMapping("/")
     public List<Hr> getAllHrs(String keywords) {
         return hrService.getAllHrs(keywords);
     }
 
+    @ApiOperation(value = "更新Hr用户基本信息")
     @PutMapping("/")
     public CommonResult updateHr(@RequestBody Hr hr) {
         if (hrService.updateHr(hr) == 1) {
@@ -37,6 +40,7 @@ public class HrController {
         return CommonResult.error("修改失败！");
     }
 
+    @ApiOperation(value = "获取所有角色")
     @GetMapping("/roles")
     public List<Role> getAllRoles() {
         return roleService.selectAllRoles();
@@ -46,6 +50,7 @@ public class HrController {
      * 更新Hr用户角色关联
      * @return
      */
+    @ApiOperation(value = "更新Hr用户角色关联")
     @PutMapping("/hr-role")
     public CommonResult updateHrRole(Integer hrId,Integer[] roleIds) {
         if (hrService.updateHrRole(hrId, roleIds)) {
