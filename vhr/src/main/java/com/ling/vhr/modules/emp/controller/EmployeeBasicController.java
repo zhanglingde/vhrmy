@@ -18,6 +18,7 @@ import com.ling.vhr.modules.system.basic.service.PositionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -121,6 +122,11 @@ public class EmployeeBasicController {
             return CommonResult.success(null,"更新成功！");
         }
         return CommonResult.error("更新失败！");
+    }
+
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> exportData() {
+        return employeeService.exportData();
     }
 
 }

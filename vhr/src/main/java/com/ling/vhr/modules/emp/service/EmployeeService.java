@@ -2,10 +2,12 @@ package com.ling.vhr.modules.emp.service;
 
 import com.ling.vhr.common.exception.RrException;
 import com.ling.vhr.common.utils.CommonParams;
+import com.ling.vhr.common.utils.POIUtils;
 import com.ling.vhr.common.utils.PageUtils;
 import com.ling.vhr.mapper.EmployeeMapper;
 import com.ling.vhr.modules.emp.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.lang.model.element.VariableElement;
@@ -89,5 +91,10 @@ public class EmployeeService {
      */
     public Integer updateEmployee(Employee employee) {
         return employeeMapper.updateByPrimaryKeySelective(employee);
+    }
+
+    public ResponseEntity<byte[]> exportData() {
+        List<Employee> list = employeeMapper.selectEmployeeByPage(null, null, null);
+        return POIUtils.employee2Excel(list);
     }
 }
