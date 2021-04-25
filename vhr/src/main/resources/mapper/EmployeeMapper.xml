@@ -232,8 +232,11 @@
                 #{workAge},
             </if>
         </trim>
-
     </insert>
+
+    <delete id="deleteByPrimaryKey">
+        delete from employee where id = #{employeeId}
+    </delete>
 
     <select id="selectEmployeeByPage" resultMap="AllEmployeeInfo">
         select e.*,

@@ -42,4 +42,11 @@ public interface EmployeeMapper {
      * @return
      */
     Integer maxWorkId();
+
+    /**
+     * 删除员工
+     * @param employeeId
+     * @return
+     */
+    Integer deleteByPrimaryKey(Integer employeeId);
 }

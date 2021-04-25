@@ -105,4 +105,13 @@ public class EmployeeBasicController {
         return departmentService.selectAllDepartment();
     }
 
+    @ApiOperation(value = "删除员工")
+    @DeleteMapping("/{employeeId}")
+    public CommonResult deleteEmployee(@PathVariable("employeeId") Integer employeeId) {
+        if (employeeService.deleteEmployee(employeeId) == 1) {
+            return CommonResult.success(null,"删除成功！");
+        }
+        return CommonResult.error("删除失败!");
+    }
+
 }

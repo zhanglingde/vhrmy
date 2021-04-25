@@ -47,4 +47,13 @@ public class EmployeeService {
     public Integer maxWorkId() {
         return employeeMapper.maxWorkId();
     }
+
+    /**
+     * 删除员工
+     * @param employeeId
+     * @return
+     */
+    public Integer deleteEmployee(Integer employeeId) {
+        return employeeMapper.deleteByPrimaryKey(employeeId);
+    }
 }
