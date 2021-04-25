@@ -431,7 +431,7 @@
             </div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                <el-button type="primary" @click="doAddEmp">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -489,23 +489,7 @@ export default {
             defaultProps: {
                 children: 'children',
                 label: 'departmentName'
-            },
-            options: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
+            }
         }
     },
     mounted() {
@@ -598,9 +582,18 @@ export default {
             this.popVisible = true;
         },
         handleNodeClick(data) {
+            console.log(data);
             this.inputDepName = data.departmentName;
-            this.emp.departmentId = data.departmentId;
+            this.emp.departmentId = data.id;
             this.popVisible = !this.popVisible;
+        },
+        doAddEmp() {
+            this.postRequest("/emp/basic/",this.emp).then(resp=>{
+                if (resp) {
+                    this.dialogVisible = false;
+                    this.initEmps();
+                }
+            })
         }
     }
 }

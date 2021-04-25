@@ -41,10 +41,13 @@ public class EmployeeBasicController {
 
     @Autowired
     PoliticsStatusService politicsStatusService;
+
     @Autowired
     JobLevelService jobLevelService;
+
     @Autowired
     PositionService positionService;
+    
     @Autowired
     DepartmentService departmentService;
 
