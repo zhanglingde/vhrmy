@@ -58,6 +58,183 @@
         </association>
     </resultMap>
 
+    <insert id="insertSelective">
+        insert into employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null and name != ''">
+                name,
+            </if>
+            <if test="gender != null and gender != ''">
+                gender,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="idCard != null and idCard != ''">
+                id_card,
+            </if>
+            <if test="wedlock != null and wedlock != ''">
+                wedlock,
+            </if>
+            <if test="nationId != null">
+                nation_id,
+            </if>
+            <if test="nativePlace != null and nativePlace != ''">
+                native_place,
+            </if>
+            <if test="politicId != null">
+                politic_id,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="address != null and address != ''">
+                address,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+            <if test="jobLevelId != null">
+                job_level_id,
+            </if>
+            <if test="posId != null">
+                pos_id,
+            </if>
+            <if test="engageForm != null and engageForm != ''">
+                engage_form,
+            </if>
+            <if test="tiptopDegree != null and tiptopDegree != ''">
+                tiptop_degree,
+            </if>
+            <if test="specialty != null and specialty != ''">
+                specialty,
+            </if>
+            <if test="school != null and school != ''">
+                school,
+            </if>
+            <if test="beginDate != null">
+                begin_date,
+            </if>
+            <if test="workState != null and workState != ''">
+                work_state,
+            </if>
+            <if test="workId != null">
+                work_id,
+            </if>
+            <if test="contractTerm != null">
+                contract_term,
+            </if>
+            <if test="conversionTime != null">
+                conversion_time,
+            </if>
+            <if test="notWorkDate != null">
+                not_work_date,
+            </if>
+            <if test="beginContract != null">
+                begin_contract,
+            </if>
+            <if test="endContract != null">
+                end_contract,
+            </if>
+            <if test="workAge != null">
+                work_age,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="gender != null and gender != ''">
+                #{gender},
+            </if>
+            <if test="birthday != null">
+                #{birthday},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                #{idCard},
+            </if>
+            <if test="wedlock != null and wedlock != ''">
+                #{wedlock},
+            </if>
+            <if test="nationId != null">
+                #{nationId},
+            </if>
+            <if test="nativePlace != null and nativePlace != ''">
+                #{nativePlace},
+            </if>
+            <if test="politicId != null">
+                #{politicId},
+            </if>
+            <if test="email != null and email != ''">
+                #{email},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone},
+            </if>
+            <if test="address != null and address != ''">
+                #{address},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId},
+            </if>
+            <if test="jobLevelId != null">
+                #{jobLevelId},
+            </if>
+            <if test="posId != null">
+                #{posId},
+            </if>
+            <if test="engageForm != null and engageForm != ''">
+                #{engageForm},
+            </if>
+            <if test="tiptopDegree != null and tiptopDegree != ''">
+                #{tiptopDegree},
+            </if>
+            <if test="specialty != null and specialty != ''">
+                #{specialty},
+            </if>
+            <if test="school != null and school != ''">
+                #{school},
+            </if>
+            <if test="beginDate != null">
+                #{beginDate},
+            </if>
+            <if test="workState != null and workState != ''">
+                #{workState},
+            </if>
+            <if test="workId != null">
+                #{workId},
+            </if>
+            <if test="contractTerm != null">
+                #{contractTerm},
+            </if>
+            <if test="conversionTime != null">
+                #{conversionTime},
+            </if>
+            <if test="notWorkDate != null">
+                #{notWorkDate},
+            </if>
+            <if test="beginContract != null">
+                #{beginContract},
+            </if>
+            <if test="endContract != null">
+                #{endContract},
+            </if>
+            <if test="workAge != null">
+                #{workAge},
+            </if>
+        </trim>
+
+    </insert>
+
     <select id="selectEmployeeByPage" resultMap="AllEmployeeInfo">
         select e.*,
                d.id as did,

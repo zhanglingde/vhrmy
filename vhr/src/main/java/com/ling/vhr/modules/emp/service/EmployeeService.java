@@ -39,4 +39,8 @@ public class EmployeeService {
         PageUtils<Employee> pageUtils = new PageUtils<>(list, total, params.getLimit(), page);
         return pageUtils;
     }
+
+    public Integer addEmployee(Employee employee) {
+        return employeeMapper.insertSelective(employee);
+    }
 }

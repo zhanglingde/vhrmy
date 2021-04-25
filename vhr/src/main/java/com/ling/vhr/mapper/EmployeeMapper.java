@@ -29,4 +29,11 @@ public interface EmployeeMapper {
      * @return
      */
     Long getTotal(String keyword);
+
+    /**
+     * 添加员工
+     * @param employee
+     * @return
+     */
+    Integer insertSelective(Employee employee);
 }

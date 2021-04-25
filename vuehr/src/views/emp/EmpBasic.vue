@@ -226,13 +226,13 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="7">
-                            <el-form-item v-model="emp.politicId" label="政治面貌:" prop="politicId" size="mini">
-                                <el-select v-model="value" placeholder="请选择">
+                            <el-form-item label="政治面貌:" prop="politicId" size="mini">
+                                <el-select v-model="emp.politicId" placeholder="政治面貌">
                                     <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        v-for="item in politicsStatus"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -243,7 +243,7 @@
                             <el-form-item label="民族:" prop="nationId">
                                 <el-select v-model="emp.nationId" placeholder="民族" size="mini" style="width: 150px;">
                                     <el-option
-                                        v-for="item in options"
+                                        v-for="item in nations"
                                         :key="item.id"
                                         :label="item.name"
                                         :value="item.id">
@@ -275,7 +275,7 @@
                             <el-form-item label="职位:" prop="posId">
                                 <el-select v-model="emp.posId" placeholder="职位" size="mini" style="width: 150px;">
                                     <el-option
-                                        v-for="item in options"
+                                        v-for="item in positions"
                                         :key="item.id"
                                         :label="item.name"
                                         :value="item.id">
@@ -287,7 +287,7 @@
                             <el-form-item label="职称:" prop="jobLevelId">
                                 <el-select v-model="emp.jobLevelId" placeholder="职称" size="mini" style="width: 150px;">
                                     <el-option
-                                        v-for="item in options"
+                                        v-for="item in jobLevels"
                                         :key="item.id"
                                         :label="item.name"
                                         :value="item.id">
@@ -297,19 +297,19 @@
                         </el-col>
                         <el-col :span="6">
                             <el-form-item label="所属部门:" prop="departmentId">
-                                <el-popover
-                                    placement="right"
-                                    title="请选择部门"
-                                    width="200"
-                                    trigger="manual"
-                                    v-model="popVisible">
-                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"
-                                             @node-click="handleNodeClick"></el-tree>
-                                    <div slot="reference"
-                                         style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"
-                                         @click="showDepView">{{ inputDepName }}
-                                    </div>
-                                </el-popover>
+<!--                                <el-popover-->
+<!--                                    placement="right"-->
+<!--                                    title="请选择部门"-->
+<!--                                    width="200"-->
+<!--                                    trigger="manual"-->
+<!--                                    v-model="popVisible">-->
+<!--                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"-->
+<!--                                             @node-click="handleNodeClick"></el-tree>-->
+<!--                                    <div slot="reference"-->
+<!--                                         style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"-->
+<!--                                         @click="showDepView">{{ inputDepName }}-->
+<!--                                    </div>-->
+<!--                                </el-popover>-->
                             </el-form-item>
                         </el-col>
                         <el-col :span="7">
@@ -331,7 +331,7 @@
                                 <el-select v-model="emp.tiptopDegree" placeholder="学历" size="mini"
                                            style="width: 150px;">
                                     <el-option
-                                        v-for="item in options"
+                                        v-for="item in tiptopDegrees"
                                         :key="item"
                                         :label="item"
                                         :value="item">
@@ -449,6 +449,11 @@ export default {
             size: 10,
             keyword: '',
             dialogVisible: false,
+            nations: [],
+            jobLevels: [],
+            politicsStatus: [],
+            positions:[],
+            tiptopDegrees:['博士','硕士','本科','大专','高中','初中','小学','其他'],
             emp: {
                 name: "张灵",
                 gender: "男",
@@ -497,9 +502,51 @@ export default {
         }
     },
     mounted() {
+        this.initData();
         this.initEmps();
+        this.initPositions();
     },
     methods: {
+        initPositions() {
+            this.getRequest("/emp/basic/positions").then(resp => {
+                if (resp) {
+                    console.log(resp);
+                    this.positions = resp;
+                }
+            })
+        },
+        initData() {
+            if (!window.sessionStorage.getItem("nations")) {
+                this.getRequest("/emp/basic/nations").then(resp => {
+                    if (resp) {
+                        this.nations = resp;
+                        window.sessionStorage.setItem("nations", JSON.stringify(resp));
+                    }
+                })
+            }else{
+                this.nations = JSON.parse(window.sessionStorage.getItem("nations"));
+            }
+            if (!window.sessionStorage.getItem("jobLevels")) {
+                this.getRequest("/emp/basic/joblevels").then(resp => {
+                    if (resp) {
+                        this.jobLevels = resp;
+                        window.sessionStorage.setItem("jobLevels", JSON.stringify(resp));
+                    }
+                })
+            }else{
+                this.jobLevels = JSON.parse(window.sessionStorage.getItem("jobLevels"));
+            }
+            if (!window.sessionStorage.getItem("politicsStatus")) {
+                this.getRequest("/emp/basic/politicsstatus").then(resp => {
+                    if (resp) {
+                        this.politicsStatus = resp;
+                        window.sessionStorage.setItem("politicsStatus", JSON.stringify(resp));
+                    }
+                })
+            }else {
+                this.politicsStatus = JSON.parse(window.sessionStorage.getItem("politicsStatus"));
+            }
+        },
         initEmps() {
             this.loading = true;
             this.getRequest("/emp/basic/?page=" + this.page + "&limit=" + this.size + "&keyword=" + this.keyword).then(resp => {
@@ -519,6 +566,7 @@ export default {
             this.initEmps();
         },
         showAddEmpView() {
+
             this.dialogVisible = true;
         }
     }
