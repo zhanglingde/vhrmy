@@ -297,19 +297,19 @@
                         </el-col>
                         <el-col :span="6">
                             <el-form-item label="所属部门:" prop="departmentId">
-<!--                                <el-popover-->
-<!--                                    placement="right"-->
-<!--                                    title="请选择部门"-->
-<!--                                    width="200"-->
-<!--                                    trigger="manual"-->
-<!--                                    v-model="popVisible">-->
-<!--                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"-->
-<!--                                             @node-click="handleNodeClick"></el-tree>-->
-<!--                                    <div slot="reference"-->
-<!--                                         style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"-->
-<!--                                         @click="showDepView">{{ inputDepName }}-->
-<!--                                    </div>-->
-<!--                                </el-popover>-->
+                                <!--                                <el-popover-->
+                                <!--                                    placement="right"-->
+                                <!--                                    title="请选择部门"-->
+                                <!--                                    width="200"-->
+                                <!--                                    trigger="manual"-->
+                                <!--                                    v-model="popVisible">-->
+                                <!--                                    <el-tree default-expand-all :data="allDeps" :props="defaultProps"-->
+                                <!--                                             @node-click="handleNodeClick"></el-tree>-->
+                                <!--                                    <div slot="reference"-->
+                                <!--                                         style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"-->
+                                <!--                                         @click="showDepView">{{ inputDepName }}-->
+                                <!--                                    </div>-->
+                                <!--                                </el-popover>-->
                             </el-form-item>
                         </el-col>
                         <el-col :span="7">
@@ -452,8 +452,8 @@ export default {
             nations: [],
             jobLevels: [],
             politicsStatus: [],
-            positions:[],
-            tiptopDegrees:['博士','硕士','本科','大专','高中','初中','小学','其他'],
+            positions: [],
+            tiptopDegrees: ['博士', '硕士', '本科', '大专', '高中', '初中', '小学', '其他'],
             emp: {
                 name: "张灵",
                 gender: "男",
@@ -504,7 +504,7 @@ export default {
     mounted() {
         this.initData();
         this.initEmps();
-        this.initPositions();
+
     },
     methods: {
         initPositions() {
@@ -523,7 +523,7 @@ export default {
                         window.sessionStorage.setItem("nations", JSON.stringify(resp));
                     }
                 })
-            }else{
+            } else {
                 this.nations = JSON.parse(window.sessionStorage.getItem("nations"));
             }
             if (!window.sessionStorage.getItem("jobLevels")) {
@@ -533,7 +533,7 @@ export default {
                         window.sessionStorage.setItem("jobLevels", JSON.stringify(resp));
                     }
                 })
-            }else{
+            } else {
                 this.jobLevels = JSON.parse(window.sessionStorage.getItem("jobLevels"));
             }
             if (!window.sessionStorage.getItem("politicsStatus")) {
@@ -543,7 +543,7 @@ export default {
                         window.sessionStorage.setItem("politicsStatus", JSON.stringify(resp));
                     }
                 })
-            }else {
+            } else {
                 this.politicsStatus = JSON.parse(window.sessionStorage.getItem("politicsStatus"));
             }
         },
@@ -566,8 +566,16 @@ export default {
             this.initEmps();
         },
         showAddEmpView() {
-
+            this.initPositions();
+            this.getMaxWorkId();
             this.dialogVisible = true;
+        },
+        getMaxWorkId() {
+            this.getRequest("/emp/basic/maxWorkId").then(resp => {
+                if (resp) {
+                    this.emp.workId = resp.data;
+                }
+            })
         }
     }
 }

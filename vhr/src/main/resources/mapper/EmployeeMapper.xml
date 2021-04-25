@@ -271,4 +271,8 @@
             </if>
         </where>
     </select>
+
+    <select id="maxWorkId" resultType="java.lang.Integer">
+        select max(work_id) from employee
+    </select>
 </mapper>

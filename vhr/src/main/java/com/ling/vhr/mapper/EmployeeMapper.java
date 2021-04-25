@@ -36,4 +36,10 @@ public interface EmployeeMapper {
      * @return
      */
     Integer insertSelective(Employee employee);
+
+    /**
+     * 获取最大工号
+     * @return
+     */
+    Integer maxWorkId();
 }

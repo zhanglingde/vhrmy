@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -45,15 +46,15 @@ public class EmployeeBasicController {
 
     @ApiOperation(value = "获取员工基本信息")
     @GetMapping("/")
-    public PageUtils<Employee> getEmployeeByPage(String keyword,CommonParams params) {
-        return employeeService.getEmployeeByPage(keyword,params);
+    public PageUtils<Employee> getEmployeeByPage(String keyword, CommonParams params) {
+        return employeeService.getEmployeeByPage(keyword, params);
     }
 
     @ApiOperation(value = "添加员工")
     @PostMapping("/")
     public CommonResult addEmployee(@RequestBody Employee employee) {
         if (employeeService.addEmployee(employee) == 1) {
-            return CommonResult.success(null,"添加成功!");
+            return CommonResult.success(null, "添加成功!");
         }
         return CommonResult.error("添加失败!");
     }
@@ -81,5 +82,14 @@ public class EmployeeBasicController {
     public List<Position> getAllPositions() {
         return positionService.list();
     }
-    
+
+    @ApiOperation(value = "获取最大工号")
+    @GetMapping("/maxWorkId")
+    public CommonResult<String> maxWorkId() {
+        Integer maxWorkId = employeeService.maxWorkId();
+        // 格式化成8位
+        String format = String.format("%08d", maxWorkId + 1);
+        return CommonResult.success(format, "查询成功");
+    }
+
 }

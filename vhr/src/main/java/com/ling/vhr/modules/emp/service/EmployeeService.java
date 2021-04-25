@@ -43,4 +43,8 @@ public class EmployeeService {
     public Integer addEmployee(Employee employee) {
         return employeeMapper.insertSelective(employee);
     }
+
+    public Integer maxWorkId() {
+        return employeeMapper.maxWorkId();
+    }
 }
