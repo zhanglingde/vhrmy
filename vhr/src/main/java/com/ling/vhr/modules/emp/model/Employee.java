@@ -43,7 +43,7 @@ public class Employee implements Serializable {
     private String idCard;
 
     @ApiModelProperty("婚姻状况")
-    private Object wedlock;
+    private String wedlock;
 
     @ApiModelProperty("民族")
     private Integer nationId;
@@ -76,7 +76,7 @@ public class Employee implements Serializable {
     private String engageForm;
 
     @ApiModelProperty("最高学历")
-    private Object tiptopDegree;
+    private String tiptopDegree;
 
     @ApiModelProperty("所属专业")
     private String specialty;
@@ -89,13 +89,13 @@ public class Employee implements Serializable {
     private Date beginDate;
 
     @ApiModelProperty("在职状态")
-    private Object workState;
+    private String workState;
 
     @ApiModelProperty("工号")
     private String workId;
 
     @ApiModelProperty("合同期限")
-    private Object contractTerm;
+    private Double contractTerm;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("转正日期")
