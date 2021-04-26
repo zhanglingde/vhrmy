@@ -15,13 +15,13 @@
                 </el-button>
             </div>
             <div>
-                <el-button type="success">
+                <el-button type="success" @click="exportData">
                     <i class="fa fa-level-up" aria-hidden="true"></i>
-                    导入数据
+                    导出数据
                 </el-button>
                 <el-button type="success">
                     <i class="fa fa-level-down" aria-hidden="true"></i>
-                    导出数据
+                    导入数据
                 </el-button>
                 <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView">添加员工</el-button>
             </div>
@@ -50,6 +50,12 @@
                         align="left"
                         prop="workId"
                         label="工号"
+                        width="85">
+                </el-table-column>
+                <el-table-column
+                        align="left"
+                        prop="gender"
+                        label="性别"
                         width="85">
                 </el-table-column>
                 <el-table-column
@@ -703,6 +709,10 @@
                         message: '已取消删除'
                     });
                 });
+            },
+            exportData() {
+                let url = '/employee/basic/export'
+                window.open(url,'_parent');
             }
 
         }
