@@ -138,10 +138,8 @@ public class EmployeeBasicController {
     @PostMapping("/import")
     @ApiOperation(value = "导入数据")
     public CommonResult importData(MultipartFile file) throws IOException {
-        List<Employee> list = POIUtils.excel2Employee(file,nationService.getAllNations(),politicsStatusService.getAllPoliticsStatus(),jobLevelService.list(),positionService.list(),departmentService.selectAllDepartment());
-        for (Employee employee : list) {
-            System.out.println("employee = " + employee);
-        }
+        List<Employee> list = POIUtils.excel2Employee(file,nationService.getAllNations(),politicsStatusService.getAllPoliticsStatus(),jobLevelService.list(),positionService.list(),departmentService.getAllDeptWithOutChildren());
+        employeeService.batchAddEmployee(list);
         return CommonResult.success();
     }
 

@@ -42,4 +42,9 @@
         from department
         where parent_id = #{parentId}
     </select>
+
+    <select id="getAllDeptWithOutChildren" resultType="com.ling.vhr.modules.system.basic.model.Department">
+        select *
+        from department
+    </select>
 </mapper>

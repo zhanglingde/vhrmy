@@ -56,4 +56,10 @@ public interface EmployeeMapper {
      * @return
      */
     Integer updateByPrimaryKeySelective(Employee employee);
+
+    /**
+     * 批量添加
+     * @param list
+     */
+    void batchInsert(@Param("list") List<Employee> list);
 }

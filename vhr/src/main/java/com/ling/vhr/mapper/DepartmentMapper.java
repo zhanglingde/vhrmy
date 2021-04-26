@@ -32,4 +32,10 @@ public interface DepartmentMapper {
      * @param department
      */
     void deleteDept(Department department);
+
+    /**
+     * 获取所有部门
+     * @return
+     */
+    List<Department> getAllDeptWithOutChildren();
 }

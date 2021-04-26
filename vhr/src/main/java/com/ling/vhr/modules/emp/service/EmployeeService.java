@@ -101,4 +101,12 @@ public class EmployeeService {
         List<Employee> list = employeeMapper.selectEmployeeByPage(null, null, null);
         return POIUtils.employee2Excel(list);
     }
+
+    /**
+     * 批量添加导入员工
+     * @param list
+     */
+    public void batchAddEmployee(List<Employee> list) {
+        employeeMapper.batchInsert(list);
+    }
 }

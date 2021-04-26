@@ -234,6 +234,67 @@
         </trim>
     </insert>
 
+    <insert id="batchInsert">
+        insert into employee(name,
+                             gender,
+                             birthday,
+                             id_card,
+                             wedlock,
+                             nation_id,
+                             native_place,
+                             politic_id,
+                             email,
+                             phone,
+                             address,
+                             department_id,
+                             job_level_id,
+                             pos_id,
+                             engage_form,
+                             tiptop_degree,
+                             specialty,
+                             school,
+                             begin_date,
+                             work_state,
+                             work_id,
+                             contract_term,
+                             conversion_time,
+                             not_work_date,
+                             begin_contract,
+                             end_contract,
+                             work_age)
+        values
+        <foreach collection="list" item="emp" separator=",">
+            (#{emp.name},
+            #{emp.gender},
+            #{emp.birthday},
+            #{emp.idCard},
+            #{emp.wedlock},
+            #{emp.nationId},
+            #{emp.nativePlace},
+            #{emp.politicId},
+            #{emp.email},
+            #{emp.phone},
+            #{emp.address},
+            #{emp.departmentId},
+            #{emp.jobLevelId},
+            #{emp.posId},
+            #{emp.engageForm},
+            #{emp.tiptopDegree},
+            #{emp.specialty},
+            #{emp.school},
+            #{emp.beginDate},
+            #{emp.workState},
+            #{emp.workId},
+            #{emp.contractTerm},
+            #{emp.conversionTime},
+            #{emp.notWorkDate},
+            #{emp.beginContract},
+            #{emp.endContract},
+            #{emp.workAge}
+             )
+        </foreach>
+    </insert>
+
     <update id="updateByPrimaryKeySelective">
         update employee
         <set>

@@ -276,14 +276,14 @@ public class POIUtils {
                                         break;
                                     case 7:
                                         int nationIndex = nations.indexOf(new Nation(cellValue));
-                                        employee.setNationId(nationIndex);
+                                        employee.setNationId(nations.get(nationIndex).getId());
                                         break;
                                     case 8:
                                         employee.setNativePlace(cellValue);
                                         break;
                                     case 9:
-                                        int politicsId = politicsStatuses.indexOf(new PoliticsStatus(cellValue));
-                                        employee.setPoliticId(politicsId);
+                                        int politicsIndex = politicsStatuses.indexOf(new PoliticsStatus(cellValue));
+                                        employee.setPoliticId(politicsStatuses.get(politicsIndex).getId());
                                         break;
                                     case 10:
                                         employee.setEmail(cellValue);
@@ -295,16 +295,16 @@ public class POIUtils {
                                         employee.setAddress(cellValue);
                                         break;
                                     case 13:
-                                        int departmentId = departments.indexOf(new Department(cellValue));
-                                        employee.setDepartmentId(departmentId);
+                                        int departmentIndex = departments.indexOf(new Department(cellValue));
+                                        employee.setDepartmentId(departments.get(departmentIndex).getId());
                                         break;
                                     case 14:
-                                        int jobLevelId = jobLevels.indexOf(new JobLevel(cellValue));
-                                        employee.setJobLevelId(jobLevelId);
+                                        int jobLevelIndex = jobLevels.indexOf(new JobLevel(cellValue));
+                                        employee.setJobLevelId(jobLevels.get(jobLevelIndex).getId());
                                         break;
                                     case 15:
                                         int positionIndex = positions.indexOf(new Position(cellValue));
-                                        employee.setPosId(positionIndex);
+                                        employee.setPosId(positions.get(positionIndex).getId());
                                         break;
                                     case 16:
                                         employee.setEngageForm(cellValue);

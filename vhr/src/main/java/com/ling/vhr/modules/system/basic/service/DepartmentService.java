@@ -26,12 +26,28 @@ public class DepartmentService {
         return departmentMapper.selectAllDepartment(-1);
     }
 
+    /**
+     * 添加部门
+     * @param department
+     */
     public void addDept(Department department) {
         department.setEnabled(1);
         departmentMapper.addDept(department);
     }
 
+    /**
+     * 删除部门
+     * @param department
+     */
     public void deleteDept(Department department) {
         departmentMapper.deleteDept(department);
+    }
+
+    /**
+     * 获取所有部门（非树形结构）
+     * @return
+     */
+    public List<Department> getAllDeptWithOutChildren() {
+        return departmentMapper.getAllDeptWithOutChildren();
     }
 }
