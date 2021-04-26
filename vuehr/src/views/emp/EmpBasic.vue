@@ -1,39 +1,138 @@
 <template>
     <div>
-        <div style="display: flex;justify-content: space-between">
-            <div>
-                <el-input placeholder="通过员工名搜索员工，回车搜索..." prefix-icon="el-icon-search"
-                          clearable
-                          @clear="initEmps"
-                          v-model="keyword"
-                          @keydown.enter.native="initEmps"
-                          style="width: 300px;margin-right: 10px;"></el-input>
-                <el-button icon="el-icon-search" type="primary" @click="initEmps">搜索</el-button>
-                <el-button type="primary">
-                    <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-                    高级搜索
-                </el-button>
-            </div>
-            <div>
-                <el-upload
-                    :on-success="onSuccess"
-                    :on-error="onError"
-                    :before-upload="beforeUpload"
-                    :disabled="importDataDisabled"
-                    :show-file-list="false"
-                    style="display: inline-flex;margin-right: 10px;"
-                    action="/employee/basic/import">
-                    <el-button :disabled="importDataDisabled" type="success" :icon="importDataBtnIcon" >
-<!--                        <i class="fa fa-level-down" aria-hidden="true"></i>-->
-                        {{ importDataBtnText }}
+        <div>
+            <div style="display: flex;justify-content: space-between">
+                <div>
+                    <el-input placeholder="通过员工名搜索员工，回车搜索..." prefix-icon="el-icon-search"
+                              clearable
+                              @clear="initEmps"
+                              v-model="keyword"
+                              :disabled="showAdvanceSearch"
+                              @keydown.enter.native="initEmps"
+                              style="width: 300px;margin-right: 10px;"></el-input>
+                    <el-button icon="el-icon-search" type="primary" @click="initEmps" :disabled="showAdvanceSearch">搜索</el-button>
+                    <el-button type="primary" @click="showAdvanceSearch = !showAdvanceSearch">
+                        <i :class="showAdvanceSearch?'fa fa-angle-double-up':'fa fa-angle-double-down'"
+                           aria-hidden="true"></i>
+                        高级搜索
                     </el-button>
-                </el-upload>
-                <el-button type="success" icon="el-icon-download" @click="exportData">
-<!--                    <i class="fa fa-level-up" aria-hidden="true"></i>-->
-                    导出数据
-                </el-button>
-                <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView">添加员工</el-button>
+                </div>
+                <div>
+                    <el-upload
+                            :on-success="onSuccess"
+                            :on-error="onError"
+                            :before-upload="beforeUpload"
+                            :disabled="importDataDisabled"
+                            :show-file-list="false"
+                            style="display: inline-flex;margin-right: 10px;"
+                            action="/employee/basic/import">
+                        <el-button :disabled="importDataDisabled" type="success" :icon="importDataBtnIcon">
+                            <!--                        <i class="fa fa-level-down" aria-hidden="true"></i>-->
+                            {{ importDataBtnText }}
+                        </el-button>
+                    </el-upload>
+                    <el-button type="success" icon="el-icon-download" @click="exportData">
+                        <!--                    <i class="fa fa-level-up" aria-hidden="true"></i>-->
+                        导出数据
+                    </el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView">添加员工</el-button>
+                </div>
             </div>
+            <transition name="slide-fade">
+                <div v-show="showAdvanceSearch"
+                 style="border: 1px solid #409eff;border-radius: 5px;box-sizing: border-box;padding: 5px 0px;margin: 10px 0px;">
+                <el-row>
+                    <el-col :span="5">
+                        政治面貌：
+                        <el-select v-model="emp.politicId" placeholder="政治面貌" size="mini"
+                                   style="width: 130px;">
+                            <el-option
+                                    v-for="item in politicsStatus"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :span="4">
+                        民族:
+                        <el-select v-model="emp.nationId" placeholder="民族" size="mini"
+                                   style="width: 130px;">
+                            <el-option
+                                    v-for="item in nations"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :span="4">
+                        职位:
+                        <el-select v-model="emp.posId" placeholder="民族" size="mini"
+                                   style="width: 130px;">
+                            <el-option
+                                    v-for="item in positions"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :span="4">
+                        职称:
+                        <el-select v-model="emp.jobLevelId" placeholder="民族" size="mini"
+                                   style="width: 130px;">
+                            <el-option
+                                    v-for="item in jobLevels"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-col>
+                    <el-col :span="7">
+                        聘用形式：
+                        <el-radio-group v-model="emp.engageForm">
+                            <el-radio label="劳动合同">劳动合同</el-radio>
+                            <el-radio label="劳务合同">劳务合同</el-radio>
+                        </el-radio-group>
+                    </el-col>
+                </el-row>
+                <el-row style="margin-top: 10px;">
+                    <el-col :span="5">
+                        所属部门：
+                        <el-popover
+                                placement="right"
+                                title="请选择部门"
+                                width="200"
+                                trigger="manual"
+                                v-model="popVisible">
+                            <el-tree default-expand-all :data="allDeps" :props="defaultProps"
+                                     @node-click="handleNodeClick"></el-tree>
+                            <div slot="reference"
+                                 style="width: 130px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"
+                                 @click="showDepView">{{ inputDepName }}
+                            </div>
+                        </el-popover>
+                    </el-col>
+                    <el-col :span="10">
+                        入职日期：
+                        <el-date-picker
+                                size="mini"
+                                v-model="value1"
+                                type="daterange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                        </el-date-picker>
+                    </el-col>
+                    <el-col :span="5" offset="4">
+                        <el-button size="mini">取消</el-button>
+                        <el-button size="mini" type="primary" icon="el-icon-search">搜索</el-button>
+                    </el-col>
+                </el-row>
+            </div>
+            </transition>
         </div>
         <div style="margin-top: 10px;">
             <el-table
@@ -471,6 +570,7 @@
                 inputDepName: '',
                 dialogVisible: false,
                 popVisible: false,
+                showAdvanceSearch: false,
                 nations: [],
                 jobLevels: [],
                 politicsStatus: [],
@@ -548,7 +648,7 @@
         mounted() {
             this.initData();
             this.initEmps();
-
+            this.initPositions();
         },
         methods: {
             emptyEmp() {
@@ -652,7 +752,7 @@
             showAddEmpView() {
                 this.title = "添加员工";
                 this.emptyEmp();
-                this.initPositions();
+
                 this.getMaxWorkId();
 
                 this.dialogVisible = true;
@@ -724,7 +824,7 @@
             },
             exportData() {
                 let url = '/employee/basic/export'
-                window.open(url,'_parent');
+                window.open(url, '_parent');
             },
             beforeUpload() {
                 this.importDataBtnText = '正在上传';
@@ -746,6 +846,18 @@
     }
 </script>
 
-<style scoped>
-
+<style >
+    /* 可以设置不同的进入和离开动画 */
+    /* 设置持续时间和动画函数 */
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active for below version 2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
+    }
 </style>
