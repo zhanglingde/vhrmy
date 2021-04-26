@@ -15,13 +15,22 @@
                 </el-button>
             </div>
             <div>
-                <el-button type="success" @click="exportData">
-                    <i class="fa fa-level-up" aria-hidden="true"></i>
+                <el-upload
+                    :on-success="onSuccess"
+                    :on-error="onError"
+                    :before-upload="beforeUpload"
+                    :disabled="importDataDisabled"
+                    :show-file-list="false"
+                    style="display: inline-flex;margin-right: 10px;"
+                    action="/employee/basic/import">
+                    <el-button :disabled="importDataDisabled" type="success" :icon="importDataBtnIcon" >
+<!--                        <i class="fa fa-level-down" aria-hidden="true"></i>-->
+                        {{ importDataBtnText }}
+                    </el-button>
+                </el-upload>
+                <el-button type="success" icon="el-icon-download" @click="exportData">
+<!--                    <i class="fa fa-level-up" aria-hidden="true"></i>-->
                     导出数据
-                </el-button>
-                <el-button type="success">
-                    <i class="fa fa-level-down" aria-hidden="true"></i>
-                    导入数据
                 </el-button>
                 <el-button type="primary" icon="el-icon-plus" @click="showAddEmpView">添加员工</el-button>
             </div>
@@ -450,6 +459,9 @@
         data() {
             return {
                 title: '',
+                importDataBtnText: '导入数据',
+                importDataBtnIcon: 'el-icon-upload2',
+                importDataDisabled: false,
                 emps: [],
                 loading: false,
                 total: 0,
@@ -713,6 +725,21 @@
             exportData() {
                 let url = '/employee/basic/export'
                 window.open(url,'_parent');
+            },
+            beforeUpload() {
+                this.importDataBtnText = '正在上传';
+                this.importDataBtnIcon = 'el-icon-loading';
+                this.importDataDisabled = true;
+            },
+            onSuccess(response, file, fileList) {
+                this.importDataBtnText = '导入数据';
+                this.importDataBtnIcon = 'el-icon-upload2';
+                this.importDataDisabled = false;
+            },
+            onError(err, file, fileList) {
+                this.importDataBtnText = '导入数据';
+                this.importDataBtnIcon = 'el-icon-upload2';
+                this.importDataDisabled = false;
             }
 
         }

@@ -20,8 +20,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -124,9 +127,18 @@ public class EmployeeBasicController {
         return CommonResult.error("更新失败！");
     }
 
+    @ApiOperation(value = "导出数据")
     @GetMapping("/export")
     public ResponseEntity<byte[]> exportData() {
         return employeeService.exportData();
+    }
+
+
+    @PostMapping("/import")
+    @ApiOperation(value = "导入数据")
+    public CommonResult importData(MultipartFile file) throws IOException {
+        file.transferTo(new File("E:\\员工表.xls"));
+        return CommonResult.success();
     }
 
 }
