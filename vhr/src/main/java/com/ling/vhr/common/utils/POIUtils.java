@@ -1,6 +1,11 @@
 package com.ling.vhr.common.utils;
 
 import com.ling.vhr.modules.emp.model.Employee;
+import com.ling.vhr.modules.emp.model.Nation;
+import com.ling.vhr.modules.emp.model.PoliticsStatus;
+import com.ling.vhr.modules.system.basic.model.Department;
+import com.ling.vhr.modules.system.basic.model.JobLevel;
+import com.ling.vhr.modules.system.basic.model.Position;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
 import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hssf.usermodel.*;
@@ -10,10 +15,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -207,5 +215,144 @@ public class POIUtils {
             e.printStackTrace();
         }
         return new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.CREATED);
+    }
+
+    /**
+     * Excel 解析成 员工数据集合
+     * @param file
+     * @param nations
+     * @param politicsStatuses
+     * @param jobLevels
+     * @param positions
+     * @param departments
+     * @return
+     */
+    public static List<Employee> excel2Employee(MultipartFile file, List<Nation> nations, List<PoliticsStatus> politicsStatuses, List<JobLevel> jobLevels, List<Position> positions, List<Department> departments) {
+        List<Employee> list = new ArrayList<>();
+        Employee employee = null;
+        try {
+            //1. 创建一个 workbook 对象
+            HSSFWorkbook workbook = new HSSFWorkbook(file.getInputStream());
+            //2. 获取 workbook 中表单的数量
+            int numberOfSheets = workbook.getNumberOfSheets();
+            for (int i = 0; i < numberOfSheets; i++) {
+                //3. 获取表单
+                HSSFSheet sheet = workbook.getSheetAt(i);
+                //4. 获取表单中的行数
+                int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
+                for (int j = 0; j < physicalNumberOfRows; j++) {
+                    // 5. 跳过标题行
+                    if (j == 0) {
+                        continue;
+                    }
+                    HSSFRow row = sheet.getRow(j);
+                    if (row == null || row.getCell(0) == null) {
+                        continue;       // 防止数据中间有空行
+                    }
+
+                    //7. 获取列数
+                    int physicalNumberOfCells = row.getPhysicalNumberOfCells();
+                    employee = new Employee();
+                    for (int k = 0; k < physicalNumberOfCells; k++) {
+                        HSSFCell cell = row.getCell(k);
+                        switch (cell.getCellType()) {
+                            case STRING:
+                                String cellValue = cell.getStringCellValue();
+                                switch (k) {
+                                    case 1:
+                                        employee.setName(cellValue);
+                                        break;
+                                    case 2:
+                                        employee.setWorkId(cellValue);
+                                        break;
+                                    case 3:
+                                        employee.setGender(cellValue);
+                                        break;
+                                    case 5:
+                                        employee.setIdCard(cellValue);
+                                        break;
+                                    case 6:
+                                        employee.setWedlock(cellValue);
+                                        break;
+                                    case 7:
+                                        int nationIndex = nations.indexOf(new Nation(cellValue));
+                                        employee.setNationId(nationIndex);
+                                        break;
+                                    case 8:
+                                        employee.setNativePlace(cellValue);
+                                        break;
+                                    case 9:
+                                        int politicsId = politicsStatuses.indexOf(new PoliticsStatus(cellValue));
+                                        employee.setPoliticId(politicsId);
+                                        break;
+                                    case 10:
+                                        employee.setEmail(cellValue);
+                                        break;
+                                    case 11:
+                                        employee.setPhone(cellValue);
+                                        break;
+                                    case 12:
+                                        employee.setAddress(cellValue);
+                                        break;
+                                    case 13:
+                                        int departmentId = departments.indexOf(new Department(cellValue));
+                                        employee.setDepartmentId(departmentId);
+                                        break;
+                                    case 14:
+                                        int jobLevelId = jobLevels.indexOf(new JobLevel(cellValue));
+                                        employee.setJobLevelId(jobLevelId);
+                                        break;
+                                    case 15:
+                                        int positionIndex = positions.indexOf(new Position(cellValue));
+                                        employee.setPosId(positionIndex);
+                                        break;
+                                    case 16:
+                                        employee.setEngageForm(cellValue);
+                                        break;
+                                    case 17:
+                                        employee.setTiptopDegree(cellValue);
+                                        break;
+                                    case 18:
+                                        employee.setSpecialty(cellValue);
+                                        break;
+                                    case 19:
+                                        employee.setSchool(cellValue);
+                                        break;
+                                    case 20:
+                                        employee.setWorkState(cellValue);
+                                        break;
+                                }
+                                break;
+                            default:{
+                                switch (k) {
+                                    case 4:
+                                        employee.setBirthday(cell.getDateCellValue());
+                                        break;
+                                    case 21:
+                                        employee.setBeginDate(cell.getDateCellValue());
+                                        break;
+                                    case 22:
+                                        employee.setConversionTime(cell.getDateCellValue());
+                                        break;
+                                    case 23:
+                                        employee.setBeginContract(cell.getDateCellValue());
+                                        break;
+                                    case 24:
+                                        employee.setEndContract(cell.getDateCellValue());
+                                        break;
+                                }
+
+                            }
+                            break;
+                        }
+                    }
+                    list.add(employee);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

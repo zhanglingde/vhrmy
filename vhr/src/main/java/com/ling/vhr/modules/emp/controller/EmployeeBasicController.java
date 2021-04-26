@@ -2,6 +2,7 @@ package com.ling.vhr.modules.emp.controller;
 
 import com.ling.vhr.common.utils.CommonParams;
 import com.ling.vhr.common.utils.CommonResult;
+import com.ling.vhr.common.utils.POIUtils;
 import com.ling.vhr.common.utils.PageUtils;
 import com.ling.vhr.modules.emp.model.Employee;
 import com.ling.vhr.modules.emp.model.Nation;
@@ -137,7 +138,10 @@ public class EmployeeBasicController {
     @PostMapping("/import")
     @ApiOperation(value = "导入数据")
     public CommonResult importData(MultipartFile file) throws IOException {
-        file.transferTo(new File("E:\\员工表.xls"));
+        List<Employee> list = POIUtils.excel2Employee(file,nationService.getAllNations(),politicsStatusService.getAllPoliticsStatus(),jobLevelService.list(),positionService.list(),departmentService.selectAllDepartment());
+        for (Employee employee : list) {
+            System.out.println("employee = " + employee);
+        }
         return CommonResult.success();
     }
 

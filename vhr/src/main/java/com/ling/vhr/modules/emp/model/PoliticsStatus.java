@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import lombok.*;
 
@@ -22,5 +23,20 @@ public class PoliticsStatus implements Serializable {
     private Integer id;
 
     private String name;
+
+    public PoliticsStatus() {
+    }
+
+    public PoliticsStatus(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PoliticsStatus that = (PoliticsStatus) o;
+        return name.equals(that.name);
+    }
 
 }

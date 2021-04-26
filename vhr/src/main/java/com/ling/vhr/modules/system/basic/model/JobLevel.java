@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import lombok.*;
 
@@ -32,5 +33,20 @@ public class JobLevel implements Serializable {
     private Date createDate;
 
     private Integer enabled;
+
+    public JobLevel() {
+    }
+
+    public JobLevel(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JobLevel jobLevel = (JobLevel) o;
+        return Objects.equals(name, jobLevel.name);
+    }
 
 }

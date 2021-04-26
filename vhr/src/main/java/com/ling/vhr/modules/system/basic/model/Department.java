@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.*;
 
@@ -40,5 +41,20 @@ public class Department implements Serializable {
     List<Department> children = new ArrayList<>();
 
     private Integer result;
+
+    public Department() {
+    }
+
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(departmentName, that.departmentName);
+    }
 
 }

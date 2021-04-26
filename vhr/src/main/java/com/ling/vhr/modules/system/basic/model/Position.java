@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import lombok.*;
 
@@ -32,5 +33,20 @@ public class Position implements Serializable {
     private Date createDate;
 
     private Integer enabled;
+
+    public Position(String name) {
+        this.name = name;
+    }
+
+    public Position() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return Objects.equals(name, position.name);
+    }
 
 }

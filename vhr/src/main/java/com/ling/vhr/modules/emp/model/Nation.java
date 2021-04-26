@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import lombok.*;
 
@@ -22,5 +23,25 @@ public class Nation implements Serializable {
     private Integer id;
 
     private String name;
+
+    public Nation() {
+    }
+
+    public Nation(String name) {
+        this.name = name;
+    }
+
+    /**
+     * name相同对象就相同
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Nation nation = (Nation) o;
+        return name.equals(nation.name);
+    }
 
 }
