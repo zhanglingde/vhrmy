@@ -58,7 +58,7 @@
         </association>
     </resultMap>
 
-    <insert id="insertSelective">
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
         insert into employee
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -469,5 +469,27 @@
 
     <select id="maxWorkId" resultType="java.lang.Integer">
         select max(work_id) from employee
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="AllEmployeeInfo">
+        select e.*,
+               d.id as did,
+               d.department_name,
+               n.id as nid,
+               n.name as nation_name,
+               ps.id as politics_status_id,
+               ps.name as politics_status_name,
+               jl.id as jl_id,
+               jl.name as job_level_name,
+               p.id as position_id,
+               p.name as position_name
+
+        from employee e,department d,nation n,politics_status ps,job_level jl,`position` p
+        where e.department_id = d.id
+          and e.nation_id = n.id
+          and e.politic_id = ps.id
+          and e.job_level_id =jl.id
+          and e.pos_id = p.id
+          and e.id = #{id}
     </select>
 </mapper>

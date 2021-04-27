@@ -62,4 +62,11 @@ public interface EmployeeMapper {
      * @param list
      */
     void batchInsert(@Param("list") List<Employee> list);
+
+    /**
+     * 查询员工详情
+     * @param id
+     * @return
+     */
+    Employee selectByPrimaryKey(Integer id);
 }

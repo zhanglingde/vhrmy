@@ -426,7 +426,7 @@
                                              @node-click="handleNodeClick"></el-tree>
                                     <div slot="reference"
                                          style="width: 150px;display: inline-flex;font-size: 13px;border: 1px solid #dedede;height: 26px;border-radius: 5px;cursor: pointer;align-items: center;padding-left: 8px;box-sizing: border-box"
-                                         @click="showDepView2">{{ inputDepName }}
+                                         @click="showDepView">{{ inputDepName }}
                                     </div>
                                 </el-popover>
                             </el-form-item>

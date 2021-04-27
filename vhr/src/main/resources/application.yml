@@ -7,6 +7,11 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: zhangling03
+  rabbitmq:
+    host: 192.168.191.128
+    port: 5672
+    username: guest
+    password: guest
 
 mybatis:
   # 映射mapper.xml 指定mapper.xml映射文件的位置

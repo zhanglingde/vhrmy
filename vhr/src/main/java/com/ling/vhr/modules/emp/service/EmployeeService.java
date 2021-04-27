@@ -6,6 +6,7 @@ import com.ling.vhr.common.utils.POIUtils;
 import com.ling.vhr.common.utils.PageUtils;
 import com.ling.vhr.mapper.EmployeeMapper;
 import com.ling.vhr.modules.emp.model.Employee;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class EmployeeService {
 
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     SimpleDateFormat yearDateFormat = new SimpleDateFormat("yyyy");
     SimpleDateFormat monthDateFormat = new SimpleDateFormat("MM");
@@ -63,7 +67,13 @@ public class EmployeeService {
         Double month = (Double.valueOf(yearDateFormat.format(endContract)) - Double.valueOf(yearDateFormat.format(beginContract))) * 12 +
                 (Double.valueOf(monthDateFormat.format(endContract)) - Double.valueOf(monthDateFormat.format(beginContract)));
         employee.setContractTerm(Double.valueOf(decimalFormat.format(month / 12)));
-        return employeeMapper.insertSelective(employee);
+        Integer result = employeeMapper.insertSelective(employee);
+        if (result == 1) {
+            Employee emp = employeeMapper.selectByPrimaryKey(employee.getId());
+            // TODO 存储消息日志
+            rabbitTemplate.convertAndSend("ling-direct-exchange","direct",emp);
+        }
+        return result;
     }
 
     /**

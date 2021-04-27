@@ -1,0 +1,23 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: mail-server
+  mail:
+    username: 1492174237@qq.com
+    password: tljsycznrcfsjbeh
+    port: 465
+    host: smtp.qq.com
+    protocol: smtp
+    properties:
+      mail:
+        debug: true
+        smtp:
+          ssl:
+            enable: true
+  rabbitmq:
+    host: 192.168.191.128
+    port: 5672
+    username: guest
+    password: guest
