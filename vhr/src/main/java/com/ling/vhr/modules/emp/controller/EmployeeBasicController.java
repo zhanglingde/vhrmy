@@ -58,8 +58,8 @@ public class EmployeeBasicController {
 
     @ApiOperation(value = "获取员工基本信息")
     @GetMapping("/")
-    public PageUtils<Employee> getEmployeeByPage(String keyword, CommonParams params) {
-        return employeeService.getEmployeeByPage(keyword, params);
+    public PageUtils<Employee> getEmployeeByPage(Employee employee, CommonParams params) {
+        return employeeService.getEmployeeByPage(employee, params);
     }
 
     @ApiOperation(value = "添加员工")

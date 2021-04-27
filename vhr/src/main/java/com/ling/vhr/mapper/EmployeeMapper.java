@@ -20,7 +20,7 @@ public interface EmployeeMapper {
      * @param limit
      * @return
      */
-    List<Employee> selectEmployeeByPage(@Param("keyword") String keyword,
+    List<Employee> selectEmployeeByPage(@Param("emp") Employee employee,
                                         @Param("offset") Integer offset,
                                         @Param("limit") Integer limit);
 
@@ -28,7 +28,7 @@ public interface EmployeeMapper {
      * 查询员工总数
      * @return
      */
-    Long getTotal(String keyword);
+    Long getTotal(Employee employee);
 
     /**
      * 添加员工

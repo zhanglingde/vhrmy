@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -115,6 +116,16 @@ public class Employee implements Serializable {
 
     @ApiModelProperty("工龄")
     private Integer workAge;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @ApiModelProperty("入职日期从")
+    private Date beginDateFrom;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @ApiModelProperty("入职日期至")
+    private Date beginDateTo;
 
     @ApiModelProperty("部门")
     private Department department;

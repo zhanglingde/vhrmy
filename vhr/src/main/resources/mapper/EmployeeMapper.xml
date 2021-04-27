@@ -406,9 +406,31 @@
         and e.politic_id = ps.id
         and e.job_level_id =jl.id
         and e.pos_id = p.id
-        <if test="keyword != null and keyword != ''">
-            and e.name like concat('%',#{keyword},'%')
+        <if test="emp.name != null and emp.name != ''">
+            and e.name like concat('%',#{emp.name},'%')
         </if>
+        <if test="emp.nationId != null">
+            and e.nation_id = #{emp.nationId}
+        </if>
+        <if test="emp.politicId != null">
+            and e.politic_id = #{emp.politicId}
+        </if>
+        <if test="emp.jobLevelId != null">
+            and e.job_level_id = #{emp.jobLevelId}
+        </if>
+        <if test="emp.posId != null">
+            and e.pos_id = #{emp.posId}
+        </if>
+        <if test="emp.departmentId != null">
+            and e.department_id = #{emp.departmentId}
+        </if>
+        <if test="emp.engageForm != null and emp.engageForm != ''">
+            and e.engage_form = #{emp.engageForm}
+        </if>
+        <if test="emp.beginDateFrom != null and emp.beginDateTo != null">
+            and e.begin_date BETWEEN #{emp.beginDateFrom} AND #{emp.beginDateTo}
+        </if>
+
         <if test="offset != null and limit != null">
             limit #{offset},#{limit}
         </if>
@@ -416,10 +438,31 @@
 
     <select id="getTotal" resultType="java.lang.Long">
         select count(*)
-        from employee
+        from employee e
         <where>
-            <if test="keyword != null and keyword != ''">
-                and name like concat('%',#{keyword},'%')
+            <if test="name != null and name != ''">
+                and e.name like concat('%',#{name},'%')
+            </if>
+            <if test="nationId != null">
+                and e.nation_id = #{nationId}
+            </if>
+            <if test="politicId != null">
+                and e.politic_id = #{politicId}
+            </if>
+            <if test="jobLevelId != null">
+                and e.job_level_id = #{jobLevelId}
+            </if>
+            <if test="posId != null">
+                and e.pos_id = #{posId}
+            </if>
+            <if test="departmentId != null">
+                and e.department_id = #{departmentId}
+            </if>
+            <if test="engageForm != null and engageForm != ''">
+                and e.engage_form = #{engageForm}
+            </if>
+            <if test="beginDateFrom != null and beginDateTo != null">
+                and e.begin_date BETWEEN #{beginDateFrom} AND #{beginDateTo}
             </if>
         </where>
     </select>

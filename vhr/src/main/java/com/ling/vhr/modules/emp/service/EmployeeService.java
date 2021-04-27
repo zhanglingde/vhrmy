@@ -38,14 +38,14 @@ public class EmployeeService {
      * @param params
      * @return
      */
-    public PageUtils<Employee> getEmployeeByPage(String keyword, CommonParams params) {
+    public PageUtils<Employee> getEmployeeByPage(Employee employee, CommonParams params) {
         if (params.getPage() == null || params.getLimit() == null) {
             throw new RrException("分页参数不能为空！");
         }
         Integer page = (params.getPage() - 1) * params.getLimit();
 
-        List<Employee> list = employeeMapper.selectEmployeeByPage(keyword, page, params.getLimit());
-        Long total = employeeMapper.getTotal(keyword);
+        List<Employee> list = employeeMapper.selectEmployeeByPage(employee, page, params.getLimit());
+        Long total = employeeMapper.getTotal(employee);
         PageUtils<Employee> pageUtils = new PageUtils<>(list, total, params.getLimit(), page);
         return pageUtils;
     }
