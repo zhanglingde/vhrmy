@@ -69,4 +69,12 @@ public interface EmployeeMapper {
      * @return
      */
     Employee selectByPrimaryKey(Integer id);
+
+    /**
+     * 获取员工账套
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Employee> getEmployeesByPageWithSalary(@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

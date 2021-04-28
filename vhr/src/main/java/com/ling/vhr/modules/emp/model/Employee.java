@@ -3,6 +3,7 @@ package com.ling.vhr.modules.emp.model;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ling.vhr.modules.salary.model.Salary;
 import com.ling.vhr.modules.system.basic.model.Department;
 import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
@@ -137,6 +138,9 @@ public class Employee implements Serializable {
     private JobLevel jobLevel;
     @ApiModelProperty("职位")
     private Position position;
+
+    @ApiModelProperty("员工账套")
+    private Salary salary;
 
 
 }

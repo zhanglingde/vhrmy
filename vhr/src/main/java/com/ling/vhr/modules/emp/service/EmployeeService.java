@@ -119,4 +119,20 @@ public class EmployeeService {
     public void batchAddEmployee(List<Employee> list) {
         employeeMapper.batchInsert(list);
     }
+
+    /**
+     * 获取员工账套
+     * @param params
+     * @return
+     */
+    public PageUtils<List<Employee>> getEmployeesByPageWithSalary(CommonParams params) {
+        if (params.getPage() == null || params.getLimit() == null) {
+            throw new RrException("分页参数不能为空!");
+        }
+        Integer offset = (params.getPage() - 1) * params.getLimit();
+        List<Employee> list = employeeMapper.getEmployeesByPageWithSalary(offset, params.getLimit());
+        Long total = employeeMapper.getTotal(null);
+        PageUtils pageUtils = new PageUtils(list, total, params.getLimit(), params.getPage());
+        return pageUtils;
+    }
 }
