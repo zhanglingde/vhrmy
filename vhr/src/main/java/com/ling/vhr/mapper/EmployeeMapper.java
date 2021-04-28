@@ -77,4 +77,13 @@ public interface EmployeeMapper {
      * @return
      */
     List<Employee> getEmployeesByPageWithSalary(@Param("offset") Integer offset, @Param("limit") Integer limit);
+
+    /**
+     * 更新员工工资账套
+     * 关联表设置唯一索引，使用replace（同时执行了两次sql 先删除，后新增）
+     * @param employeeId
+     * @param salaryId
+     * @return
+     */
+    Integer updateEmployeeSalaryById(@Param("employeeId") Integer employeeId,@Param("salaryId") Integer salaryId);
 }

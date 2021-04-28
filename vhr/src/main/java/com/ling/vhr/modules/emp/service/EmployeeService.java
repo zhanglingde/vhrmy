@@ -135,4 +135,14 @@ public class EmployeeService {
         PageUtils pageUtils = new PageUtils(list, total, params.getLimit(), params.getPage());
         return pageUtils;
     }
+
+    /**
+     * 更新员工工资套账
+     * @param employeeId
+     * @param salaryId
+     * @return
+     */
+    public Integer updateEmployeeSalaryById(Integer employeeId, Integer salaryId) {
+        return employeeMapper.updateEmployeeSalaryById(employeeId, salaryId);
+    }
 }
