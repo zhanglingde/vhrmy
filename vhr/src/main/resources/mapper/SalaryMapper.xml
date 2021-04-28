@@ -5,6 +5,79 @@
 
 <mapper namespace="com.ling.vhr.mapper.SalaryMapper">
 
+    <insert id="addSalary" keyProperty="id" useGeneratedKeys="true">
+        insert into salary(
+                           basic_salary,
+                           bonus,
+                           lunch_salary,
+                           traffic_salary,
+                           all_salary,
+                           pension_base,
+                           pension_per,
+                           create_date,
+                           medical_base,
+                           medical_per,
+                           accumulation_fund_base,
+                           accumulation_fund_per,
+                           name)
+        values (#{basicSalary},
+                #{bonus},
+                #{lunchSalary},
+                #{trafficSalary},
+                #{allSalary},
+                #{pensionBase},
+                #{pensionPer},
+                #{createDate},
+                #{medicalBase},
+                #{medicalPer},
+                #{accumulationFundBase},
+                #{accumulationFundPer},
+                #{name})
+    </insert>
+
+    <update id="updateByPrimaryKey">
+        update salary
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="basicSalary != null">
+                basic_salary = #{basicSalary},
+            </if>
+            <if test="bonus != null">
+                bonus = #{bonus},
+            </if>
+            <if test="lunchSalary != null">
+                lunch_salary = #{lunchSalary},
+            </if>
+            <if test="trafficSalary != null">
+                traffic_salary = #{trafficSalary},
+            </if>
+            <if test="allSalary != null">
+                all_salary = #{allSalary},
+            </if>
+            <if test="pensionBase != null">
+                pension_base = #{pensionBase},
+            </if>
+            <if test="pensionPer != null">
+                pension_per = #{pensionPer},
+            </if>
+            <if test="medicalBase != null">
+                medical_base = #{medicalBase},
+            </if>
+            <if test="medicalPer != null">
+                medical_Per = #{medicalPer},
+            </if>
+            <if test="accumulationFundBase != null">
+                accumulation_fund_base = #{accumulationFundBase},
+            </if>
+            <if test="accumulationFundPer != null">
+                accumulation_fund_per = #{accumulationFundPer},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <delete id="deleteByPrimaryKey">
         delete from salary where id = #{id}
     </delete>

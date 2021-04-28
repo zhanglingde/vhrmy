@@ -21,5 +21,24 @@ public interface SalaryMapper {
     List<Salary> getAllSalaries();
 
 
+    /**
+     * 删除工资账套
+     * @param id
+     * @return
+     */
     Integer deleteByPrimaryKey(Integer id);
+
+    /**
+     * 添加工资账套
+     * @param salary
+     * @return
+     */
+    Integer addSalary(Salary salary);
+
+    /**
+     * 编辑工资账套
+     * @param salary
+     * @return
+     */
+    Integer updateByPrimaryKey(Salary salary);
 }

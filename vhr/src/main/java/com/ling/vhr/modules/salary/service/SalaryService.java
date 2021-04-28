@@ -4,6 +4,8 @@ import com.ling.vhr.mapper.SalaryMapper;
 import com.ling.vhr.modules.salary.model.Salary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,5 +34,24 @@ public class SalaryService {
      */
     public Integer deleteSalary(Integer id) {
         return salaryMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 添加工资账套
+     * @param salary
+     * @return
+     */
+    public Integer addSalary(Salary salary) {
+        salary.setCreateDate(new Date());
+        return salaryMapper.addSalary(salary);
+    }
+
+    /**
+     * 编辑工资账套
+     * @param salary
+     * @return
+     */
+    public Integer updateSalary(Salary salary) {
+        return salaryMapper.updateByPrimaryKey(salary);
     }
 }

@@ -7,6 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.PrintStream;
 import java.util.List;
 
 /**
@@ -35,5 +37,23 @@ public class SalaryController {
             return CommonResult.success(null,"删除工资账套成功！");
         }
         return CommonResult.error("删除工资账套失败！");
+    }
+
+    @PostMapping("/")
+    @ApiOperation(value = "添加工资账套")
+    public CommonResult addSalary(@RequestBody Salary salary) {
+        if (salaryService.addSalary(salary) == 1) {
+            return CommonResult.success(null,"添加工资账套成功！");
+        }
+        return CommonResult.error("添加工资账套失败！");
+    }
+
+    @PutMapping("/")
+    @ApiOperation(value = "编辑工资账套")
+    public CommonResult updateSalary(@RequestBody Salary salary) {
+        if (salaryService.updateSalary(salary) == 1) {
+            return CommonResult.success(null,"编辑工资账套成功！");
+        }
+        return CommonResult.error("编辑工资账套失败！");
     }
 }
