@@ -20,6 +20,7 @@ export const initMenu = (router, store) => {
             router.addRoutes(fmtRoutes);
             // 调用store中mutations的initRoutes存储菜单数据
             store.commit('initRoutes',fmtRoutes);
+            store.dispatch('connect');
         }
     })
 }

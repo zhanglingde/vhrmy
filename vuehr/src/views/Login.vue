@@ -1,14 +1,14 @@
 <template>
     <div>
         <el-form
-                v-loading="loading"
-                element-loading-text="正在登录..."
-                element-loading-spinner="el-icon-loading"
-                element-loading-background="rgba(0, 0, 0, 0.8)"
-                v-bind:rules="rules"
-                ref="loginForm"
-                :model="loginForm"
-                class="loginContainer">
+            v-loading="loading"
+            element-loading-text="正在登录..."
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0, 0, 0, 0.8)"
+            v-bind:rules="rules"
+            ref="loginForm"
+            :model="loginForm"
+            class="loginContainer">
             <h3 class="loginTitle">系统登录</h3>
             <el-form-item prop="username">
                 <el-input size="normal" type="text" v-model="loginForm.username" auto-complete="off"
@@ -32,7 +32,7 @@ export default {
     name: "Login",
     data() {
         return {
-            loading:false,
+            loading: false,
             loginForm: {
                 username: 'admin',
                 password: '123'
@@ -48,7 +48,7 @@ export default {
     },
     methods: {
         submitLogin() {
-            this.loading=true;
+            this.loading = true;
             // 获取到表单组件并校验
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {

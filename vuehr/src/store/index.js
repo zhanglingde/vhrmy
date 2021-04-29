@@ -4,6 +4,9 @@ import Vue from "vue";
 import Vuex from 'vuex';
 // 导入请求方法
 import {getRequest} from "@/utils/api";
+import '../utils/stomp';
+// import '../utils/sockjs';
+import SockJS from 'sockjs-client';
 
 
 Vue.use(Vuex);
@@ -17,6 +20,7 @@ const store = new Vuex.Store({
         routes: [],
         // chat相关状态存储
         sessions: [],
+        stomp: null,
         hrs: [],
         currentSessionId: -1,
         filterKey: ''
@@ -53,6 +57,29 @@ const store = new Vuex.Store({
     // action提交mutation，修改
     // 异步操作在actions中操作，否则在mutations中操作即可
     actions: {
+        /**
+         * 连接webSocket
+         * @param context
+         */
+        connect(context) {
+            console.log('连接websocket');
+            //1. 初始化stomp对象
+            context.state.stomp = Stomp.over(new SockJS('/ws/ep'));
+            //2. 连接Socket连接
+            context.state.stomp.connect({}, success => {
+                // 连接成功回调
+                // 3.订阅消息
+                context.state.stomp.subscribe('/user/queue/chat', message => {
+                    console.log('messgae>>>>>' + message);
+                })
+            }, error => {
+
+            })
+        },
+        /**
+         * 初始化在线聊天用户列表
+         * @param context
+         */
         initData(context) {
             context.commit('INIT_DATA')
             getRequest("/chat/hrs").then(resp => {
@@ -60,7 +87,8 @@ const store = new Vuex.Store({
                     context.commit('INIT_HR', resp);
                 }
             })
-        }
+        },
+
     }
 })
 

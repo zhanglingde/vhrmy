@@ -21,6 +21,7 @@
     "@vue/cli-service": "~4.5.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
+    "sockjs-client": "^1.5.1",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

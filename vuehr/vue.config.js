@@ -9,6 +9,14 @@ proxyObj['/'] = {         // 拦截http请求
         '^/': ''                                // 拦截地址不修改（此处可修改拦截地址）
     }
 }
+/**
+ * 请求地址是ws开头，以websocket方式代理转发
+ * @type {{ws: boolean, target: string}}
+ */
+proxyObj['/ws'] = {
+    ws: true,
+    target: 'ws://localhost:8081'
+}
 
 module.exports = {
     // 开发环境代理对象

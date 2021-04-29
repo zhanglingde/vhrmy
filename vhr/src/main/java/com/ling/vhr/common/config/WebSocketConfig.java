@@ -20,7 +20,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws/ep").withSockJS();
+        // 最新版SpringBoot需要设置允许所有域
+        registry.addEndpoint("/ws/ep").setAllowedOrigins("http://localhost:8080").withSockJS();
     }
 
     /**

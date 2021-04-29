@@ -25,7 +25,7 @@ export default {
         return {}
     },
     mounted: function () {
-        // 初始化store中的数据
+        //调用store中的方法，初始化store中的数据
         this.$store.dispatch('initData');
     },
     components: {
