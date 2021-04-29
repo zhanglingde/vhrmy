@@ -7,6 +7,7 @@ import {getRequest} from "@/utils/api";
 import '../utils/stomp';
 // import '../utils/sockjs';
 import SockJS from 'sockjs-client';
+import {valueEquals} from "element-ui/src/utils/util";
 
 
 Vue.use(Vuex);
@@ -28,6 +29,9 @@ const store = new Vuex.Store({
     },
     // mutations更改定义的属性
     mutations: {
+        initCurrentHr(state, hr) {
+            state.currentHr = hr;
+        },
         // 设置routes的值
         initRoutes(state, data) {
             state.routes = data;
@@ -57,9 +61,8 @@ const store = new Vuex.Store({
             })
         },
         INIT_DATA(state) {
-            // 浏览器本地的历史聊天记录可以在这里完成
+            // 浏览器本地的历史聊天记录可以在这里完成（恢复本地聊天记录）
             let data = localStorage.getItem('vue-chat-session');
-            //console.log(data)
             if (data) {
                 state.sessions = JSON.parse(data);
             }
@@ -110,11 +113,17 @@ const store = new Vuex.Store({
     }
 })
 
-// chat监控
+/**
+ * 监听state.sessions，当session发生变化，自动存到localStorage
+ */
 store.watch(function (state) {
-    return state.sessions
+    console.log(state.sessions);
+    return state.sessions;
 }, function (val) {
-    console.log('CHANGE: ', val);
+    console.log('监听sessions');
+    console.log(val);
+    console.log(JSON.stringify(val));
+    // 当sessions发生变化，将sessions存到localStorage中
     localStorage.setItem('vue-chat-session', JSON.stringify(val));
 }, {
     deep: true/*这个貌似是开启watch监测的判断,官方说明也比较模糊*/

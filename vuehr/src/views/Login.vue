@@ -55,6 +55,7 @@ export default {
                     this.postKeyValueRequest("/doLogin", this.loginForm).then(resp => {
                         this.loading = false;
                         if (resp) {
+                            this.$store.commit('initCurrentHr', resp.data);
                             // 登录用户数据保存在session中
                             window.sessionStorage.setItem("user", JSON.stringify(resp.data));
                             // 页面跳转有push(放到堆栈中，可以后退)
