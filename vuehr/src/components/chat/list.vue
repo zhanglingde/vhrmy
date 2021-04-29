@@ -24,8 +24,8 @@ export default {
         'currentSession'
     ]),
     methods: {
-        changeCurrentSession: function (user) {
-            this.$store.commit('changeCurrentSession', user)
+        changeCurrentSession: function (currentSession) {
+            this.$store.commit('changeCurrentSession', currentSession)
         }
     }
 }

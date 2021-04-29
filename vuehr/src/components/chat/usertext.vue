@@ -14,12 +14,16 @@ export default {
             content: ''
         }
     },
+    computed: mapState([
+        'sessions',
+        'currentSession'
+    ]),
     methods: {
         addMessage(e) {
             if (e.ctrlKey && e.keyCode === 13 && this.content.length) {
                 // 获取stomp对象发送消息
                 let msgObj = new Object();
-                msgObj.to = "libai";
+                msgObj.to = this.currentSession.username;
                 msgObj.content = this.content;
                 console.log(msgObj);
                 this.$store.state.stomp.send('/ws/chat', {}, JSON.stringify(msgObj));

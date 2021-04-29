@@ -33,8 +33,8 @@ const store = new Vuex.Store({
             state.routes = data;
         },
         // chat相关
-        changeCurrentSession(state, user) {
-            state.currentSession = user;
+        changeCurrentSession(state, currentSession) {
+            state.currentSession = currentSession;
         },
         /**
          * 发送消息，将聊天消息存储在前端store的sessions数组中
@@ -45,7 +45,9 @@ const store = new Vuex.Store({
             // 定义消息存储数组对象   格式：发送人#接收人
             let msg = state.sessions[state.currentHr.username + '#' + msgObj.to];
             if (!msg) {
-                state.sessions[state.currentHr.username + '#' + msgObj.to] = [];
+                // state.sessions[state.currentHr.username + '#' + msgObj.to] = [];
+                // 消息自动刷新，vue不能监测不是先定义好的属性，后面订单的属性不能实时刷新
+                Vue.set(state.sessions, state.currentHr.username + '#' + msgObj.to, []);
             }
             // 存放一行消息对象
             state.sessions[state.currentHr.username + '#' + msgObj.to].push({
@@ -81,9 +83,13 @@ const store = new Vuex.Store({
             context.state.stomp.connect({}, success => {
                 // 连接成功回调
                 // 3.订阅消息
+                console.log('连接socket成功！')
                 context.state.stomp.subscribe('/user/queue/chat', message => {
                     //4.接收消息
+                    console.log('订阅消息成功，接收到消息！')
                     let reveiveMsg = JSON.parse(message.body);
+                    console.log('接收消息');
+                    console.log(reveiveMsg);
                     reveiveMsg.notSelf = true;
                     reveiveMsg.to = reveiveMsg.from;
                     context.commit('addMessage', reveiveMsg);
