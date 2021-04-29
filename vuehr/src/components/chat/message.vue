@@ -1,6 +1,6 @@
 <template>
     <div id="message" v-scroll-bottom="session">
-        <ul v-if="currentSessionId==item.id" v-for="item in sessions">
+        <ul v-if="currentSession==item.id" v-for="item in sessions">
             <li v-for="entry in item.messages">
                 <p class="time">
                     <span>{{ entry.date | time }}</span>
@@ -26,7 +26,7 @@ export default {
     },
     computed: mapState([
         'sessions',
-        'currentSessionId'
+        'currentSession'
     ]),
     filters: {
         time(date) {

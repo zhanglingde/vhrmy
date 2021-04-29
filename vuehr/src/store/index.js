@@ -22,7 +22,7 @@ const store = new Vuex.Store({
         sessions: [],
         stomp: null,
         hrs: [],
-        currentSessionId: -1,
+        currentSession: null,
         filterKey: ''
     },
     // mutations更改定义的属性
@@ -32,11 +32,11 @@ const store = new Vuex.Store({
             state.routes = data;
         },
         // chat相关
-        changeCurrentSessionId(state, id) {
-            state.currentSessionId = id;
+        changeCurrentSession(state, user) {
+            state.currentSession = user;
         },
         addMessage(state, msg) {
-            state.sessions[state.currentSessionId - 1].messages.push({
+            state.sessions[state.currentSession - 1].messages.push({
                 content: msg,
                 date: new Date(),
                 self: true
