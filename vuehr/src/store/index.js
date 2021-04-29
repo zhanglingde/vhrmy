@@ -20,9 +20,10 @@ const store = new Vuex.Store({
         routes: [],
         // chat相关状态存储
         sessions: [],
+        currentSession: null,
+        currentHr: JSON.parse(window.sessionStorage.getItem("user")),
         stomp: null,
         hrs: [],
-        currentSession: null,
         filterKey: ''
     },
     // mutations更改定义的属性
@@ -35,11 +36,22 @@ const store = new Vuex.Store({
         changeCurrentSession(state, user) {
             state.currentSession = user;
         },
-        addMessage(state, msg) {
-            state.sessions[state.currentSession - 1].messages.push({
-                content: msg,
+        /**
+         * 发送消息，将聊天消息存储在前端store的sessions数组中
+         * @param state
+         * @param msg
+         */
+        addMessage(state, msgObj) {
+            // 定义消息存储数组对象   格式：发送人#接收人
+            let msg = state.sessions[state.currentHr.username + '#' + msgObj.to];
+            if (!msg) {
+                state.sessions[state.currentHr.username + '#' + msgObj.to] = [];
+            }
+            // 存放一行消息对象
+            state.sessions[state.currentHr.username + '#' + msgObj.to].push({
+                content: msgObj.content,
                 date: new Date(),
-                self: true
+                self: !msgObj.notSelf
             })
         },
         INIT_DATA(state) {
@@ -70,7 +82,11 @@ const store = new Vuex.Store({
                 // 连接成功回调
                 // 3.订阅消息
                 context.state.stomp.subscribe('/user/queue/chat', message => {
-                    console.log('messgae>>>>>' + message);
+                    //4.接收消息
+                    let reveiveMsg = JSON.parse(message.body);
+                    reveiveMsg.notSelf = true;
+                    reveiveMsg.to = reveiveMsg.from;
+                    context.commit('addMessage', reveiveMsg);
                 })
             }, error => {
 

@@ -24,8 +24,9 @@ export default {
                 console.log(msgObj);
                 this.$store.state.stomp.send('/ws/chat', {}, JSON.stringify(msgObj));
 
-                // this.$store.commit('addMessage', this.content);
-                // this.content = '';
+                // 聊天消息存储
+                this.$store.commit('addMessage', msgObj);
+                this.content = '';
             }
         }
     }

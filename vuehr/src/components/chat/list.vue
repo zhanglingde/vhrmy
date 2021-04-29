@@ -1,7 +1,7 @@
 <template>
     <div id="list">
         <ul style="padding-left: 0px;">
-            <li v-for="item in hrs" :class="{ active: currentSession? item.name === currentSession.name :false }"
+            <li v-for="item in hrs" :class="{ active: currentSession? item.username === currentSession.username :false }"
                 v-on:click="changeCurrentSession(item)">
                 <!--   :class="[item.id === currentSession ? 'active':'']" -->
                 <img class="avatar" :src="item.userface" :alt="item.name">
