@@ -74,4 +74,12 @@ public class HrService implements UserDetailsService {
     public int deleteHr(Integer hrId) {
         return hrMapper.deleteByPrimaryId(hrId);
     }
+
+    /**
+     * 获取所有Hr（除自己之外）
+     * @return
+     */
+    public List<Hr> getAllHrsExceptCurrentHr() {
+        return hrMapper.getAllHrsExceptCurrentHr(HrUtils.getCurrentHr().getId());
+    }
 }

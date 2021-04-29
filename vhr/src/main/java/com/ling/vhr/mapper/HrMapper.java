@@ -42,4 +42,10 @@ public interface HrMapper {
      * @return
      */
     int deleteByPrimaryId(Integer hrId);
+
+    /**
+     * 获取所有Hr（除自己之外）
+     * @return
+     */
+    List<Hr> getAllHrsExceptCurrentHr(Integer id);
 }

@@ -57,4 +57,10 @@
         </if>
 
     </select>
+
+    <select id="getAllHrsExceptCurrentHr" resultType="com.ling.vhr.modules.system.hr.model.Hr">
+        select *
+        from hr
+        where id != #{id}
+    </select>
 </mapper>
