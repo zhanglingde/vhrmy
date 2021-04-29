@@ -1,4 +1,4 @@
-package com.ling.vhr.modules;
+package com.ling.vhr.modules.chat.controller;
 
 import com.ling.vhr.modules.system.hr.model.Hr;
 import com.ling.vhr.modules.system.hr.service.HrService;
