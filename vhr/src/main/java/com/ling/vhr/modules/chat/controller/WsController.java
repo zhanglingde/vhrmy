@@ -29,6 +29,6 @@ public class WsController {
         chatMessage.setFrom(principal.getName());
         chatMessage.setDate(new Date());
         // 前端监听 queue-chat的内容
-        simpMessagingTemplate.convertAndSendToUser(chatMessage.getTo(),"/queue/chat",chatMessage.getContent());
+        simpMessagingTemplate.convertAndSendToUser(chatMessage.getTo(),"/queue/chat",chatMessage);
     }
 }

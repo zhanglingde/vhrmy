@@ -83,13 +83,9 @@ const store = new Vuex.Store({
             context.state.stomp.connect({}, success => {
                 // 连接成功回调
                 // 3.订阅消息
-                console.log('连接socket成功！')
                 context.state.stomp.subscribe('/user/queue/chat', message => {
                     //4.接收消息
-                    console.log('订阅消息成功，接收到消息！')
                     let reveiveMsg = JSON.parse(message.body);
-                    console.log('接收消息');
-                    console.log(reveiveMsg);
                     reveiveMsg.notSelf = true;
                     reveiveMsg.to = reveiveMsg.from;
                     context.commit('addMessage', reveiveMsg);
