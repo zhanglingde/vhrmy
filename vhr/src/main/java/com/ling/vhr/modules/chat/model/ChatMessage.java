@@ -26,4 +26,5 @@ public class ChatMessage {
      * 消息发送时间
      */
     private Date date;
+    private String fromNickName;
 }

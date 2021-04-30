@@ -28,11 +28,10 @@ class VhrApplicationTests {
 
     @Test
     void test01() {
-        String str = "  asdasda1231231423";
-        String pattern = "^[A-Za-z0-9]+$";
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(str);
-        System.out.println(m.matches());
+
+        System.out.println(-1L);
+        System.out.println(Integer.MIN_VALUE);
+        System.out.println();
     }
 
 }
