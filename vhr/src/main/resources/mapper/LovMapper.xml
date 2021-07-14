@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ling.vhr.mapper.LovMapper">
+
+    <!-- 创建值集   -->
+    <insert id="createLov" keyProperty="lovId" useGeneratedKeys="true">
+        insert into au_lov(lov_code,
+                           lov_name,
+                           description)
+                    values(#{lovCode},
+                           #{lovName},
+                           #{description})
+    </insert>
+
+    <!-- 查询值集列表   -->
+    <select id="list" resultType="com.ling.vhr.modules.system.lov.vo.LovVO">
+        select lov_id,
+            lov_code,
+            lov_name,
+            description,
+            create_time,
+            update_time
+        from au_lov
+        where 1
+        <if test="lovSearch.lovCode != null and lovSearch.lovCode != ''">
+            AND lov_code LIKE concat('%',#{lovSearch.lovCode},'%')
+        </if>
+        <if test="lovSearch.lovName != null and lovSearch.lovName != ''">
+            AND lov_name LIKE concat('%',#{lovSearch.lovName},'%')
+        </if>
+        order by create_time desc
+    </select>
+
+    <!-- 根据值集代码查询值集头信息   -->
+    <select id="queryLovInfo" resultType="com.ling.vhr.modules.system.lov.dto.LovDTO">
+        select
+            lov_id,
+            lov_code,
+            ##lov_type_code,
+            lov_name
+        from au_lov
+        where lov_code = #{lovCode}
+    </select>
+
+    <!--  根据主键编辑 header -->
+    <update id="updateByPrimaryKey">
+        update au_lov
+        <trim prefix="set" suffixOverrides=",">
+            <if test="lovName != null and lovName != ''">
+                lov_name = #{lovName},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+        </trim>
+        where lov_id = #{lovId}
+    </update>
+
+
+
+    <!--  查询值集列表  -->
+    <select id="selectAll" resultType="com.ling.vhr.modules.system.lov.vo.LovVO">
+        select lov_id,
+               lov_code,
+               lov_name,
+               description,
+               create_time,
+               update_time
+        from au_lov
+    </select>
+
+    <!--  根据主键查询详情  -->
+    <select id="selectByPrimaryKey" resultType="com.ling.vhr.modules.system.lov.vo.LovVO">
+        select lov_id,
+               lov_code,
+               lov_name,
+               description,
+               create_time,
+               update_time
+        from au_lov
+        where lov_id = #{lovId}
+    </select>
+
+    <!--删除值集header-->
+    <delete id="deleteById">
+        delete
+        from
+        au_lov_value
+        where
+        lov_value_id = #{lovValueId}
+    </delete>
+</mapper>
