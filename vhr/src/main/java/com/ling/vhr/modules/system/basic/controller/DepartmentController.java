@@ -3,6 +3,8 @@ package com.ling.vhr.modules.system.basic.controller;
 import com.ling.vhr.common.utils.CommonResult;
 import com.ling.vhr.modules.system.basic.model.Department;
 import com.ling.vhr.modules.system.basic.service.DepartmentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/basic/department")
+@Api(tags = "部门管理")
 public class DepartmentController {
 
     @Autowired
@@ -25,11 +28,8 @@ public class DepartmentController {
         return departmentService.selectAllDepartment();
     }
 
-    /**
-     * 添加部门
-     * @param department
-     * @return
-     */
+
+    @ApiOperation(value = "添加部门",notes = "添加部门")
     @PostMapping("/")
     public CommonResult addDept(@RequestBody Department department){
         departmentService.addDept(department);
@@ -39,6 +39,7 @@ public class DepartmentController {
         return CommonResult.error("添加失败！");
     }
 
+    @ApiOperation(value = "删除部门",notes = "删除部门")
     @DeleteMapping("/{departmentId}")
     public CommonResult deleteDept(@PathVariable Integer departmentId) {
         Department department = new Department();

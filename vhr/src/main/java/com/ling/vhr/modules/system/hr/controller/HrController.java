@@ -5,6 +5,7 @@ import com.ling.vhr.modules.system.hr.model.Hr;
 import com.ling.vhr.modules.system.hr.model.Role;
 import com.ling.vhr.modules.system.hr.service.HrService;
 import com.ling.vhr.modules.system.hr.service.RoleService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/hr")
+@Api(tags = "Hr 管理")
 public class HrController {
 
     @Autowired

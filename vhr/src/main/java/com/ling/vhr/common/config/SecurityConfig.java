@@ -53,7 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 不拦截登录页面接口
-        web.ignoring().antMatchers("/login");
+        web.ignoring()
+                .antMatchers("/login")
+                .antMatchers("/swagger-ui.html");
     }
 
     @Override

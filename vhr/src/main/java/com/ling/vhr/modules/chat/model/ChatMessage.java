@@ -15,6 +15,10 @@ public class ChatMessage {
      */
     private String from;
     /**
+     * 消息发送者中文名
+     */
+    private String fromNickName;
+    /**
      * 消息接收者
      */
     private String to;
@@ -26,5 +30,5 @@ public class ChatMessage {
      * 消息发送时间
      */
     private Date date;
-    private String fromNickName;
+
 }

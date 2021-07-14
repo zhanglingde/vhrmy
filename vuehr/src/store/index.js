@@ -130,12 +130,8 @@ const store = new Vuex.Store({
  * 监听state.sessions，当session发生变化，自动存到localStorage
  */
 store.watch(function (state) {
-    console.log(state.sessions);
     return state.sessions;
 }, function (val) {
-    console.log('监听sessions');
-    console.log(val);
-    console.log(JSON.stringify(val));
     // 当sessions发生变化，将sessions存到localStorage中
     localStorage.setItem('vue-chat-session', JSON.stringify(val));
 }, {

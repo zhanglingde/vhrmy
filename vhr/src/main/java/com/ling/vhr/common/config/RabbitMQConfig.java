@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
+    /**
+     * 入职欢迎邮件队列
+     * @return
+     */
     @Bean
     Queue directQueue() {
         return new Queue("ling-mail-queue");

@@ -2,6 +2,8 @@ package com.ling.vhr.modules.system.basic.controller;
 
 import com.ling.vhr.modules.system.basic.model.Menu;
 import com.ling.vhr.modules.system.basic.service.MenuService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +17,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/config")
+@Api(tags = "菜单")
 public class SystemConfigController {
 
     @Autowired
     MenuService menuService;
 
+    @ApiOperation(value = "获取用户菜单",notes = "获取用户菜单")
     @GetMapping("/menus")
     public List<Menu> selectMenusByHrId() {
         return menuService.selectMenusByHrId();
