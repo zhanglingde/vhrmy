@@ -45,8 +45,8 @@ public class CustomUrlAccessDecisionManager implements AccessDecisionManager {
                     return;
                 }
             }
-            throw new AccessDeniedException("非法请求！");
         }
+        throw new AccessDeniedException("非法请求！");
     }
 
     @Override

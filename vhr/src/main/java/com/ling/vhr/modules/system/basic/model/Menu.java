@@ -48,6 +48,9 @@ public class Menu implements Serializable {
      */
     private List<Menu> children;
 
+    /**
+     * 该菜单被哪些角色所拥有
+     */
     List<Role> roles;
 
 }
