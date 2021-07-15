@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2020-07-27 15:51:48
  */
 @RestController
-@RequestMapping("/api/lov")
+@RequestMapping("/system/lov")
 @Api(tags = "[API] LOV值集管理")
 public class LovController {
 
@@ -29,7 +29,7 @@ public class LovController {
     private LovService lovService;
 
     @ApiOperation(value = "值集列表", notes = "值集列表")
-    @GetMapping("/list")
+    @GetMapping("/")
     public List<LovVO> list(LovSearchDTO lovSearchDTO){
         return lovService.list(lovSearchDTO);
     }

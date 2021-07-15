@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2020/11/18 9:54
  */
 @RestController
-@RequestMapping("/api/lov/value")
+@RequestMapping("/system/lov/value")
 @Api(tags = "[API] LOV值集管理")
 public class LovValueController {
 
