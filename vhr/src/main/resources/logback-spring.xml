@@ -4,26 +4,49 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
     <!--应用名称-->
-    <property name="APP_NAME" value="logstash"/>
+    <property name="APP_NAME" value="vhr"/>
     <!--日志文件保存路径-->
-    <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
+    <property name="LOG_FILE_PATH" value="logs"/>
     <contextName>${APP_NAME}</contextName>
-    <!--每天记录日志到文件appender-->
+
+
+    <!-- 每天记录日志到文件appender -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志文件保存天数 -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
+            <!-- 日志格式化配置 -->
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
+
     <!--输出到logstash的appender-->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!--可以访问的logstash日志收集端口-->
         <destination>192.168.152.132:4560</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <!-- 临界值过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
     </appender>
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %level [%t] -%msg %n</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <logger name="org.springframework.web" level="ERROR"/>
+    <logger name="org.springboot.sample" level="ERROR" />
+    <!-- 记录 restartedMain 线程启动的日志（项目启动） -->
+    <logger name="com.ling" level="INFO" />
     <!--级别从低到高分别是：debug -> info -> error -> fatel.日志输出的时候, 只会输出大于等于该级别的日志, 也就是设置了INFO之后, DEBUG是不会被输出, 只会输出INFO、ERROR和FATAL级别的日志..-->
     <root level="ERROR">
         <!-- 日志输出到前面定义的 appender 中 -->

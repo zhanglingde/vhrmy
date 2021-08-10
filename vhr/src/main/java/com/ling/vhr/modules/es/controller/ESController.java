@@ -13,18 +13,27 @@ public class ESController {
 
     private static final Logger logger = LoggerFactory.getLogger(ESController.class);
 
-    @GetMapping("/error")
-    public void hello(){
+    @GetMapping("/errorlog")
+    public String hello(){
         logger.error("error 日志");
+        return "error 日志";
     }
 
-    @GetMapping("/info")
-    public void info(){
+    @GetMapping("/infolog")
+    public String info(){
         logger.info("info 日志");
+        return "info 日志";
     }
 
-    @GetMapping("/warn")
-    public void warn(){
+    @GetMapping("/warnlog")
+    public String warn(){
         logger.warn("warn 日志");
+        return "warn 日志";
+    }
+
+    @GetMapping("/debug")
+    public String debug(){
+        logger.debug("debug 日志");
+        return "debug 日志";
     }
 }
