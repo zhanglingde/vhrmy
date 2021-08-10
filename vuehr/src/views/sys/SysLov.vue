@@ -3,24 +3,24 @@
         <div>
             <el-table
                 :data="lovs"
-                height="250"
+                height="600"
                 border
                 style="width: 100%">
                 <el-table-column
                     type="selection"
                     width="55">
                 </el-table-column>
-                <el-table-column prop="date"
+                <el-table-column prop="lovCode"
                     label="值集编码"
                     width="180">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="lovName"
                     label="值集名称"
                     width="180">
                 </el-table-column>
                 <el-table-column
-                    prop="address"
+                    prop="description"
                     label="描述">
                 </el-table-column>
             </el-table>
@@ -32,7 +32,7 @@
 export default {
     data() {
         return {
-
+            lovs:[]
         }
     },
     mounted() {
