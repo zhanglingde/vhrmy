@@ -1,5 +1,6 @@
 package com.ling.vhr.modules.salary.service;
 
+import com.alibaba.fastjson.JSON;
 import com.ling.vhr.mapper.SalaryMapper;
 import com.ling.vhr.modules.salary.model.Salary;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,7 @@
 package com.ling.vhr;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.mapper.HrMapper;
 import com.ling.vhr.modules.emp.model.Employee;
 import org.junit.jupiter.api.Test;
@@ -23,7 +25,15 @@ class VhrApplicationTests {
     void contextLoads() {
         Employee employee = new Employee();
         employee.setName("员工名称");
-        rabbitTemplate.convertAndSend("ling-direct-exchange","direct",employee);
+        ObjectMapper om = new ObjectMapper();
+        try {
+            String json = om.writeValueAsString(employee);
+            System.out.println("json = " + json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+//        rabbitTemplate.convertAndSend("ling-direct-exchange","direct",employee);
     }
 
     @Test
