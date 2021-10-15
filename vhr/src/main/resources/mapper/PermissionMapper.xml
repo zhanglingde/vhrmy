@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ling.vhr.mapper.PermissionMapper">
+
+
+    <insert id="insert">
+        insert into permission(code, url, method, description, action)
+        value (#{code},
+               #{url},
+               #{method},
+               #{description},
+               #{action}
+              )
+    </insert>
+
+    <update id="updateByPrimeryKey">
+        update permission
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="method != null and method != ''">
+                code = #{method},
+            </if>
+            <if test="description != null and description != ''">
+                code = #{description},
+            </if>
+            <if test="action != null and action != ''">
+                code = #{action},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectPermissions" resultType="com.ling.vhr.modules.permission.model.Permission">
+        select id, code, url, method, description, action
+        from permission
+        where 1
+        <if test="code != null and code != null">
+            AND code LIKE concat('%',#{code},'%')
+        </if>
+        <if test="url != null and url != null">
+            AND url LIKE concat('%',#{url},'%')
+        </if>
+    </select>
+
+    <select id="selectAllPermission" resultType="com.ling.vhr.modules.permission.model.Permission">
+        select *
+        from permission
+    </select>
+</mapper>

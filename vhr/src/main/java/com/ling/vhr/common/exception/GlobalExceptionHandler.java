@@ -26,8 +26,8 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @Value("${spring.profiles.active}")
-    private String active;
+//    @Value("${spring.profiles.active}")
+//    private String active;
 
     /**
      * 参数校验异常，将校验失败的所有异常组合成一条错误信息(@Valid 校验)
@@ -70,9 +70,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = DataAccessException.class)
     public CommonResult handleSQLException(HttpServletRequest req, HttpServletResponse resp, DataAccessException e) {
         logger.error("Catch a DataAccessException in API【 {} 】", req.getRequestURL().toString(), e);
-        if ("prod".equals(active)) {
-            return CommonResult.error(500, "服务错误");
-        }
+//        if ("prod".equals(active)) {
+//            return CommonResult.error(500, "服务错误");
+//        }
         return CommonResult.error(500, "sql错误：" + e.getMessage());
     }
 
