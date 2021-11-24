@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "登录")
 public class LoginController {
 
-    @GetMapping("/login")
+    @GetMapping(name = "登录", value = "/login")
     public CommonResult login() {
         return CommonResult.error("尚未登录,请登录!");
     }

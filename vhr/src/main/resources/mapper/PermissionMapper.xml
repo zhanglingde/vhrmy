@@ -5,15 +5,7 @@
 <mapper namespace="com.ling.vhr.mapper.PermissionMapper">
 
 
-    <insert id="insert">
-        insert into permission(code, url, method, description, action)
-        value (#{code},
-               #{url},
-               #{method},
-               #{description},
-               #{action}
-              )
-    </insert>
+
 
     <update id="updateByPrimeryKey">
         update permission
@@ -37,7 +29,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectPermissions" resultType="com.ling.vhr.modules.permission.model.Permission">
+    <select id="selectPermissions" resultType="com.ling.vhr.modules.permission.model.PermissionDO">
         select id, code, url, method, description, action
         from permission
         where 1
@@ -49,7 +41,7 @@
         </if>
     </select>
 
-    <select id="selectAllPermission" resultType="com.ling.vhr.modules.permission.model.Permission">
+    <select id="selectAllPermission" resultType="com.ling.vhr.modules.permission.model.PermissionDO">
         select *
         from permission
     </select>

@@ -5,14 +5,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.common.utils.SpringContextUtils;
 import com.ling.vhr.mapper.PermissionMapper;
-import com.ling.vhr.modules.permission.model.Permission;
-import io.swagger.annotations.ApiOperation;
+import com.ling.vhr.modules.permission.model.PermissionDO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
 @Service
 public class PermissionService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PermissionService.class);
+
     @Autowired
     PermissionMapper permissionMapper;
 
@@ -42,13 +46,13 @@ public class PermissionService {
      * @param url
      * @return
      */
-    public List<Permission> selectPermissions(String code, String url) {
+    public List<PermissionDO> selectPermissions(String code, String url) {
         return permissionMapper.selectPermissions(code, url);
     }
 
     public void fresh() {
-//        scanController();
-        parse();
+       scanController();
+//         parse();
     }
 
     private void parse() {
@@ -58,7 +62,7 @@ public class PermissionService {
             json = fetchFromSwagger();
             JsonNode jsonNode = objectMapper.readTree(json);
             Iterator<Map.Entry<String, JsonNode>> paths = jsonNode.get("paths").fields();
-            ArrayList<Permission> permissions = new ArrayList();
+            ArrayList<PermissionDO> permissions = new ArrayList();
             // 遍历接口并将其解析加入 permissions 中
             while (paths.hasNext()) {
                 Map.Entry<String, JsonNode> pathNode = paths.next();
@@ -66,11 +70,11 @@ public class PermissionService {
                 perserMethod(methodIterator, pathNode, permissions);
             }
 
-            List<Permission> permissionList = permissionMapper.selectAllPermission();
-            Map<String, Permission> codeMap = permissionList.stream().collect(Collectors.toMap(Permission::getCode, p -> p));
+            List<PermissionDO> permissionList = permissionMapper.selectAllPermission();
+            Map<String, PermissionDO> codeMap = permissionList.stream().collect(Collectors.toMap(PermissionDO::getCode, p -> p));
 
             permissions.parallelStream().forEach(permission ->{
-                Permission p = codeMap.get(permission.getCode());
+                PermissionDO p = codeMap.get(permission.getCode());
                 if (p == null) {
                     permissionMapper.insert(permission);
                 }else{
@@ -99,15 +103,15 @@ public class PermissionService {
             JsonNode tags = ((JsonNode) methodNode.getValue()).get("tags");
             String resourceCode = processResourceCode(tags);
             JsonNode extraDataNode = ((JsonNode) methodNode.getValue()).get("description");
-            Permission permission = processPermission((String) pathNode.getKey(), methodNode, resourceCode);
+            PermissionDO permission = processPermission((String) pathNode.getKey(), methodNode, resourceCode);
             permissions.add(permission);
         }
     }
 
-    private Permission processPermission(String key, Map.Entry<String, JsonNode> methodNode, String resourceCode) {
+    private PermissionDO processPermission(String key, Map.Entry<String, JsonNode> methodNode, String resourceCode) {
         String method = methodNode.getKey();
         String description = ((JsonNode) methodNode.getValue()).get("summary").asText();
-        Permission permission = new Permission().setCode(resourceCode)
+        PermissionDO permission = new PermissionDO().setCode(resourceCode)
                 .setUrl(key)
                 .setMethod(method)
                 .setDescription(description)
@@ -143,34 +147,44 @@ public class PermissionService {
     /**
      * 扫描所有 Controller
      */
-    private void scanController() {
-        List<Permission> permissions = new ArrayList<>();
+    public void scanController() {
+        List<PermissionDO> permissions = new ArrayList<>();
         Map<String, Object> map = SpringContextUtils.getBeansWithAnnotation(RestController.class);
+        // 遍历所有 Controller
         for (Object controller : map.values()) {
             RequestMapping requestMapping = controller.getClass().getAnnotation(RequestMapping.class);
             Method[] methods = controller.getClass().getDeclaredMethods();
             if (requestMapping != null && requestMapping.value().length != 0) {
+                // @RequestMapping 路径前缀
                 String[] prefixs = requestMapping.value();
                 for (String prefix : prefixs) {
                     // 解析 Controller 下的所有接口
                     for (Method method : methods) {
                         // RequestMapping annotation = AnnotationUtils.getAnnotation(method, RequestMapping.class);
                         GetMapping getMapping = AnnotationUtils.getAnnotation(method, GetMapping.class);
-                        ApiOperation api = method.getAnnotation(ApiOperation.class);
+                        // ApiOperation api = method.getAnnotation(ApiOperation.class);
                         if (getMapping != null) {
                             String[] value = getMapping.value();
 
                             for (String s : value) {
-                                Permission permission = new Permission().setMethod("get")
+                                PermissionDO permission = new PermissionDO()
+                                        .setMethod("get")
                                         .setUrl(prefix + s)
                                         .setAction(method.getName())
                                         .setCode(controller.getClass().getSimpleName() + "." + method.getName());
-                                if (api != null) {
-                                    permission.setDescription(api.value());
-                                }
+
+                                permission.setDescription(getMapping.name());
+                                // swagger 注解接口描述
+                                // if (api != null) {
+                                //     permission.setDescription(api.value());
+                                // }
                                 // permissions.add(permission);
                                 permissionMapper.insert(permission);
                             }
+                        }
+                        // 是否包含 PostMapping 注解
+                        if (method.isAnnotationPresent(PostMapping.class)) {
+                            logger.info("有 @PostMapping 注解的方法：{}",method.getName());
                         }
                     }
                 }

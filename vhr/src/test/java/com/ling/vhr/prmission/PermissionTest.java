@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.mapper.PermissionMapper;
-import com.ling.vhr.modules.permission.model.Permission;
+import com.ling.vhr.modules.permission.model.PermissionDO;
+import com.ling.vhr.modules.permission.service.PermissionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,9 +28,16 @@ public class PermissionTest {
 
     @Autowired
     PermissionMapper permissionMapper;
+    @Autowired
+    PermissionService permissionService;
 
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
+
+    @Test
+    public void scanController() {
+        permissionService.scanController();
+    }
 
     @Test
     public void test01() {
@@ -42,7 +50,7 @@ public class PermissionTest {
                 json = fetchFromSwagger();
                 JsonNode jsonNode = objectMapper.readTree(json);
                 Iterator<Map.Entry<String, JsonNode>> paths = jsonNode.get("paths").fields();
-                ArrayList<Permission> permissions = new ArrayList();
+                ArrayList<PermissionDO> permissions = new ArrayList();
                 // 遍历接口并将其解析加入 permissions 中
                 while (paths.hasNext()) {
                     Map.Entry<String, JsonNode> pathNode = paths.next();
@@ -51,10 +59,10 @@ public class PermissionTest {
                 }
 
 
-                List<Permission> permissionList = permissionMapper.selectAllPermission();
-                Map<String, Permission> codeMap = permissionList.stream().collect(Collectors.toMap(Permission::getCode, p -> p));
+                List<PermissionDO> permissionList = permissionMapper.selectAllPermission();
+                Map<String, PermissionDO> codeMap = permissionList.stream().collect(Collectors.toMap(PermissionDO::getCode, p -> p));
                 permissions.parallelStream().forEach(permission -> {
-                    Permission p = codeMap.get(permission.getCode());
+                    PermissionDO p = codeMap.get(permission.getCode());
                     if (p == null) {
                         permissionMapper.insert(permission);
                     }else{
@@ -63,7 +71,7 @@ public class PermissionTest {
                     }
                 });
 
-                for (Permission permission : permissions) {
+                for (PermissionDO permission : permissions) {
                     System.out.println("permission = " + permission);
                 }
             } catch (JsonProcessingException e) {
@@ -80,15 +88,15 @@ public class PermissionTest {
             JsonNode tags = ((JsonNode) methodNode.getValue()).get("tags");
             String resourceCode = processResourceCode(tags);
             JsonNode extraDataNode = ((JsonNode) methodNode.getValue()).get("description");
-            Permission permission = processPermission((String) pathNode.getKey(), methodNode, resourceCode);
+            PermissionDO permission = processPermission((String) pathNode.getKey(), methodNode, resourceCode);
             permissions.add(permission);
         }
     }
 
-    private Permission processPermission(String key, Map.Entry<String, JsonNode> methodNode, String resourceCode) {
+    private PermissionDO processPermission(String key, Map.Entry<String, JsonNode> methodNode, String resourceCode) {
         String method = methodNode.getKey();
         String description = ((JsonNode) methodNode.getValue()).get("summary").asText();
-        Permission permission = new Permission().setCode(resourceCode)
+        PermissionDO permission = new PermissionDO().setCode(resourceCode)
                 .setUrl(key)
                 .setMethod(method)
                 .setDescription(description)
@@ -120,4 +128,6 @@ public class PermissionTest {
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class, new Object[0]);
         return response.getStatusCode() == HttpStatus.OK ? response.getBody() : null;
     }
+
+
 }

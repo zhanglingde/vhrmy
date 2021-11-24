@@ -29,13 +29,13 @@ public class LovController {
     private LovService lovService;
 
     @ApiOperation(value = "值集列表", notes = "值集列表")
-    @GetMapping("/")
+    @GetMapping(name = "值集列表",value = "/")
     public List<LovVO> list(LovSearchDTO lovSearchDTO){
         return lovService.list(lovSearchDTO);
     }
 
     @ApiOperation(value = "值集详情", notes = "值集详情")
-    @GetMapping("/details")
+    @GetMapping(name = "值集详情",value = "/details")
     public CommonResult<LovVO> details(Integer lovId){
         return CommonResult.success(lovService.details(lovId));
     }

@@ -1,6 +1,7 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.permission.model.Permission;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ling.vhr.modules.permission.model.PermissionDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +12,8 @@ import java.util.List;
  * @date 2021/10/8 4:30 下午
  */
 @Repository
-public interface PermissionMapper {
+public interface PermissionMapper extends BaseMapper<PermissionDO> {
 
-    int insert(Permission permission);
 
     /**
      *
@@ -21,10 +21,10 @@ public interface PermissionMapper {
      * @param url
      * @return
      */
-    List<Permission> selectPermissions(@Param("code") String code, @Param("url") String url);
+    List<PermissionDO> selectPermissions(@Param("code") String code, @Param("url") String url);
 
-    List<Permission> selectAllPermission();
+    List<PermissionDO> selectAllPermission();
 
 
-    int updateByPrimeryKey(Permission permission);
+    int updateByPrimeryKey(PermissionDO permission);
 }
