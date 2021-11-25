@@ -22,7 +22,7 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
 
-    @GetMapping("/")
+    @GetMapping(name = "所有部门列表",value = "/")
     public List<Department> selectAllDepartment() {
 
         return departmentService.selectAllDepartment();
@@ -30,7 +30,7 @@ public class DepartmentController {
 
 
     @ApiOperation(value = "添加部门",notes = "添加部门")
-    @PostMapping("/")
+    @PostMapping(name = "添加部门",value = "/")
     public CommonResult addDept(@RequestBody Department department){
         departmentService.addDept(department);
         if (department.getResult() == 1) {
@@ -40,7 +40,7 @@ public class DepartmentController {
     }
 
     @ApiOperation(value = "删除部门",notes = "删除部门")
-    @DeleteMapping("/{departmentId}")
+    @DeleteMapping(name = "删除部门",value = "/{departmentId}")
     public CommonResult deleteDept(@PathVariable Integer departmentId) {
         Department department = new Department();
         department.setId(departmentId);

@@ -272,5 +272,10 @@ public class RedisUtils {
         return setOperations.members(key);
     }
 
+    // zset 操作
+    public boolean zadd(String key, String time, Double score) {
+        return zSetOperations.add(key, time, score);
+    }
+
 
 }

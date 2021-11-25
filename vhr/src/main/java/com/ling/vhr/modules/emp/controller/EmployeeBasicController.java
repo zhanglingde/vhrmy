@@ -57,13 +57,13 @@ public class EmployeeBasicController {
     DepartmentService departmentService;
 
     @ApiOperation(value = "获取员工基本信息")
-    @GetMapping("/")
+    @GetMapping(name = "获取员工基本信息", value = "/")
     public PageUtils<Employee> getEmployeeByPage(Employee employee, CommonParams params) {
         return employeeService.getEmployeeByPage(employee, params);
     }
 
     @ApiOperation(value = "添加员工")
-    @PostMapping("/")
+    @PostMapping(name = "添加员工", value = "/")
     public CommonResult addEmployee(@RequestBody Employee employee) {
         if (employeeService.addEmployee(employee) == 1) {
             return CommonResult.success(null, "添加成功!");
@@ -72,31 +72,31 @@ public class EmployeeBasicController {
     }
 
     @ApiOperation(value = "获取所有民族")
-    @GetMapping("/nations")
+    @GetMapping(name = "获取所有民族", value = "/nations")
     public List<Nation> getAllNations() {
         return nationService.getAllNations();
     }
 
     @ApiOperation(value = "获取所有政治面貌")
-    @GetMapping("/politicsstatus")
+    @GetMapping(name = "获取所有政治面貌", value = "/politicsstatus")
     public List<PoliticsStatus> getAllPoliticsStatus() {
         return politicsStatusService.getAllPoliticsStatus();
     }
 
     @ApiOperation(value = "获取所有职称")
-    @GetMapping("/joblevels")
+    @GetMapping(name = "获取所有职称", value = "/joblevels")
     public List<JobLevel> getAllJobLevels() {
         return jobLevelService.list();
     }
 
     @ApiOperation(value = "获取所有职位")
-    @GetMapping("/positions")
+    @GetMapping(name = "获取所有职位", value = "/positions")
     public List<Position> getAllPositions() {
         return positionService.list();
     }
 
     @ApiOperation(value = "获取最大工号")
-    @GetMapping("/maxWorkId")
+    @GetMapping(name = "获取最大工号", value = "/maxWorkId")
     public CommonResult<String> maxWorkId() {
         Integer maxWorkId = employeeService.maxWorkId();
         // 格式化成8位
@@ -105,40 +105,40 @@ public class EmployeeBasicController {
     }
 
     @ApiOperation(value = "获取所有部门")
-    @GetMapping("/departments")
+    @GetMapping(name = "获取所有部门", value = "/departments")
     public List<Department> getAllDepartments() {
         return departmentService.selectAllDepartment();
     }
 
     @ApiOperation(value = "删除员工")
-    @DeleteMapping("/{employeeId}")
+    @DeleteMapping(name = "删除员工", value = "/{employeeId}")
     public CommonResult deleteEmployee(@PathVariable("employeeId") Integer employeeId) {
         if (employeeService.deleteEmployee(employeeId) == 1) {
-            return CommonResult.success(null,"删除成功！");
+            return CommonResult.success(null, "删除成功！");
         }
         return CommonResult.error("删除失败！");
     }
 
 
-    @PutMapping("/")
+    @PutMapping(name = "更新员工", value = "/")
     public CommonResult updateEmployee(@RequestBody Employee employee) {
         if (employeeService.updateEmployee(employee) == 1) {
-            return CommonResult.success(null,"更新成功！");
+            return CommonResult.success(null, "更新成功！");
         }
         return CommonResult.error("更新失败！");
     }
 
     @ApiOperation(value = "导出数据")
-    @GetMapping("/export")
+    @GetMapping(name = "导出数据", value = "/export")
     public ResponseEntity<byte[]> exportData() {
         return employeeService.exportData();
     }
 
 
-    @PostMapping("/import")
+    @PostMapping(name = "导入数据", value = "/import")
     @ApiOperation(value = "导入数据")
     public CommonResult importData(MultipartFile file) throws IOException {
-        List<Employee> list = POIUtils.excel2Employee(file,nationService.getAllNations(),politicsStatusService.getAllPoliticsStatus(),jobLevelService.list(),positionService.list(),departmentService.getAllDeptWithOutChildren());
+        List<Employee> list = POIUtils.excel2Employee(file, nationService.getAllNations(), politicsStatusService.getAllPoliticsStatus(), jobLevelService.list(), positionService.list(), departmentService.getAllDeptWithOutChildren());
         employeeService.batchAddEmployee(list);
         return CommonResult.success();
     }

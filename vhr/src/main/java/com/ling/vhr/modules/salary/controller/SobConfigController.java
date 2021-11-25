@@ -31,20 +31,20 @@ public class SobConfigController {
     @Autowired
     SalaryService salaryService;
 
-    @GetMapping("/")
+    @GetMapping(name = "员工资质账套列表", value = "/")
     @ApiOperation(value = "获取员工账套列表")
     public PageUtils<List<Employee>> getEmployeesByPageWithSalary(CommonParams params) {
 
         return employeeService.getEmployeesByPageWithSalary(params);
     }
 
-    @GetMapping("/salaries")
+    @GetMapping(name = "查询所有工资账套", value = "/salaries")
     @ApiOperation(value = "查询所有工资账套")
     public List<Salary> getAllSalaries() {
         return salaryService.getAllSalaries();
     }
 
-    @PutMapping("/")
+    @PutMapping(name = "更新员工账套", value = "/")
     public CommonResult updateEmployeeSalaryById(Integer employeeId, Integer salaryId) {
         Integer result = employeeService.updateEmployeeSalaryById(employeeId, salaryId);
         if (result == 1 || result == 2) {

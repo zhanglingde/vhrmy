@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 在线聊天
+ *
  * @author zhangling 2021/4/29 10:44
  */
 @RestController
@@ -23,7 +24,7 @@ public class ChatController {
     @Autowired
     HrService hrService;
 
-    @GetMapping("/hrs")
+    @GetMapping(name = "获取除自己之外其他用户", value = "/hrs")
     @ApiOperation("/获取除自己之外其他用户")
     public List<Hr> getAllHrs() {
         return hrService.getAllHrsExceptCurrentHr();
