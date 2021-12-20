@@ -30,12 +30,20 @@ public class HrService implements UserDetailsService {
     @Autowired
     HrRoleMapper hrRoleMapper;
 
+    /**
+     * 根据用户名查询用户信息，包括用户所拥有的角色信息
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // 1. 查询用户信息
         Hr hr = hrMapper.selectByUsername(username);
         if(hr == null){
             throw new UsernameNotFoundException("用户不存在!");
         }
+        // 2. 查询用户角色信息
         List<Role> roles = roleMapper.selectByHrId(hr.getId());
         hr.setRoles(roles);
         return hr;

@@ -1,6 +1,7 @@
 package com.ling.vhr;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.util.AntPathMatcher;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -24,16 +25,5 @@ public class Demo01 {
 
     @Test
     public void test1() {
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("now = " + now);
-        System.out.println("now.getYear() = " + now.getYear());
-        System.out.println("now.getMonthValue() = " + now.getMonthValue());
-        System.out.println("now.getDayOfMonth() = " + now.getDayOfMonth());
-        System.out.println("now.getHour() = " + now.getHour());
-        System.out.println("now.getMinute() = " + now.getMinute());
-        System.out.println("now.getSecond() = " + now.getSecond());
-        System.out.println("now.getNano() = " + now.getNano());
-        System.out.println("now.toString() = " + now.toString());
-        System.out.println("now.getLong(ChronoField.NANO_OF_DAY) = " + now.getLong(ChronoField.NANO_OF_DAY));
     }
 }

@@ -11,6 +11,7 @@ import com.ling.vhr.modules.system.lov.convert.LovConvert;
 import com.ling.vhr.modules.system.lov.dto.LovValueDTO;
 import com.ling.vhr.modules.system.lov.service.LovValueService;
 import com.ling.vhr.modules.system.lov.vo.LovValueVO;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -33,10 +34,10 @@ public class LovValueServiceImpl implements LovValueService {
     @Autowired
     private RedisUtils redisUtils;
 
-
     @Autowired
     private LovAdapter lovAdapter;
-
+    @Autowired
+    MapperFactory mapperFactory;
 
 
     @Override
@@ -44,8 +45,7 @@ public class LovValueServiceImpl implements LovValueService {
 
         //List<LovValueDTO> lovValueDTOList = lovMapper.queryLovValue(lovCode);
         List<LovValueDTO> lovValueDTOList = lovAdapter.queryLovValue(lovCode);
-
-        List<LovValueVO> list = LovConvert.INSTANCE.convertLovValueVO(lovValueDTOList);
+        List<LovValueVO> list = mapperFactory.getMapperFacade().mapAsList(lovValueDTOList, LovValueVO.class);
         return list;
     }
 
