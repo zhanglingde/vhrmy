@@ -34,4 +34,10 @@ public class Readme {
      * {@link com.ling.vhr.mockito.lesson04.StubbingTest}
      */
     public void stubbing(){}
+
+    /**
+     * 部分 mock
+     * {@link com.ling.vhr.mockito.lesson06.SpyingAnnotationTest}
+     */
+    public void spy(){}
 }
