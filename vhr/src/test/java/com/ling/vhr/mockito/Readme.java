@@ -40,4 +40,13 @@ public class Readme {
      * {@link com.ling.vhr.mockito.lesson06.SpyingAnnotationTest}
      */
     public void spy(){}
+
+    /**
+     * 方法参数匹配
+     * anyInt(),anyDouble(),anyString(),anyList(),anyCollection()
+     * isA(Class<T> clazz)、any(Class<T> clazz)、eq（primitive value）
+     *
+     * {@link com.ling.vhr.mockito.lesson07.ArgumentsMatcherTest}
+     */
+    public void argumentsMatcher() {}
 }
