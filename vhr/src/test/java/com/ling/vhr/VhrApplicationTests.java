@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.mapper.HrMapper;
 import com.ling.vhr.modules.emp.model.Employee;
+import com.ling.vhr.service.TransactionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ class VhrApplicationTests {
 
     @Autowired
     RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    TransactionService transactionService;
 
     @Test
     void contextLoads() {
@@ -39,9 +43,8 @@ class VhrApplicationTests {
     @Test
     void test01() {
 
-        System.out.println(-1L);
-        System.out.println(Integer.MIN_VALUE);
-        System.out.println();
+        // transactionService.test2();
+        transactionService.test3();
     }
 
 }

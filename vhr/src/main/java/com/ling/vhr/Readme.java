@@ -27,4 +27,9 @@ public class Readme {
      * {@link PermissionController}
      */
     public void permission(){}
+
+    /**
+     * 编程式事务：{@link com.ling.vhr.service.impl.TransactionServiceImpl}
+     */
+    void transaction(){}
 }

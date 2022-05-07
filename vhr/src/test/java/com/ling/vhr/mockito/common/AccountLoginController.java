@@ -27,5 +27,6 @@ public class AccountLoginController {
         } catch (Exception e) {
             return "/505";
         }
+
     }
 }

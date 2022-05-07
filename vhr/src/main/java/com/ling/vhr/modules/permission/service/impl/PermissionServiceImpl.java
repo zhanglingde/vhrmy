@@ -38,6 +38,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Autowired
     PermissionMapper permissionMapper;
 
+
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -56,6 +57,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         scanController();
 //         parse();
     }
+
+
 
     private void parse() {
 
@@ -148,6 +151,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     /**
      * 扫描所有 Controller
+     *
+     * 类上必须有 RestController 注解，且需要有 RequestMapping 注解
      */
     @Override
     @Transactional(rollbackFor = Exception.class)

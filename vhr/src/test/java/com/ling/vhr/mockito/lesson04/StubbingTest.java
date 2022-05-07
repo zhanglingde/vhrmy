@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 /**
+ * Stub：同一个方法调用返回不同的值
+ *
  * @author zhangling
  * @date 2022/1/10 10:35 上午
  */
@@ -52,7 +54,6 @@ public class StubbingTest {
         verify(list, times(1)).clear();
 
         doThrow(RuntimeException.class).when(list).clear();
-
         try {
             list.clear();
             fail();
