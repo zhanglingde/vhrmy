@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.flowable.org/processdef">
+    <!-- 表示一个完整的工作流程 -->
+    <process id="ask_for_leave" name="ask_for_leave" isExecutable="true">
+        <!-- 代表一个任务审核节点（组长、经理等角色），这个节点上有一个 flowable:assignee 属性，这表示这个节点该由谁来处理，将来在 Java 代码中调用的时候，我们需要指定对应的处理人的 ID 或者其他唯一标记 -->
+        <userTask id="leaveTask" name="请假" flowable:assignee="#{leaveTask}"/>
+        <userTask id="zuzhangTask" name="组长审核" flowable:assignee="#{zuzhangTask}"/>
+        <userTask id="managerTask" name="经理审核" flowable:assignee="#{managerTask}"/>
+        <!-- 逻辑判断节点，相当于流程图中的菱形框 -->
+        <exclusiveGateway id="managerJudgeTask"/>
+        <exclusiveGateway id="zuzhangJudeTask"/>
+        <!-- 工作流中结束位置 -->
+        <endEvent id="endLeave" name="结束"/>
+        <!-- 工作流中起点位置 -->
+        <startEvent id="startLeave" name="开始"/>
+        <!-- 链接各个节点的线条，sourceRef 属性表示线的起始节点，targetRef 属性表示线指向的节点，我们图中的线条都属于这种-->
+        <sequenceFlow id="flowStart" sourceRef="startLeave" targetRef="leaveTask"/>
+        <sequenceFlow id="modeFlow" sourceRef="leaveTask" targetRef="zuzhangTask"/>
+        <sequenceFlow id="zuzhang_go" sourceRef="zuzhangJudeTask" targetRef="managerTask" name="通过">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkResult=='通过'}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="zuzhang_reject" sourceRef="zuzhangJudeTask" targetRef="sendMail" name="拒绝">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkResult=='拒绝'}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="jugdeFlow" sourceRef="managerTask" targetRef="managerJudgeTask"/>
+        <sequenceFlow id="flowEnd" name="通过" sourceRef="managerJudgeTask" targetRef="endLeave">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkResult=='通过'}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="rejectFlow" name="拒绝" sourceRef="managerJudgeTask" targetRef="sendMail">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkResult=='拒绝'}]]></conditionExpression>
+        </sequenceFlow>
+        <!-- 这是服务任务，在具体的实现中，这个任务可以做任何事情 -->
+        <serviceTask id="sendMail" flowable:exclusive="true" name="发送失败提示" isForCompensation="true" flowable:class="org.javaboy.flowable.AskForLeaveFail"/>
+        <sequenceFlow id="endFlow" sourceRef="sendMail" targetRef="askForLeaveFail"/>
+        <endEvent id="askForLeaveFail" name="请假失败"/>
+        <sequenceFlow id="zuzhangTask_zuzhangJudeTask" sourceRef="zuzhangTask" targetRef="zuzhangJudeTask"/>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_ask_for_leave">
+        <bpmndi:BPMNPlane bpmnElement="ask_for_leave" id="BPMNPlane_ask_for_leave">
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

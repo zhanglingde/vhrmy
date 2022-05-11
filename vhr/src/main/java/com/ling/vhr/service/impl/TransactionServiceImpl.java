@@ -23,6 +23,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     RoleMapper roleMapper;
+    /**
+     * 事务管理器
+     */
     @Autowired
     PlatformTransactionManager platformTransactionManager;
     @Autowired

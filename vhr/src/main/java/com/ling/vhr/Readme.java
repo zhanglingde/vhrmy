@@ -32,4 +32,9 @@ public class Readme {
      * 编程式事务：{@link com.ling.vhr.service.impl.TransactionServiceImpl}
      */
     void transaction(){}
+
+    /**
+     * 流程引擎:   {@link com.ling.vhr.controller.ProcessController}
+     */
+    void process(){}
 }

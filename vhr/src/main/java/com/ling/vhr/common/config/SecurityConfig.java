@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 不拦截登录页面接口
         web.ignoring()
                 .antMatchers("/login")
+                .antMatchers("/process/**")
                 .antMatchers("/permission/**")
                 .antMatchers("/v3/api-docs")
                 .antMatchers("/css/**")

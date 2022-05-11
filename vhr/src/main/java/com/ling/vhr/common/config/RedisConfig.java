@@ -27,15 +27,16 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate(ObjectMapper objectMapper) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 
+        // 使用Jackson2JsonRedisSerialize 替换默认序列化
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 
         //设置序列化Key的实例化对象
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        //设置序列化Value的实例化对象
-        redisTemplate.setValueSerializer(new StringRedisSerializer());
+        //设置序列化Value的实例化对象（使用 String 序列化，设置对象值失败）
+        // redisTemplate.setValueSerializer(new StringRedisSerializer());
         // jackson 序列化会有转义符 \(对于 json 格式)
-//         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
 
         redisTemplate.setConnectionFactory(factory);
         return redisTemplate;
