@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- 初始化 部门 -->
+    <changeSet id="init_table_data_department" author="zhangling">
+        <sqlFile path="sql/init/init_department.sql"/>
+    </changeSet>
+    <!-- 初始化 薪资  -->
+    <changeSet id="init_table_data_emp_salary" author="zhangling">
+        <sqlFile path="sql/init/init_emp_salary.sql"/>
+    </changeSet>
+    <!-- 初始化 员工 -->
+    <changeSet id="init_table_data_employee" author="zhangling">
+        <sqlFile path="sql/init/init_employee.sql"/>
+    </changeSet>
+    <!-- 初始化 用户-角色 -->
+    <changeSet id="init_table_data_hr_role" author="zhangling">
+        <sqlFile path="sql/init/init_hr_role.sql"/>
+    </changeSet>
+    <!-- 初始化 菜单角色 -->
+    <changeSet id="init_table_data_menu_role" author="zhangling">
+        <sqlFile path="sql/init/init_menu_role.sql"/>
+    </changeSet>
+    <!-- 初始化 消息相关 -->
+    <changeSet id="init_table_data_msg_content" author="zhangling">
+        <sqlFile path="sql/init/init_msg_content.sql"/>
+    </changeSet>
+    <!-- 初始化 民族职称等 -->
+    <changeSet id="init_table_data_nation" author="zhangling">
+        <sqlFile path="sql/init/init_nation.sql"/>
+    </changeSet>
+    <!-- 初始化 值集 lov -->
+    <changeSet id="init_table_data_au_lov" author="zhangling">
+        <sqlFile path="sql/init/init_au_lov.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>
