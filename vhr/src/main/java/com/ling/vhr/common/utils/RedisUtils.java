@@ -1,8 +1,10 @@
 package com.ling.vhr.common.utils;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
@@ -349,6 +351,35 @@ public class RedisUtils {
      */
     public boolean zAdd(String key, String time, Double score) {
         return Boolean.TRUE.equals(zSetOperations.add(key, time, score));
+    }
+
+    /**
+     * 限流方法（简单限流，不适合数据量大的限流）
+     * @param user 操作的用户，相当于是限流的对象
+     * @param action 具体的操作
+     * @param period 时间窗，限流的周期(单位s)
+     * @param maxCount 限流的次数
+     * @return 是否允许操作
+     */
+    public boolean isAllowed(String user, String action, int period, int maxCount) {
+        // 1.数据用 zset 保存，zset 的 key
+        String key = user + "-" + action;
+        long nowTime = System.currentTimeMillis();
+        // 3.建立管道
+        List<Object> pipelinedResultList = redisTemplate.executePipelined(new SessionCallback<Object>() {
+            public <K,V> Long execute(RedisOperations<K, V> operations) throws DataAccessException {
+                ZSetOperations<String, Object> zSetOperations1 = (ZSetOperations<String, Object>) operations.opsForZSet();
+                operations.multi();
+                zSetOperations1.add(key, nowTime, Convert.toDouble(nowTime));
+                zSetOperations1.removeRangeByScore(key, 0, nowTime - period * 1000);
+                Long response = zSetOperations1.zCard(key);
+                operations.exec();
+                return response;
+            }
+        });
+
+        return Convert.toLong(((List)pipelinedResultList.get(0)).get(2)) <= maxCount;
+        // return Convert.toLong(pipelinedResultList.get(2)) <= maxCount;
     }
 
 
