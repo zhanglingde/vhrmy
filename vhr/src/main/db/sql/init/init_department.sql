@@ -1,0 +1,17 @@
+INSERT INTO `department` VALUES (1, '股东会', -1, '.1', 1, 1);
+INSERT INTO `department` VALUES (4, '董事会', 1, '.1.4', 1, 1);
+INSERT INTO `department` VALUES (5, '总办', 4, '.1.4.5', 1, 1);
+INSERT INTO `department` VALUES (8, '财务部', 5, '.1.4.5.8', 1, 0);
+INSERT INTO `department` VALUES (78, '市场部', 5, '.1.4.5.78', 1, 1);
+INSERT INTO `department` VALUES (81, '华北市场部', 78, '.1.4.5.78.81', 1, 1);
+INSERT INTO `department` VALUES (82, '华南市场部', 78, '.1.4.5.78.82', 1, 0);
+INSERT INTO `department` VALUES (85, '石家庄市场部', 81, '.1.4.5.78.81.85', 1, 0);
+INSERT INTO `department` VALUES (86, '西北市场部', 78, '.1.4.5.78.86', 1, 1);
+INSERT INTO `department` VALUES (87, '西安市场', 86, '.1.4.5.78.86.87', 1, 1);
+INSERT INTO `department` VALUES (89, '莲湖区市场', 87, '.1.4.5.78.86.87.89', 1, 0);
+INSERT INTO `department` VALUES (91, '技术部', 5, '.1.4.5.91', 1, 0);
+INSERT INTO `department` VALUES (92, '运维部', 5, '.1.4.5.92', 1, 1);
+INSERT INTO `department` VALUES (93, '运维1部', 92, '.1.4.5.92.93', 1, 0);
+INSERT INTO `department` VALUES (94, '运维2部', 92, '.1.4.5.92.94', 1, 0);
+INSERT INTO `department` VALUES (96, 'bbb', 1, '.1.96', 1, 1);
+INSERT INTO `department` VALUES (104, '111', 96, '.1.96.104', 1, 0);

@@ -54,7 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // 不拦截登录页面接口
         web.ignoring()
+                .antMatchers("/redis/**")
                 .antMatchers("/login")
+                .antMatchers("/process/**")
                 .antMatchers("/permission/**")
                 .antMatchers("/v3/api-docs")
                 .antMatchers("/css/**")

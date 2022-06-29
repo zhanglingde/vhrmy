@@ -34,11 +34,17 @@ public class PermissionTest {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * 反射扫描接口
+     */
     @Test
     public void scanController() {
         permissionService.scanController();
     }
 
+    /**
+     * swagger 扫描注解
+     */
     @Test
     public void test01() {
         String url = "http://localhost:8081/v3/api-docs";

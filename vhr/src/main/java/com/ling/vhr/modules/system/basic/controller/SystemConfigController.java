@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 菜单
+ *
  * @author zhangling  2021/4/17 14:08
  */
 @RestController
@@ -23,8 +24,8 @@ public class SystemConfigController {
     @Autowired
     MenuService menuService;
 
-    @ApiOperation(value = "获取用户菜单",notes = "获取用户菜单")
-    @GetMapping("/menus")
+    @ApiOperation(value = "获取用户菜单", notes = "获取用户菜单")
+    @GetMapping(name = "获取用户菜单", value = "/menus")
     public List<Menu> selectMenusByHrId() {
         return menuService.selectMenusByHrId();
     }

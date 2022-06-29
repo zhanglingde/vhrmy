@@ -67,7 +67,7 @@ public class DefaultLovAdapter implements LovAdapter {
         String valueKey = "lov:value:"+lovCode;
         // todoa : 使用Set存储不重复集合
         //List<String> valueJsons = redisUtils.listGet(valueKey,0,-1);
-        Set<Object> valueJsons = redisUtils.setMembers(valueKey);
+        Set<Object> valueJsons = redisUtils.sMembers(valueKey);
         if(CollectionUtils.isEmpty(valueJsons)){
             logger.info("查询数据库");
             result = lovValueMapper.queryByLovCode(lovCode);
@@ -77,7 +77,7 @@ public class DefaultLovAdapter implements LovAdapter {
             }
             //redisUtils.listSetArrayList(valueKey, (ArrayList<?>) valueJsons,604800);
             result = result.stream().filter(Objects::nonNull).map((item) -> {
-                redisUtils.setAdd(valueKey, new String[]{JsonUtils.toJson(item)});
+                redisUtils.sAdd(valueKey, new String[]{JsonUtils.toJson(item)});
                 return item;
             }).collect(Collectors.toList());
         }else{

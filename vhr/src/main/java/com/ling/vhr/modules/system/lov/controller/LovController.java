@@ -1,7 +1,6 @@
 package com.ling.vhr.modules.system.lov.controller;
 
 
-
 import com.ling.vhr.common.utils.CommonResult;
 import com.ling.vhr.modules.system.lov.dto.LovDTO;
 import com.ling.vhr.modules.system.lov.dto.LovSearchDTO;
@@ -29,27 +28,27 @@ public class LovController {
     private LovService lovService;
 
     @ApiOperation(value = "值集列表", notes = "值集列表")
-    @GetMapping(name = "值集列表",value = "/")
-    public List<LovVO> list(LovSearchDTO lovSearchDTO){
+    @GetMapping(name = "值集列表", value = "/")
+    public List<LovVO> list(LovSearchDTO lovSearchDTO) {
         return lovService.list(lovSearchDTO);
     }
 
     @ApiOperation(value = "值集详情", notes = "值集详情")
-    @GetMapping(name = "值集详情",value = "/details")
-    public CommonResult<LovVO> details(Integer lovId){
+    @GetMapping(name = "值集详情", value = "/details")
+    public CommonResult<LovVO> details(Integer lovId) {
         return CommonResult.success(lovService.details(lovId));
     }
 
     @ApiOperation(value = "新增值集header", notes = "新增值集header")
-    @PostMapping("/create")
+    @PostMapping(name = "新增值集header", value = "/create")
     public CommonResult createLov(@RequestBody LovDTO lovDTO) {
         lovService.createLov(lovDTO);
         return CommonResult.success(null, "操作成功");
     }
 
     @ApiOperation(value = "编辑值集header", notes = "编辑值集header")
-    @PostMapping("/update")
-    public CommonResult updateLov(@RequestBody LovDTO lovDTO){
+    @PostMapping(name = "编辑值集header", value = "/update")
+    public CommonResult updateLov(@RequestBody LovDTO lovDTO) {
         lovService.updateLov(lovDTO);
         return CommonResult.success("操作成功");
     }

@@ -24,35 +24,35 @@ public class SalaryController {
     @Autowired
     SalaryService salaryService;
 
-    @GetMapping("/")
+    @GetMapping(name = "工资账套列表", value = "/")
     @ApiOperation(value = "工资账套列表")
     public List<Salary> getAllSalaries() {
         return salaryService.getAllSalaries();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(name = "删除工资账套", value = "/{id}")
     @ApiOperation(value = "删除工资账套")
     public CommonResult deleteSalary(@PathVariable Integer id) {
         if (salaryService.deleteSalary(id) == 1) {
-            return CommonResult.success(null,"删除工资账套成功！");
+            return CommonResult.success(null, "删除工资账套成功！");
         }
         return CommonResult.error("删除工资账套失败！");
     }
 
-    @PostMapping("/")
+    @PostMapping(name = "添加工资账套", value = "/")
     @ApiOperation(value = "添加工资账套")
     public CommonResult addSalary(@RequestBody Salary salary) {
         if (salaryService.addSalary(salary) == 1) {
-            return CommonResult.success(null,"添加工资账套成功！");
+            return CommonResult.success(null, "添加工资账套成功！");
         }
         return CommonResult.error("添加工资账套失败！");
     }
 
-    @PutMapping("/")
+    @PutMapping(name = "编辑工资账套", value = "/")
     @ApiOperation(value = "编辑工资账套")
     public CommonResult updateSalary(@RequestBody Salary salary) {
         if (salaryService.updateSalary(salary) == 1) {
-            return CommonResult.success(null,"编辑工资账套成功！");
+            return CommonResult.success(null, "编辑工资账套成功！");
         }
         return CommonResult.error("编辑工资账套失败！");
     }

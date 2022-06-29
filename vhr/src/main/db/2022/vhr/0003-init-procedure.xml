@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- 初始化 存储过程 -->
+    <!--<changeSet id="init_procedure_add_department" author="zhangling">-->
+    <!--    <sqlFile path="sql/init/init_procedure.sql"/>-->
+    <!--</changeSet>-->
+
+
+
+</databaseChangeLog>

@@ -22,46 +22,47 @@ public class PositionController {
     PositionService positionService;
 
 
-    @GetMapping("/")
+    @GetMapping(name = "职位列表", value = "/")
     @ApiOperation(value = "职位列表")
     public List<Position> list() {
-        List<Position> list =  positionService.list();
+        List<Position> list = positionService.list();
         return list;
     }
 
-    @PostMapping("/")
+    @PostMapping(name = "添加职位", value = "/")
     @ApiOperation(value = "添加职位")
     public CommonResult addPosition(@RequestBody Position position) {
         if (positionService.addPosition(position) == 1) {
-            return CommonResult.success(null,"添加成功");
+            return CommonResult.success(null, "添加成功");
         }
         return CommonResult.error("添加失败");
     }
 
-    @PutMapping("/")
+    @PutMapping(name = "更新职位", value = "/")
     @ApiOperation(value = "更新职位")
     public CommonResult updatePosition(@RequestBody Position position) {
         if (positionService.updatePosition(position) == 1) {
-            return CommonResult.success(null,"更新成功");
+            return CommonResult.success(null, "更新成功");
         }
         return CommonResult.error("更新失败");
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping(name = "删除职位", value = "/")
     @ApiOperation(value = "删除职位")
     public CommonResult deletePosition(Integer id) {
         if (positionService.deleteByPrimaryKey(id) == 1) {
-            return CommonResult.success(null,"删除成功");
+            return CommonResult.success(null, "删除成功");
         }
         return CommonResult.error("删除失败");
     }
-    @DeleteMapping("/batch")
+
+    @DeleteMapping(name = "批量删除职位", value = "/batch")
     @ApiOperation(value = "批量删除职位")
     public CommonResult batchDelete(Integer[] ids) {
         if (positionService.batchDelete(ids) == ids.length) {
-            return CommonResult.success(null,"批量删除成功！");
+            return CommonResult.success(null, "批量删除成功！");
         }
-        return CommonResult.error(null,"批量删除失败!");
+        return CommonResult.error(null, "批量删除失败!");
     }
 
 

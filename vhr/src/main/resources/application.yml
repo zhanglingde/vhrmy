@@ -2,7 +2,8 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:mysql://121.37.185.192:3306/vhr?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+#    url: jdbc:mysql://121.37.185.192:3306/vhr?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://121.37.185.192:3306/flowable?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
@@ -32,4 +33,5 @@ mybatis:
 logging:
   level:
     com.ling.vhr.mapper: debug
+    org.flowable: debug
 
