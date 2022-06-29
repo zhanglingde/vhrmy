@@ -1,7 +1,7 @@
 package com.ling.vhr.modules.system.lov.handle.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.ling.vhr.common.constants.BaConstants;
+import com.ling.vhr.common.constants.BaseConstants;
 import com.ling.vhr.common.utils.PageUtils;
 import com.ling.vhr.modules.system.lov.adapter.LovAdapter;
 import com.ling.vhr.modules.system.lov.annotation.LovValue;
@@ -329,7 +329,7 @@ public class DefaultLovValueHandle implements LovValueHandle {
                 localLovMap.put(lovCode, lov);
             }
             // 检查值集类型
-            if (!(BaConstants.LovTypes.IDP.equals(lov.getLovTypeCode()) || BaConstants.LovTypes.SQL.equals(lov.getLovTypeCode()))) {
+            if (!(BaseConstants.LovTypes.IDP.equals(lov.getLovTypeCode()) || BaseConstants.LovTypes.SQL.equals(lov.getLovTypeCode()))) {
                 // 非独立值集和SQL值集不处理后续，跳过
                 logger.debug("lov [{}] is not IDP or SQL,skip prepare...", lovCode);
                 continue;
@@ -341,7 +341,7 @@ public class DefaultLovValueHandle implements LovValueHandle {
                 continue;
             }
             logger.debug("can not get values [{}] from local cache,query lov adapter...",lovCode);
-            if(BaConstants.LovTypes.IDP.equals(lov.getLovTypeCode())){
+            if(BaseConstants.LovTypes.IDP.equals(lov.getLovTypeCode())){
                 // 独立值集后续处理
                 logger.debug("lov [{}] is IDP...", lovCode);
                 List<LovValueDTO> values = this.lovAdapter.queryLovValue(lovCode);
@@ -354,7 +354,7 @@ public class DefaultLovValueHandle implements LovValueHandle {
                 values.forEach(value -> valueMeaningMap.put(value.getValue(), value.getMeaning()));
                 logger.debug("get lov values [{}] from lov adapter: [{}] and it will be cached in local thread", lovCode, valueMeaningMap);
                 localValueMap.put(lovCode, valueMeaningMap);
-            }else if(BaConstants.LovTypes.SQL.equals(lov.getLovTypeCode())){
+            }else if(BaseConstants.LovTypes.SQL.equals(lov.getLovTypeCode())){
                 // SQL值集后续处理
                 logger.debug("lov [{}] is SQL...", lovCode);
                 if(originData == null){

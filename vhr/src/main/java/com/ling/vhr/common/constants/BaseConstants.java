@@ -4,7 +4,7 @@ package com.ling.vhr.common.constants;
  * 类常量
  * @author zhangling 2020/9/16 15:22
  */
-public class BaConstants {
+public class BaseConstants {
     /**
      * 值集类型
      */
