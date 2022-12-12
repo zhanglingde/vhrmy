@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // 不拦截登录页面接口
         web.ignoring()
+                .antMatchers("/rocketmq/**")
                 .antMatchers("/redis/**")
                 .antMatchers("/login")
                 .antMatchers("/process/**")

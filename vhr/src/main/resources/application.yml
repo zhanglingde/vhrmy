@@ -28,10 +28,28 @@ mybatis:
   #  开启陀峰映射
   configuration:
     map-underscore-to-camel-case: true
+# rocketmq 配置
+mq:
+  nameSrvServer: 101.43.42.91:9876
+  groupId: vhrApplication
+  type: apache
+
+# flowable 配置
+# 是否在项目启动的时候，自动去检查流程定义目录下是否有对应的流程定义文件，如果这个属性为 true（默认即次），就表示去检查，否则不检查（意味着不会自动部署流程）
+#flowable:
+#  check-process-definitions: false
+#  flowable:
+    # 设置流程定义文件的位置，默认位置就是 classpath*:/processes/
+#    process-definition-location-prefix: classpath*:/processes/
+    # 这个是指定流程定义 XML 文件的后缀，默认后缀有两个：**.bpmn20.xml,**.bpmn
+#    process-definition-location-suffixes: **.bpmn20.xml,**.bpmn
 
 # sql 日志
 logging:
   level:
+    com.ling: info
     com.ling.vhr.mapper: debug
-    org.flowable: debug
+    org.flowable: info
+
+logdir: logs
 

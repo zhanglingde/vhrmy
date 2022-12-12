@@ -6,8 +6,7 @@ import com.ling.vhr.common.utils.RedisUtils;
 import com.ling.vhr.mapper.HrMapper;
 import com.ling.vhr.modules.emp.model.Employee;
 import com.ling.vhr.service.TransactionService;
-import org.flowable.engine.RuntimeService;
-import org.flowable.engine.runtime.ProcessInstance;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+@Slf4j
 @SpringBootTest
 class VhrApplicationTests {
 
@@ -32,8 +29,8 @@ class VhrApplicationTests {
     @Autowired
     TransactionService transactionService;
 
-    @Autowired
-    RuntimeService runtimeService;
+    // @Autowired
+    // RuntimeService runtimeService;
 
     @Test
     void contextLoads() {

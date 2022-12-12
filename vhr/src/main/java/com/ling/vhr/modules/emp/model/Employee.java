@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -22,6 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author zhangling 2021-04-24 11:05:29
  */
 @Data
+@Accessors(chain = true)
 @ApiModel("员工基本信息表DTO")
 public class Employee implements Serializable {
 
