@@ -2,7 +2,7 @@ package com.ling.vhr;
 
 import com.ling.vhr.modules.system.lov.controller.LovController;
 import com.ling.vhr.modules.system.log.controller.LogController;
-import com.ling.vhr.modules.permission.controller.PermissionController;
+import com.ling.vhr.controller.PermissionController;
 import com.ling.vhr.common.roecketmq.MqUtils;
 
 /**

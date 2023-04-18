@@ -2,13 +2,13 @@ package com.ling.vhr.controller;
 
 import com.ling.vhr.common.roecketmq.MqUtils;
 import com.ling.vhr.model.Msg;
+import com.ling.vhr.model.ValidList;
 import com.ling.vhr.modules.emp.model.Employee;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author zhangling
@@ -25,9 +25,11 @@ public class RocketMQController {
     }
 
     @PostMapping("/test")
-    public void test(@RequestBody List<Employee> list) {
+    public void test(@RequestBody @Validated ValidList<Employee> list) {
         System.out.println("list = " + list);
     }
+
+
 
 
 }

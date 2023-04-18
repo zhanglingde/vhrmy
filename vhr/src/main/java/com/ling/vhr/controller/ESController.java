@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.es.controller;
+package com.ling.vhr.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

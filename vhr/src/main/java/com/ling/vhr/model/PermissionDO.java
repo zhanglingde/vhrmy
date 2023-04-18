@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.permission.model;
+package com.ling.vhr.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

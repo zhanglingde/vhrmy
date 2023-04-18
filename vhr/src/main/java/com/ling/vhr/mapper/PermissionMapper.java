@@ -1,7 +1,7 @@
 package com.ling.vhr.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ling.vhr.modules.permission.model.PermissionDO;
+import com.ling.vhr.model.PermissionDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

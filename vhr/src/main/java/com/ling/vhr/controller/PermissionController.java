@@ -1,8 +1,8 @@
-package com.ling.vhr.modules.permission.controller;
+package com.ling.vhr.controller;
 
 import com.ling.vhr.mapper.PermissionMapper;
-import com.ling.vhr.modules.permission.model.PermissionDO;
-import com.ling.vhr.modules.permission.service.PermissionService;
+import com.ling.vhr.model.PermissionDO;
+import com.ling.vhr.service.PermissionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +39,11 @@ public class PermissionController {
     @PostMapping("/fresh")
     public void fresh() {
         permissionService.fresh();
+    }
 
+    @GetMapping("/test")
+    public void testProxy(){
+        permissionService.testProxy();
     }
 
 

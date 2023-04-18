@@ -1,7 +1,5 @@
 package com.ling.vhr.modules.emp.model;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ling.vhr.modules.salary.model.Salary;
 import com.ling.vhr.modules.system.basic.model.Department;
@@ -9,12 +7,14 @@ import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
-
-import lombok.*;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 
 /**
@@ -34,6 +34,7 @@ public class Employee implements Serializable {
     private Integer id;
 
     @ApiModelProperty("员工姓名")
+    @NotEmpty(message = "员工姓名不能为空")
     private String name;
 
     @ApiModelProperty("性别")
@@ -91,6 +92,10 @@ public class Employee implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     @ApiModelProperty("入职日期")
     private Date beginDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime issueDate;
 
     @ApiModelProperty("在职状态")
     private String workState;

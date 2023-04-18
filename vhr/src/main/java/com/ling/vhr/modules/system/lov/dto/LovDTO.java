@@ -3,6 +3,7 @@ package com.ling.vhr.modules.system.lov.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * @since 2020-07-27 16:43:28
  */
 @Data
+@Accessors(chain = true)
 @ApiModel("值集头DTO")
 public class LovDTO {
     

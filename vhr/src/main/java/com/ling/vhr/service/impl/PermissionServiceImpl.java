@@ -1,20 +1,24 @@
-package com.ling.vhr.modules.permission.service.impl;
+package com.ling.vhr.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ling.vhr.common.utils.SpringContextUtils;
+import com.ling.vhr.mapper.LovMapper;
 import com.ling.vhr.mapper.PermissionMapper;
-import com.ling.vhr.modules.permission.model.PermissionDO;
-import com.ling.vhr.modules.permission.service.PermissionService;
+import com.ling.vhr.model.PermissionDO;
+import com.ling.vhr.modules.system.lov.dto.LovDTO;
+import com.ling.vhr.service.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -57,7 +61,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         scanController();
 //         parse();
     }
-
 
 
     private void parse() {
@@ -151,7 +154,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     /**
      * 扫描所有 Controller
-     *
+     * <p>
      * 类上必须有 RestController 注解，且需要有 RequestMapping 注解
      */
     @Override
@@ -225,5 +228,26 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         }
         this.saveBatch(permissionDOList);
 //        permissions.forEach(p -> System.out.println(permissions));
+    }
+
+
+    // @Autowired
+    // PermissionService permissionService;
+
+    @Autowired
+    LovMapper lovMapper;
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void testProxy() {
+        ((PermissionService) AopContext.currentProxy()).updateLov();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+    @Override
+    public void updateLov() {
+        LovDTO lovDTO = new LovDTO().setLovId(1).setLovName("公司类型8");
+        lovMapper.updateByPrimaryKey(lovDTO);
+        int i = 10 / 0;
     }
 }
