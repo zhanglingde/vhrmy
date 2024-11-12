@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 
 /**
  * 实体类
@@ -40,7 +42,7 @@ public class Employee implements Serializable {
     @ApiModelProperty("性别")
     private String gender;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("出生日期")
     private Date birthday;
 
@@ -89,7 +91,7 @@ public class Employee implements Serializable {
     @ApiModelProperty("毕业院校")
     private String school;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("入职日期")
     private Date beginDate;
 
@@ -106,19 +108,19 @@ public class Employee implements Serializable {
     @ApiModelProperty("合同期限")
     private Double contractTerm;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("转正日期")
     private Date conversionTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("离职日期")
     private Date notWorkDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("合同起始日期")
     private Date beginContract;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("合同终止日期")
     private Date endContract;
 
@@ -126,12 +128,12 @@ public class Employee implements Serializable {
     private Integer workAge;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("入职日期从")
     private Date beginDateFrom;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Shanghai")
     @ApiModelProperty("入职日期至")
     private Date beginDateTo;
 

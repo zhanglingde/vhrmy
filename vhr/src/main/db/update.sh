@@ -4,10 +4,11 @@
 
 # zhangling 本地  witch liquibase
 liquibase \
-  --driver=com.mysql.cj.jdbc.Driver \
-  --changeLogFile=driver.xml \
-  --url=jdbc:mysql://127.0.0.1:3306/maycur-finance-operation-platform \
+#  --driver=com.mysql.cj.jdbc.Driver \
+  "--driver=com.mysql.jdbc.Driver" \
+  "--changeLogFile=driver.xml" \
+  --url=jdbc:mysql://127.0.0.1:3306/vhr \
   --username=root \
-  --password=zhangling03 \
+  --password=root \
   --log-level=DEBUG \
   update

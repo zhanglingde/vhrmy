@@ -3,17 +3,17 @@
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `addDep`;
 delimiter ;;
-CREATE PROCEDURE `addDep`(in depName varchar(32),in parentId int,in enabled boolean,out result int,out result2 int)
+CREATE PROCEDURE `addDep`(in departmentName varchar(32),in parentId int,in enabled boolean,out result int,out result2 int)
 begin
     declare did int;
-    declare pDepPath varchar(64);
-    insert into department set name=depName,parentId=parentId,enabled=enabled;
-    select row_count() into result;
-    select last_insert_id() into did;
-    set result2=did;
-    select depPath into pDepPath from department where id=parentId;
-    update department set depPath=concat(pDepPath,'.',did) where id=did;
-    update department set isParent=true where id=parentId;
+    declare parentDepPath varchar(64);
+insert into department set department_name=departmentName,parent_id=parentId,enabled=enabled;
+select row_count() into result;
+select last_insert_id() into did;
+set result2=did;
+select dep_path into parentDepPath from department where id=parentId;
+update department set dep_path=concat(parentDepPath,'.',did) where id=did;
+update department set is_parent=true where id=parentId;
 end
 ;;
 delimiter ;
@@ -29,20 +29,20 @@ begin
     declare pid int;
     declare pcount int;
     declare a int;
-    select count(*) into a from department where id=did and isParent=false;
-    if a=0 then set result=-2;
-    else
-        select count(*) into ecount from employee where departmentId=did;
-        if ecount>0 then set result=-1;
-        else
-            select parentId into pid from department where id=did;
-            delete from department where id=did and isParent=false;
-            select row_count() into result;
-            select count(*) into pcount from department where parentId=pid;
-            if pcount=0 then update department set isParent=false where id=pid;
-            end if;
-        end if;
-    end if;
+select count(*) into a from department where id=did and is_parent=false;
+if a=0 then set result=-2;
+else
+select count(*) into ecount from employee where department_id=did;
+if ecount>0 then set result=-1;
+else
+select parent_id into pid from department where id=did;
+delete from department where id=did and is_parent=false;
+select row_count() into result;
+select count(*) into pcount from department where parent_id=pid;
+if pcount=0 then update department set is_parent=false where id=pid;
+end if;
+end if;
+end if;
 end
 ;;
 delimiter ;

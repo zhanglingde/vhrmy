@@ -228,7 +228,7 @@
                 `all_salary`             int(11)      default null comment '应发工资',
                 `pension_base`           int(11)      default null comment '养老金基数',
                 `pension_per`            float        default null comment '养老金比率',
-                `create_date`            timestamp(0) default null comment '启用时间',
+                `create_date`            date default null comment '启用时间',
                 `medical_base`           int(11)      default null comment '医疗基数',
                 `medical_per`            float        default null comment '医疗保险比率',
                 `accumulation_fund_base` int(11)      default null comment '公积金基数',
