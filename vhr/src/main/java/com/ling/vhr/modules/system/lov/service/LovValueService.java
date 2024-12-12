@@ -1,8 +1,8 @@
 package com.ling.vhr.modules.system.lov.service;
 
 
-import com.ling.vhr.modules.system.lov.dto.LovValueDTO;
-import com.ling.vhr.modules.system.lov.vo.LovValueVO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovValueVO;
 
 import java.util.List;
 

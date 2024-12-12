@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.lov.vo;
+package com.ling.vhr.modules.system.lov.domain.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

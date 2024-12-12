@@ -13,7 +13,7 @@
     </insert>
 
     <!-- 查询值集列表   -->
-    <select id="list" resultType="com.ling.vhr.modules.system.lov.vo.LovVO">
+    <select id="list" resultType="com.ling.vhr.modules.system.lov.domain.vo.LovVO">
         select lov_id,
             lov_code,
             lov_name,
@@ -32,7 +32,7 @@
     </select>
 
     <!-- 根据值集代码查询值集头信息   -->
-    <select id="queryLovInfo" resultType="com.ling.vhr.modules.system.lov.dto.LovDTO">
+    <select id="queryLovInfo" resultType="com.ling.vhr.modules.system.lov.domain.dto.LovDTO">
         select
             lov_id,
             lov_code,
@@ -59,7 +59,7 @@
 
 
     <!--  查询值集列表  -->
-    <select id="selectAll" resultType="com.ling.vhr.modules.system.lov.vo.LovVO">
+    <select id="selectAll" resultType="com.ling.vhr.modules.system.lov.domain.vo.LovVO">
         select lov_id,
                lov_code,
                lov_name,
@@ -70,7 +70,7 @@
     </select>
 
     <!--  根据主键查询详情  -->
-    <select id="selectByPrimaryKey" resultType="com.ling.vhr.modules.system.lov.vo.LovVO">
+    <select id="selectByPrimaryKey" resultType="com.ling.vhr.modules.system.lov.domain.vo.LovVO">
         select lov_id,
                lov_code,
                lov_name,

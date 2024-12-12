@@ -32,7 +32,8 @@ mybatis:
 mq:
   nameSrvServer: 101.43.42.91:9876
   groupId: vhrApplication
-  type: apache
+  type: aa
+#  type: apache
 
 # flowable 配置
 # 是否在项目启动的时候，自动去检查流程定义目录下是否有对应的流程定义文件，如果这个属性为 true（默认即次），就表示去检查，否则不检查（意味着不会自动部署流程）

@@ -1,7 +1,7 @@
 package com.ling.vhr.lov;
 
 import com.ling.vhr.modules.system.lov.service.LovValueService;
-import com.ling.vhr.modules.system.lov.vo.LovValueVO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovValueVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -2,15 +2,17 @@ package com.ling.vhr.modules.system.lov.service.impl;
 
 
 import com.ling.vhr.common.exception.RrException;
+import com.ling.vhr.common.utils.MapstructUtils;
 import com.ling.vhr.common.utils.RedisUtils;
 import com.ling.vhr.mapper.LovMapper;
 import com.ling.vhr.mapper.LovValueMapper;
 import com.ling.vhr.modules.system.lov.adapter.LovAdapter;
-import com.ling.vhr.modules.system.lov.dto.LovDTO;
-import com.ling.vhr.modules.system.lov.dto.LovSearchDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovSearchDTO;
+import com.ling.vhr.modules.system.lov.domain.entity.LovEntity;
 import com.ling.vhr.modules.system.lov.service.LovService;
-import com.ling.vhr.modules.system.lov.vo.LovVO;
-import com.ling.vhr.modules.system.lov.vo.LovValueVO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovVO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovValueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,16 +47,8 @@ public class LovServiceImpl implements LovService {
 
         this.checkLovCode(lovDTO.getLovCode());
         // 创建值集头
-        lovMapper.createLov(lovDTO);
-
-        //if (!CollectionUtils.isEmpty(lovDTO.getLovValueDTOList())) {
-        //    lovDTO.getLovValueDTOList().forEach(lovValue -> {
-        //        lovValue.setLovId(lovDTO.getLovId());
-        //        lovValue.setLovCode(lovDTO.getLovCode());
-        //    });
-        //    lovMapper.batchInsertLovValue(lovDTO.getLovValueDTOList());
-        //}
-
+        LovEntity lovEntity = MapstructUtils.convert(lovDTO, LovEntity.class);
+        lovMapper.insert(lovEntity);
     }
 
     /**

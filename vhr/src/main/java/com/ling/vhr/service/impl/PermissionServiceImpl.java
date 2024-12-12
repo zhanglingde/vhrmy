@@ -8,7 +8,7 @@ import com.ling.vhr.common.utils.SpringContextUtils;
 import com.ling.vhr.mapper.LovMapper;
 import com.ling.vhr.mapper.PermissionMapper;
 import com.ling.vhr.model.PermissionDO;
-import com.ling.vhr.modules.system.lov.dto.LovDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovDTO;
 import com.ling.vhr.service.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

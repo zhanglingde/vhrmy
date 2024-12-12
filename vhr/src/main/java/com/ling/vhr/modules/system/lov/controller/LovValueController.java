@@ -3,9 +3,9 @@ package com.ling.vhr.modules.system.lov.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
 import com.ling.vhr.mapper.LovValueMapper;
-import com.ling.vhr.modules.system.lov.dto.LovValueDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO;
 import com.ling.vhr.modules.system.lov.service.LovValueService;
-import com.ling.vhr.modules.system.lov.vo.LovValueVO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovValueVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

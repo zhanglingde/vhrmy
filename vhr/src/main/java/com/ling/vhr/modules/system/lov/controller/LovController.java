@@ -2,10 +2,10 @@ package com.ling.vhr.modules.system.lov.controller;
 
 
 import com.ling.vhr.common.utils.CommonResult;
-import com.ling.vhr.modules.system.lov.dto.LovDTO;
-import com.ling.vhr.modules.system.lov.dto.LovSearchDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovSearchDTO;
 import com.ling.vhr.modules.system.lov.service.LovService;
-import com.ling.vhr.modules.system.lov.vo.LovVO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

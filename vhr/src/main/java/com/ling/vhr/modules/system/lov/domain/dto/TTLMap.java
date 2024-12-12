@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.lov.dto;
+package com.ling.vhr.modules.system.lov.domain.dto;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,8 +3,8 @@ package com.ling.vhr.modules.system.lov.adapter;
 
 
 
-import com.ling.vhr.modules.system.lov.dto.LovDTO;
-import com.ling.vhr.modules.system.lov.dto.LovValueDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO;
 
 import java.util.List;
 

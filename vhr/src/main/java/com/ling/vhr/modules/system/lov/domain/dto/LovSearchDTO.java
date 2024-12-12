@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.lov.dto;
+package com.ling.vhr.modules.system.lov.domain.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

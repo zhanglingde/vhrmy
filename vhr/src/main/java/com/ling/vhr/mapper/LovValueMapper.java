@@ -1,7 +1,7 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.lov.dto.LovValueDTO;
-import com.ling.vhr.modules.system.lov.vo.LovValueVO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovValueVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.cursor.Cursor;
 import org.springframework.stereotype.Repository;

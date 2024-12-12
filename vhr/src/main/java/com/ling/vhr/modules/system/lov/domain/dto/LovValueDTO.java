@@ -1,5 +1,8 @@
-package com.ling.vhr.modules.system.lov.dto;
+package com.ling.vhr.modules.system.lov.domain.dto;
 
+import com.ling.vhr.modules.system.lov.domain.vo.LovValueVO;
+import io.github.linpeilie.annotations.AutoMapper;
+import io.github.linpeilie.annotations.AutoMapping;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -9,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 值集值DTO
+ *
  * @author zhangling
  * @since 2020/7/27 10:41
  */
@@ -17,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("值集值DTO")
+@AutoMapper(target = LovValueVO.class, reverseConvertGenerate = true)
 public class LovValueDTO {
 
     @ApiModelProperty("主键id")
@@ -34,8 +39,9 @@ public class LovValueDTO {
     @ApiModelProperty("含义")
     private String meaning;
 
+    @AutoMapping(source = "desc", target = "description")
     @ApiModelProperty("描述")
-    private String description;
+    private String desc;
 
     @ApiModelProperty("备注")
     private String remark;

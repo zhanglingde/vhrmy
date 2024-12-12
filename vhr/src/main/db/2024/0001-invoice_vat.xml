@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- 创建 invoice_vat 表 -->
+    <changeSet id="create_table_invoice_vat" author="zhangling">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="invoice_vat"/>
+            </not>
+        </preConditions>
+        <sql>
+            create table invoice_vat
+            (
+                code                      varchar(255)                              not null
+                    primary key,
+                ent_code                  varchar(64)                               not null,
+                biz_code                  varchar(64)                               null,
+                inv_vat_out_amount_code   varchar(64)                               null comment 'invoice_vat_outstanding_amount表 code',
+                client_code               varchar(64)                               null comment '客户code',
+                client_name               varchar(300)                              null comment '客户name',
+                legal_entity_code         varchar(64)                               not null comment '抬头code',
+                legal_entity_name         varchar(300)                              null comment '抬头name',
+                client_legal_entity_code  varchar(255)                              null,
+                client_legal_entity_name  varchar(300)                              null,
+                inv_appl_code             varchar(64)                               null comment '开票申请code',
+                inv_appl_biz_code         varchar(64)                               null comment '开票申请bizcode',
+                appl_form_sub_type_code   varchar(64)                               null comment '开票申请单据小类code',
+                appl_reference_form_code  varchar(64)                               null comment '开票申请自定义表单code',
+                invoice_biz_code          varchar(64)                               null comment '发票代码',
+                invoice_number            varchar(64)                               null comment '发票号码',
+                qd_invoice_number         varchar(25)                               null comment '全电发票号码',
+                invoice_type              varchar(32)                               not null comment '发票类型',
+                issue_date                timestamp                                 null comment '开票日期',
+                check_code                varchar(64)                               null comment '发票校验码',
+                status                    varchar(32)                               null comment '发票验真状态',
+                total_price_amount        decimal(32, 6)                            null comment '未含税金额',
+                total_tax_amount          decimal(32, 6)                            null comment '税额',
+                is_tax_free               varchar(5)                                null comment '是否免税',
+                total_price_and_tax       decimal(32, 6)                            null comment '价税合计',
+                buyer_name                varchar(300)                              null comment '买方名称',
+                buyer_tax_number          varchar(30)                               null comment '买方税号(购货单位识别号)',
+                buyer_address_phone       text                                      null comment '买方地址电话',
+                buyer_bank_account        text                                      null comment '买方银行及账户',
+                buyer_address             text                                      null comment '买方地址',
+                buyer_phone               varchar(64)                               null comment '买方电话',
+                buyer_bank_name           text                                      null comment '买方银行',
+                buyer_account             text                                      null comment '买方账户',
+                seller_name               varchar(300)                              null comment '销售方名称',
+                seller_tax_number         varchar(30)                               null comment '销售方税号',
+                seller_address_phone      text                                      null comment '销售方地址电话',
+                seller_bank_account       text                                      null comment '销售方银行及账户',
+                seller_address            text                                      null comment '销售方地址',
+                seller_phone              varchar(64)                               null comment '销售方电话',
+                seller_bank_name          text                                      null comment '销售方银行',
+                seller_account            text                                      null comment '销售方账户',
+                issuer_name               varchar(300)                              null comment '开票人',
+                payee_name                varchar(50)                               null comment '收款人名字',
+                validator_name            varchar(50)                               null comment '复核人名字',
+                imported_via              varchar(32)                               null comment '录入方式',
+                comment                   text                                      null comment '备注',
+                online_platform           varchar(32)                               null comment '在线开票平台',
+                proc_status               varchar(32)                               null comment '流程状态',
+                proc_inst_id              varchar(64)                               null comment '流程实例',
+                operator_codes            text                                      null comment '审批人(当前节点)',
+                approved_at               timestamp                                 null comment '审批时间',
+                completed_at              timestamp                                 null comment '完成时间',
+                submitted_at              timestamp                                 null,
+                submitter_code            varchar(255)                              null,
+                submitter_name            varchar(255)                              null,
+                is_in_web_hook            bit          default b'0'                 null comment '是否阻塞在webHook节点',
+                proc_def_code             varchar(64)                               null,
+                form_sub_type_code        varchar(64)                               null comment '单据code',
+                reference_form_code       varchar(64)                               null comment '自定义表单code',
+                taxplate_identification   varchar(4)                                null comment '税盘标识',
+                sid                       varchar(64)                               null comment '合力异步开票返回的任务编号',
+                equipment_code            varchar(64)                               null comment '设备编号',
+                equipment_name            varchar(64)                               null comment '设备名称',
+                invoice_source            varchar(32)                               null comment '发票来源',
+                is_cancelled              tinyint(1)   default 0                    null comment '是否作废',
+                cancelld_reason           varchar(256)                              null comment '作废原因',
+                cancelled_by              varchar(64)                               null comment '作废人',
+                cancelled_at              timestamp                                 null comment '作废时间',
+                invoice_type_code         varchar(3)                                null comment '发票类型代码(税控盘：007纸质普票,004纸质专票,026普通电子发票,028专用电子发票；金税盘：2纸质普票,0纸质专票,51普通电子发票)',
+                issue_type                varchar(2)                                null comment '开票类型(0正数发票,1负数发票)',
+                special_ticket            varchar(2)                                null comment '特殊票种',
+                diff_taxation_type        varchar(25)  default 'GENERAL_TAXATION'   null comment '差额征税类型：FULL_TAXATION 全额，DIFFERENTIAL_TAXATION 差额，GENERAL_TAXATION 普通征税',
+                invoice_list_sign         tinyint(1)                                null comment '是否清单发票(1清单发票,0非清单发票)',
+                main_item_name            varchar(600)                              null comment '主要商品名称',
+                buyer_email               varchar(255)                              null comment '买方电子邮箱',
+                buyer_wechat_id           varchar(20)                               null comment '买方微信id',
+                invoice_phone             varchar(15)                               null comment '收票手机号',
+                multiple_tax_rates        tinyint(1)                                null comment '是否多税率',
+                comprehensive_tax_rate    decimal(18, 6)                            null comment '综合税率',
+                invoice_status            varchar(2)   default '0'                  null comment '发票状态(0正数发票,1负数发票,2空白发票作废,3已开发作票废,7部分红冲,8全额红冲)',
+                attachment_status         varchar(20)  default 'DEFAULT'            null comment '发票影像状态：DEFAULT 默认(纸票);GETTING 获取中;GETTED 已获取;FAIL 获取失败',
+                invoice_draft_data_code   varchar(64)                               null comment '预制发票code',
+                documenti_correlati_json  longtext                                  null comment '相关单据',
+                statement_biz_codes       text                                      null comment '相关单据 bizCode',
+                original_invoice_biz_code varchar(64)                               null comment '原发票代码',
+                original_invoice_number   varchar(64)                               null comment '原发票号码',
+                notice_code               varchar(30)                               null comment '通知单编号(专票红字必填)',
+                mail_status               varchar(64)  default 'NOT_SEND'           null,
+                sms_status                varchar(15)  default 'NOT_SEND'           null comment '短信发送状态',
+                is_red_write_off          tinyint(1)   default 0                    not null comment '是否被红字发票完全冲销',
+                custom_object             json                                      null comment '共享字段',
+                is_red                    tinyint(1)   default 0                    null comment '是否为红票',
+                is_qd                     tinyint(1)   default 0                    not null comment '是否全电',
+                is_upload                 tinyint(1)   default 0                    null comment '是否上传',
+                is_printed                tinyint(1)   default 0                    not null comment '发票是否已打印',
+                created_at                timestamp(6) default CURRENT_TIMESTAMP(6) not null comment '创建时间,默认为current_timestamp(6)',
+                created_by                varchar(50)                               null,
+                updated_at                timestamp(6)                              null comment '修改时间',
+                updated_by                varchar(50)                               null comment '修改人',
+                is_deleted                tinyint(1)   default 0                    not null comment '软删标志位'
+            )
+                comment '发票';
+
+            create index ENT_CODE_SID_INDEX
+                on invoice_vat (ent_code, sid);
+
+            create index INVOICE_BIZ_CODE_INVOICE_NUMBER_INDEX
+                on invoice_vat (invoice_number, invoice_biz_code)
+                comment '发票号码，发票代码索引';
+
+            create index idx_ent_code_issue_date_update_date
+                on invoice_vat (ent_code, issue_date, updated_at)
+                comment '开具时间、更新时间';
+
+            create index idx_ent_code_issuer
+                on invoice_vat (ent_code, is_deleted, issuer_name);
+
+            create index idx_ent_code_origin_invoice_number
+                on invoice_vat (ent_code, original_invoice_number)
+                comment '公司编码+原发票号码索引';
+
+            create index idx_invoice_vat_query
+                on invoice_vat (ent_code, proc_status, inv_appl_biz_code, updated_at)
+                comment '列表搜索索引';
+
+            create index idx_original_invoice_number_01
+                on invoice_vat (original_invoice_number)
+                comment '原蓝字发票发票代码索引';
+
+            create index idx_qd_invoice_number
+                on invoice_vat (qd_invoice_number)
+                comment '全电发票号码';
+
+            create index inv_appl_code
+                on invoice_vat (inv_appl_code)
+                comment 'inv_appl_code';
+
+            create index inv_vat_out_amount_code
+                on invoice_vat (inv_vat_out_amount_code)
+                comment '发票统计编号';
+
+            create index invoice_draft_data_code
+                on invoice_vat (invoice_draft_data_code, inv_appl_code)
+                comment '预制发票编号,开票申请单编号';
+
+            create index invoice_vat_created_at_index
+                on invoice_vat (created_at);
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>

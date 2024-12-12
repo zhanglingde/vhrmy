@@ -46,7 +46,7 @@
     </update>
 
 
-    <select id="selectByPrimary" resultType="com.ling.vhr.modules.system.lov.dto.LovValueDTO">
+    <select id="selectByPrimary" resultType="com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO">
         select lov_value_id,
                lov_id,
                lov_code,
@@ -59,7 +59,7 @@
     </select>
 
 
-    <select id="selectByLovId" resultType="com.ling.vhr.modules.system.lov.vo.LovValueVO">
+    <select id="selectByLovId" resultType="com.ling.vhr.modules.system.lov.domain.vo.LovValueVO">
         select lov_value_id,
                lov_id,
                lov_code,
@@ -75,7 +75,7 @@
         where lov_id = #{lovId}
     </select>
 
-    <select id="queryByLovCode" resultType="com.ling.vhr.modules.system.lov.dto.LovValueDTO">
+    <select id="queryByLovCode" resultType="com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO">
         select
             lov_value_id,
             lov_id,
@@ -91,7 +91,7 @@
     </select>
 
     <!-- 根据状态参数查询   -->
-    <select id="selectByCondition" resultType="com.ling.vhr.modules.system.lov.vo.LovValueVO">
+    <select id="selectByCondition" resultType="com.ling.vhr.modules.system.lov.domain.vo.LovValueVO">
         select lov_value_id,
         lov_id,
         lov_code,
@@ -111,7 +111,7 @@
         </if>
     </select>
 
-    <select id="selectAll" resultType="com.ling.vhr.modules.system.lov.dto.LovValueDTO">
+    <select id="selectAll" resultType="com.ling.vhr.modules.system.lov.domain.dto.LovValueDTO">
         select *
         from au_lov_value
     </select>

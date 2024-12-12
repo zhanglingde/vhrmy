@@ -6,6 +6,8 @@ import com.ling.vhr.common.utils.POIUtils;
 import com.ling.vhr.common.utils.PageUtils;
 import com.ling.vhr.mapper.EmployeeMapper;
 import com.ling.vhr.modules.emp.model.Employee;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.util.List;
  *
  * @author zhangling 2021-04-24 11:05:31
  */
+@Slf4j
 @Service
 public class EmployeeService {
 
@@ -71,7 +74,11 @@ public class EmployeeService {
         if (result == 1) {
             Employee emp = employeeMapper.selectByPrimaryKey(employee.getId());
             // TODO 存储消息日志
-            rabbitTemplate.convertAndSend("ling-direct-exchange","direct",emp);
+            try {
+                rabbitTemplate.convertAndSend("ling-direct-exchange", "direct", emp);
+            } catch (AmqpException e) {
+                log.error("发送 mq 消息错误", e);
+            }
         }
         return result;
     }
@@ -108,7 +115,7 @@ public class EmployeeService {
      * @return
      */
     public ResponseEntity<byte[]> exportData() {
-        List<Employee> list = employeeMapper.selectEmployeeByPage(null, null, null);
+        List<Employee> list = employeeMapper.selectEmployeeByPage(new Employee(), null, null);
         return POIUtils.employee2Excel(list);
     }
 

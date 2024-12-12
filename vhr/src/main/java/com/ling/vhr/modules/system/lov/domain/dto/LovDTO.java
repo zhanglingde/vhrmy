@@ -1,5 +1,7 @@
-package com.ling.vhr.modules.system.lov.dto;
+package com.ling.vhr.modules.system.lov.domain.dto;
 
+import com.ling.vhr.modules.system.lov.domain.entity.LovEntity;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +19,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @ApiModel("值集头DTO")
+@AutoMapper(target = LovEntity.class)
 public class LovDTO {
     
     @ApiModelProperty("值集ID")

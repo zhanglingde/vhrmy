@@ -3,9 +3,9 @@ package com.ling.vhr.modules.system.lov.service;
 
 
 
-import com.ling.vhr.modules.system.lov.dto.LovDTO;
-import com.ling.vhr.modules.system.lov.dto.LovSearchDTO;
-import com.ling.vhr.modules.system.lov.vo.LovVO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovSearchDTO;
+import com.ling.vhr.modules.system.lov.domain.vo.LovVO;
 
 import java.util.List;
 

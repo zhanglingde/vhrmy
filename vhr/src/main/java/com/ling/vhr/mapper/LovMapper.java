@@ -1,9 +1,11 @@
 package com.ling.vhr.mapper;
 
 
-import com.ling.vhr.modules.system.lov.dto.LovDTO;
-import com.ling.vhr.modules.system.lov.dto.LovSearchDTO;
-import com.ling.vhr.modules.system.lov.vo.LovVO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ling.vhr.modules.system.lov.domain.dto.LovDTO;
+import com.ling.vhr.modules.system.lov.domain.dto.LovSearchDTO;
+import com.ling.vhr.modules.system.lov.domain.entity.LovEntity;
+import com.ling.vhr.modules.system.lov.domain.vo.LovVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +18,7 @@ import java.util.List;
  * @since 2020-07-27 10:24:28
  */
 @Repository
-public interface LovMapper {
+public interface LovMapper extends BaseMapper<LovEntity> {
 
     /**
      * 查询列表
