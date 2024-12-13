@@ -22,7 +22,7 @@ import java.util.Properties;
  * @date 2022/7/4 9:01 PM
  */
 @Configuration
-public class ConsumerClient {
+public class AliyunConsumerClient {
 
     @Autowired
     private OrderMessageListener orderMessageListener;
