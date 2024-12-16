@@ -49,6 +49,9 @@
 
     <logger name="org.springframework.web" level="ERROR"/>
     <logger name="org.springboot.sample" level="ERROR" />
+    <!-- 设置 P6Spy 的日志级别 -->
+<!--    <logger name="com.p6spy.engine.spy" level="DEBUG"/>-->
+
     <!-- 记录 restartedMain 线程启动的日志（项目启动） -->
     <!--级别从低到高分别是：debug -> info -> error -> fatel.日志输出的时候, 只会输出大于等于该级别的日志, 也就是设置了INFO之后, DEBUG是不会被输出, 只会输出INFO、ERROR和FATAL级别的日志..-->
     <root level="ERROR">
