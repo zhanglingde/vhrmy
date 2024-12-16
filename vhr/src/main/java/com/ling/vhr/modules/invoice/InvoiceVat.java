@@ -8,7 +8,9 @@ import org.dromara.easyes.annotation.IndexName;
 @IndexName("invoice_vat")
 public class InvoiceVat {
 
-    private String code;
+    private String _id;
+
+    private String esCode;
 
     private String invoiceNumber;
 }

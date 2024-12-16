@@ -55,7 +55,7 @@ easy-es:
 # sql 日志
 logging:
   level:
-    com.ling: info
+    com.ling: debug
     com.ling.vhr.mapper.HrMapper: debug
     org.flowable: info
 

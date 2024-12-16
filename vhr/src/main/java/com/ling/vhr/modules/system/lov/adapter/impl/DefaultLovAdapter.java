@@ -51,9 +51,9 @@ public class DefaultLovAdapter implements LovAdapter {
         if(StringUtils.isEmpty(lovJson)){
             logger.debug("查询数据库lov：{}",lovCode);
             lovDTO = lovMapper.queryLovInfo(lovCode);
-            redisUtils.set(key, JsonUtils.toJson(lovDTO),604800);
+            redisUtils.set(key, JsonUtils.toJsonString(lovDTO),604800);
         }else{
-            lovDTO = JsonUtils.fromJson(lovJson,LovDTO.class);
+            lovDTO = JsonUtils.parseObject(lovJson,LovDTO.class);
         }
         return lovDTO;
     }
@@ -73,16 +73,16 @@ public class DefaultLovAdapter implements LovAdapter {
             result = lovValueMapper.queryByLovCode(lovCode);
             logger.debug("将值集值缓存redis:{}",result);
             for (LovValueDTO lovValueDTO : result) {
-                valueJsons.add(JsonUtils.toJson(lovValueDTO));
+                valueJsons.add(JsonUtils.toJsonString(lovValueDTO));
             }
             //redisUtils.listSetArrayList(valueKey, (ArrayList<?>) valueJsons,604800);
             result = result.stream().filter(Objects::nonNull).map((item) -> {
-                redisUtils.sAdd(valueKey, new String[]{JsonUtils.toJson(item)});
+                redisUtils.sAdd(valueKey, new String[]{JsonUtils.toJsonString(item)});
                 return item;
             }).collect(Collectors.toList());
         }else{
             for (Object valueJson : valueJsons) {
-                result.add(JsonUtils.fromJson((String) valueJson, LovValueDTO.class));
+                result.add(JsonUtils.parseObject((String) valueJson, LovValueDTO.class));
             }
         }
         // 排序

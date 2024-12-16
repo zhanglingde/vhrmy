@@ -1,5 +1,6 @@
 package com.ling.vhr.common.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ling.vhr.common.exception.RrException;
 import io.swagger.util.Json;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -168,7 +169,7 @@ public class ElasticSearchUtils {
             GetResponse response = client.get(request, RequestOptions.DEFAULT);
             if (response.isExists()) {
                 String json = response.getSourceAsString();
-                T t = JsonUtils.fromJson(json, clazz);
+                T t = JsonUtils.parseObject(json, clazz);
                 return t;
             }else {
                 return null;
@@ -235,10 +236,66 @@ public class ElasticSearchUtils {
         List<T> list = new ArrayList<>();
         for (SearchHit hit : response.getHits().getHits()) {
             String json = hit.getSourceAsString();
-            T t = JsonUtils.fromJson(json, clazz);
+            T t = JsonUtils.parseObject(json, clazz);
             list.add(t);
         }
         return list;
+    }
+
+    /**
+     * 多条件查询，查询全部字段
+     *
+     * @param index
+     * @param builder
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> PageUtils<T> searchPageData(String index, SearchSourceBuilder builder, Class<T> clazz) {
+        SearchRequest request = new SearchRequest(index);
+        if (builder == null) {
+            builder = new SearchSourceBuilder();
+        }
+        builder.trackTotalHits(true);
+        request.source(builder);
+        SearchResponse response = null;
+        try {
+            response = client.search(request, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            logger.error("查询es 异常", e);
+            throw new RuntimeException("查询 es 异常");
+        }
+        if (response.status().getStatus() == 200) {
+            // 解析查询结果
+            PageUtils<T> page = setPageSearchResponse(response, clazz);
+            return page;
+        }
+        return null;
+    }
+
+    /**
+     * 解析查询结果
+     *
+     * @param response
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    private <T> PageUtils<T> setPageSearchResponse(SearchResponse response, Class<T> clazz) {
+        PageUtils<T> page = new PageUtils<>();
+        List<T> list = new ArrayList<>();
+        for (SearchHit hit : response.getHits().getHits()) {
+            String json = hit.getSourceAsString();
+            try {
+                T t = JsonUtils.parseObject(json, clazz);
+                list.add(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        page.setTotal(response.getHits().getTotalHits().value);
+        page.setList(list);
+        return page;
     }
 
 }

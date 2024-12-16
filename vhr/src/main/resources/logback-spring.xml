@@ -28,15 +28,15 @@
     </appender>
 
     <!--输出到logstash的appender-->
-    <!--<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
-    <!--    &lt;!&ndash;可以访问的logstash日志收集端口&ndash;&gt;-->
-    <!--    <destination>localhost:4560</destination>-->
-    <!--    <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>-->
-    <!--    &lt;!&ndash; 临界值过滤器 &ndash;&gt;-->
-    <!--    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
-    <!--        <level>info</level>-->
-    <!--    </filter>-->
-    <!--</appender>-->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!--可以访问的logstash日志收集端口-->
+        <destination>192.168.65.130:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <!-- 临界值过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
 
     <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -55,6 +55,6 @@
         <!-- 日志输出到前面定义的 appender 中 -->
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
-        <!--<appender-ref ref="LOGSTASH"/>-->
+        <appender-ref ref="LOGSTASH"/>
     </root>
 </configuration>

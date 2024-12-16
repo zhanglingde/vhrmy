@@ -1,4 +1,4 @@
-package com.ling.vhr.modules.system.log.model;
+package com.ling.vhr.modules.system.log.domain.entity;
 
 import lombok.Data;
 
