@@ -1,13 +1,19 @@
-package com.ling.vhr.modules.system.basic.model;
+package com.ling.vhr.modules.system.basic.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.ling.vhr.modules.system.basic.domain.Department;
+import io.github.linpeilie.annotations.AutoMapper;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import lombok.*;
 
 
 /**
@@ -16,11 +22,13 @@ import lombok.*;
  * @author zhangling 2021-04-22 17:13:59
  */
 @Data
-public class Department implements Serializable {
+@TableName(value = "department")
+@AutoMapper(target = Department.class)
+public class DepartmentEntity implements Serializable {
 
     private static final long serialVersionUID = 783302399950164104L;
 
-    @ApiModelProperty("主键")
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty("部门名称")
@@ -38,14 +46,13 @@ public class Department implements Serializable {
     @ApiModelProperty("是否是最上级部门")
     private Integer isParent;
 
-    List<Department> children = new ArrayList<>();
-
+    @TableField(exist = false)
     private Integer result;
 
-    public Department() {
+    public DepartmentEntity() {
     }
 
-    public Department(String departmentName) {
+    public DepartmentEntity(String departmentName) {
         this.departmentName = departmentName;
     }
 
@@ -53,7 +60,7 @@ public class Department implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
+        DepartmentEntity that = (DepartmentEntity) o;
         return Objects.equals(departmentName, that.departmentName);
     }
 

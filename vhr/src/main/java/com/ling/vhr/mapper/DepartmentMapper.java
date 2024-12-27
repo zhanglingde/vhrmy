@@ -1,8 +1,11 @@
 package com.ling.vhr.mapper;
 
-import com.ling.vhr.modules.system.basic.model.Department;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ling.vhr.modules.system.basic.domain.Department;
 
 import java.util.List;
+
+import com.ling.vhr.modules.system.basic.domain.entity.DepartmentEntity;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author zhangling 2021-04-22 17:13:59
  */
 @Repository
-public interface DepartmentMapper {
+public interface DepartmentMapper extends BaseMapper<DepartmentEntity> {
 
 
     /**

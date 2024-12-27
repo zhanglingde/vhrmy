@@ -3,7 +3,7 @@ package com.ling.vhr.common.utils;
 import com.ling.vhr.modules.emp.model.Employee;
 import com.ling.vhr.modules.emp.model.Nation;
 import com.ling.vhr.modules.emp.model.PoliticsStatus;
-import com.ling.vhr.modules.system.basic.model.Department;
+import com.ling.vhr.modules.system.basic.domain.Department;
 import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
 import org.apache.poi.hpsf.DocumentSummaryInformation;
@@ -17,11 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

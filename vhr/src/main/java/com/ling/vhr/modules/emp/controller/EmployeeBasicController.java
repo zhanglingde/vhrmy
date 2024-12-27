@@ -10,7 +10,7 @@ import com.ling.vhr.modules.emp.model.PoliticsStatus;
 import com.ling.vhr.modules.emp.service.EmployeeService;
 import com.ling.vhr.modules.emp.service.NationService;
 import com.ling.vhr.modules.emp.service.PoliticsStatusService;
-import com.ling.vhr.modules.system.basic.model.Department;
+import com.ling.vhr.modules.system.basic.domain.Department;
 import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
 import com.ling.vhr.modules.system.basic.service.DepartmentService;
@@ -23,8 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.ling.vhr.modules.system.basic.controller;
 
 import com.ling.vhr.common.utils.CommonResult;
-import com.ling.vhr.modules.system.basic.model.Department;
+import com.ling.vhr.modules.system.basic.domain.Department;
 import com.ling.vhr.modules.system.basic.service.DepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

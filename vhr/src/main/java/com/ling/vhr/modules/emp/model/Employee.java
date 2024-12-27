@@ -2,7 +2,7 @@ package com.ling.vhr.modules.emp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ling.vhr.modules.salary.model.Salary;
-import com.ling.vhr.modules.system.basic.model.Department;
+import com.ling.vhr.modules.system.basic.domain.Department;
 import com.ling.vhr.modules.system.basic.model.JobLevel;
 import com.ling.vhr.modules.system.basic.model.Position;
 import io.swagger.annotations.ApiModel;
@@ -15,8 +15,6 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
-
-import javax.validation.constraints.NotEmpty;
 
 
 /**

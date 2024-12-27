@@ -36,7 +36,7 @@
     </resultMap>
 
     <resultMap id="AllEmployeeInfo" type="com.ling.vhr.modules.emp.model.Employee" extends="BaseResultMap">
-        <association property="department" javaType="com.ling.vhr.modules.system.basic.model.Department">
+        <association property="department" javaType="com.ling.vhr.modules.system.basic.domain.Department">
             <id column="did" property="id"/>
             <result column="department_name" property="departmentName"/>
         </association>
@@ -515,7 +515,7 @@
             <result column="saccumulation_fund_per" property="accumulationFundPer"/>
             <result column="sname" property="name"/>
         </association>
-        <association property="department" javaType="com.ling.vhr.modules.system.basic.model.Department">
+        <association property="department" javaType="com.ling.vhr.modules.system.basic.domain.Department">
             <id column="did" property="id"/>
             <result column="department_name" property="departmentName"/>
         </association>

@@ -59,7 +59,7 @@ easy-es:
 logging:
   level:
     com.ling: debug
-    com.ling.vhr.mapper: info
+    com.ling.vhr.mapper: debug
     org.flowable: info
     org.mybatis.spring.mapper: error
 

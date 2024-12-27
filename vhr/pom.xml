@@ -22,7 +22,7 @@
         <mapstruct-plus.version>1.4.6</mapstruct-plus.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <p6spy.version>3.9.1</p6spy.version>
         <easy-es.version>2.0.0</easy-es.version>
     </properties>
@@ -181,11 +181,11 @@
 <!--            <version>0.2.0</version>-->
 <!--        </dependency>-->
 
-        <dependency>
-            <groupId>io.github.linpeilie</groupId>
-            <artifactId>mapstruct-plus</artifactId>
-            <version>${mapstruct-plus.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.linpeilie</groupId>-->
+<!--            <artifactId>mapstruct-plus</artifactId>-->
+<!--            <version>${mapstruct-plus.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.github.linpeilie</groupId>
             <artifactId>mapstruct-plus-spring-boot-starter</artifactId>
@@ -223,6 +223,11 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.9</version>
         </dependency>
         <!-- sql性能分析插件 -->
         <dependency>

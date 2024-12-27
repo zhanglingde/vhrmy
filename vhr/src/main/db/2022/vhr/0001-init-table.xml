@@ -65,7 +65,7 @@
                 `id`              int(11) not null auto_increment,
                 `department_name` varchar(32)  default null comment '部门名称',
                 `parent_id`       int(11)      default null comment '父部门',
-                `dep_path`        varchar(255) default null comment '部门层级',
+                `dept_path`        varchar(255) default null comment '部门层级',
                 `enabled`         tinyint(1)   default 1 comment '是否启用',
                 `is_parent`       tinyint(1)   default 0 comment '是否是父部门，即下面是否有子部门',
                 primary key (`id`)
