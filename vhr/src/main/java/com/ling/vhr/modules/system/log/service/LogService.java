@@ -37,7 +37,7 @@ public class LogService {
      */
     public CommonResult<PageUtils<LogVO>> logList(LogSearchDto logSearchDto) {
         String index = "log-ling-dev-";
-        String day = Optional.ofNullable(logSearchDto.getDay()).orElse(DateUtil.format(new Date(), "yyyy.MM.dd"));
+        String day = DateUtil.format(Optional.ofNullable(logSearchDto.getDay()).orElse(new Date()), "yyyy.MM.dd");
         index += day;
         if (!elasticSearchUtils.isExistIndex(index)) {
             return CommonResult.error(500, "当前日期没有日志！");

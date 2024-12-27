@@ -1,6 +1,9 @@
 package com.ling.vhr.modules.system.log.domain.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @author zhangling  2021/8/9 15:17
@@ -17,7 +20,8 @@ public class LogSearchDto {
     // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     // @JsonFormat(pattern = "",timezone = "Asia/Shanghai")
     private String endTime;
-    private String day;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date day;
 
 
 }
