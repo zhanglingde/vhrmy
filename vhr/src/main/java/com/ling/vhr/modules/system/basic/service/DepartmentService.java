@@ -33,7 +33,7 @@ public class DepartmentService {
         List<DepartmentEntity> departmentEntities = departmentMapper.selectList(queryWrapper);
         List<Department> departments = MapstructUtils.convert(departmentEntities, Department.class);
         // 构建树
-        List<Department> treeList = TreeUtil.makeTree(departments, dept -> dept.getParentId() == -1, (parent, child) -> parent.getId().equals(child.getParentId()), Department::setChildren);
+        List<Department> treeList = TreeUtil.makeTree(departments, Department::getParentId, Department::getId, dept -> dept.getParentId() == -1, Department::setChildren);
         return treeList;
     }
 

@@ -1,127 +1,89 @@
 package com.ling.vhr.common.utils;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
  * 树操作方法工具类
  */
 public class TreeUtil {
-
     /**
-     * 将list合成树
+     * 使用Map合成树
      *
-     * @param list 需要合成树的List
-     * @param rootCheck 判断E中为根节点的条件，如：x->x.getPId()==-1L , x->x.getParentId()==null,x->x.getParentMenuId()==0
-     * @param parentCheck 判断E中为父节点条件，如：(x,y)->x.getId().equals(y.getPId())
-     * @param setSubChildren   E中设置下级数据方法，如： Menu::setSubMenus
-     * @param <E>  泛型实体对象
-     * @return   合成好的树
+     * @param menuList       需要合成树的List
+     * @param pId            对象中的父ID字段,如:Menu:getPid
+     * @param id             对象中的id字段 ,如：Menu:getId
+     * @param rootCheck      判断E中为根节点的条件，如：x->x.getPId()==-1L , x->x.getParentId()==null,x->x.getParentMenuId()==0
+     * @param setSubChildren E中设置下级数据方法，如： Menu::setSubMenus
+     * @param <T>            ID字段类型
+     * @param <E>            泛型实体对象
+     * @return
      */
-    public static <E> List<E> makeTree(List<E> list, Predicate<E> rootCheck, BiFunction<E, E, Boolean> parentCheck, BiConsumer<E, List<E>> setSubChildren) {
-        return list.stream().filter(rootCheck).peek(x -> setSubChildren.accept(x, makeChildren(x, list, parentCheck, setSubChildren))).collect(Collectors.toList());
-    }
-
-
-    /**
-     *  将树打平成tree
-     * @param tree  需要打平的树
-     * @param getSubChildren  设置下级数据方法，如： Menu::getSubMenus,x->x.setSubMenus(null)
-     * @param setSubChildren 将下级数据置空方法，如： x->x.setSubMenus(null)
-     * @return  打平后的数据
-     * @param <E> 泛型实体对象
-     */
-    public static <E> List<E> flat(List<E> tree, Function<E, List<E>> getSubChildren, Consumer<E> setSubChildren) {
-        List<E> res = new ArrayList<>();
-        forPostOrder(tree, item -> {
-            setSubChildren.accept(item);
-            res.add(item);
-        }, getSubChildren);
-        return res;
-    }
-
-
-    /**
-     * 前序遍历
-     *
-     * @param tree 需要遍历的树
-     * @param consumer  遍历后对单个元素的处理方法，如：x-> System.out.println(x)、 System.out::println打印元素
-     * @param setSubChildren  设置下级数据方法，如： Menu::getSubMenus,x->x.setSubMenus(null)
-     * @param <E> 泛型实体对象
-     */
-    public static <E> void forPreOrder(List<E> tree, Consumer<E> consumer, Function<E, List<E>> setSubChildren) {
-        for (E l : tree) {
-            consumer.accept(l);
-            List<E> es = setSubChildren.apply(l);
-            if (es != null && es.size() > 0) {
-                forPreOrder(es, consumer, setSubChildren);
+    public static <T, E> List<E> makeTree(List<E> menuList, Function<E, T> pId, Function<E, T> id, Predicate<E> rootCheck, BiConsumer<E, List<E>> setSubChildren) {
+        // 按原数组顺序构建父级数据Map，使用Optional考虑pId为null
+        Map<Optional<T>, List<E>> parentMenuMap = menuList.stream().collect(Collectors.groupingBy(
+                node -> Optional.ofNullable(pId.apply(node)),
+                LinkedHashMap::new,
+                Collectors.toList()
+        ));
+        List<E> result = new ArrayList<>();
+        for (E node : menuList) {
+            // 添加到下级数据中
+            setSubChildren.accept(node, parentMenuMap.get(Optional.ofNullable(id.apply(node))));
+            // 如里是根节点，加入结构
+            if (rootCheck.test(node)) {
+                result.add(node);
             }
         }
-    }
-
-
-    /**
-     * 层序遍历
-     *
-     * @param tree 需要遍历的树
-     * @param consumer 遍历后对单个元素的处理方法，如：x-> System.out.println(x)、 System.out::println打印元素
-     * @param setSubChildren 设置下级数据方法，如： Menu::getSubMenus,x->x.setSubMenus(null)
-     * @param <E> 泛型实体对象
-     */
-    public static <E> void forLevelOrder(List<E> tree, Consumer<E> consumer, Function<E, List<E>> setSubChildren) {
-        Queue<E> queue = new LinkedList<>(tree);
-        while (!queue.isEmpty()) {
-            E item = queue.poll();
-            consumer.accept(item);
-            List<E> childList = setSubChildren.apply(item);
-            if (childList != null && !childList.isEmpty()) {
-                queue.addAll(childList);
-            }
-        }
-    }
-
-
-    /**
-     * 后序遍历
-     *
-     * @param tree 需要遍历的树
-     * @param consumer 遍历后对单个元素的处理方法，如：x-> System.out.println(x)、 System.out::println打印元素
-     * @param setSubChildren 设置下级数据方法，如： Menu::getSubMenus,x->x.setSubMenus(null)
-     * @param <E> 泛型实体对象
-     */
-    public static <E> void forPostOrder(List<E> tree, Consumer<E> consumer, Function<E, List<E>> setSubChildren) {
-        for (E item : tree) {
-            List<E> childList = setSubChildren.apply(item);
-            if (childList != null && !childList.isEmpty()) {
-                forPostOrder(childList, consumer, setSubChildren);
-            }
-            consumer.accept(item);
-        }
+        return result;
     }
 
     /**
-     * 对树所有子节点按comparator排序
-     *
-     * @param tree 需要排序的树
-     * @param comparator  排序规则Comparator，如：Comparator.comparing(MenuVo::getRank)按Rank正序 ,(x,y)->y.getRank().compareTo(x.getRank())，按Rank倒序
+     * 树中过滤
+     * @param tree  需要过滤的树
+     * @param predicate  过滤条件
      * @param getChildren 获取下级数据方法，如：MenuVo::getSubMenus
-     * @return 排序好的树
+     * @return List<E> 过滤后的树
      * @param <E> 泛型实体对象
      */
-    public static <E> List<E> sort(List<E> tree, Comparator<? super E> comparator, Function<E, List<E>> getChildren) {
-        for (E item : tree) {
-            List<E> childList = getChildren.apply(item);
+    public static <E> List<E> filter(List<E> tree, Predicate<E> predicate, Function<E, List<E>> getChildren) {
+        return tree.stream().filter(item -> {
+            if (predicate.test(item)) {
+                List<E> children = getChildren.apply(item);
+                if (children != null && !children.isEmpty()) {
+                    filter(children, predicate, getChildren);
+                }
+                return true;
+            }
+            return false;
+        }).collect(Collectors.toList());
+    }
+
+
+    /**
+     * 树中搜索
+     * @param tree
+     * @param predicate
+     * @param getSubChildren
+     * @return 返回搜索到的节点及其父级到根节点
+     * @param <E>
+     */
+    public static <E> List<E> search(List<E> tree, Predicate<E> predicate, Function<E, List<E>> getSubChildren) {
+        Iterator<E> iterator = tree.iterator();
+        while (iterator.hasNext()) {
+            E item = iterator.next();
+            List<E> childList = getSubChildren.apply(item);
             if (childList != null && !childList.isEmpty()) {
-                sort(childList,comparator,getChildren);
+                search(childList, predicate, getSubChildren);
+            }
+            if(!predicate.test(item) && ( childList == null || childList.isEmpty()) ){
+                iterator.remove();
             }
         }
-        tree.sort(comparator);
         return tree;
     }
-    
-    private static <E> List<E> makeChildren(E parent, List<E> allData, BiFunction<E, E, Boolean> parentCheck, BiConsumer<E, List<E>> children) {
-        return allData.stream().filter(x -> parentCheck.apply(parent, x)).peek(x -> children.accept(x, makeChildren(x, allData, parentCheck, children))).collect(Collectors.toList());
-    }
-}
 
+}
