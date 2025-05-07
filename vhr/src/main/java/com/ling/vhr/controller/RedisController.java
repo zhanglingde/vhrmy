@@ -20,12 +20,13 @@ public class RedisController {
     @GetMapping("/test")
     public void rateLimiter(){
         for (int i = 0; i < 10; i++) {
-            System.out.println(redisUtil.isAllowed("ling", "send", 60, 2));
+            // System.out.println(redisUtil.isAllowed("ling", "send", 60, 2));
             if (i % 5 == 0) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    // e.printStackTrace();
+                    throw new NullPointerException("空指针异常");
                 }
             }
         }
